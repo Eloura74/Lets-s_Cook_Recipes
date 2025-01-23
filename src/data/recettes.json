@@ -26,7 +26,8 @@
     "author": "john Doe",
     "prepTime": 30,
     "likes": 152,
-    "views": 1045
+    "views": 1045,
+    "vues": 1045
   },
   {
     "id": "recipe-02",
@@ -55,7 +56,8 @@
     "author": "john Doe",
     "prepTime": 45,
     "likes": 200,
-    "views": 1342
+    "views": 1342,
+    "vues": 1342
   },
   {
     "id": "recipe-03",
@@ -84,7 +86,8 @@
     "author": "john Doe",
     "prepTime": 20,
     "likes": 180,
-    "views": 1120
+    "views": 1120,
+    "vues": 1120
   },
   {
     "id": "recipe-04",
@@ -113,7 +116,8 @@
     "author": "john Doe",
     "prepTime": 25,
     "likes": 250,
-    "views": 1450
+    "views": 1450,
+    "vues": 1450
   },
   {
     "id": "recipe-05",
@@ -142,7 +146,8 @@
     "author": "john Doe",
     "prepTime": 15,
     "likes": 300,
-    "views": 1820
+    "views": 1820,
+    "vues": 1820
   },
   {
     "id": "recipe-06",
@@ -171,7 +176,8 @@
     "author": "john Doe",
     "prepTime": 40,
     "likes": 220,
-    "views": 1670
+    "views": 1670,
+    "vues": 1670
   },
   {
     "id": "recipe-07",
@@ -200,7 +206,8 @@
     "author": "john Doe",
     "prepTime": 30,
     "likes": 180,
-    "views": 1200
+    "views": 1200,
+    "vues": 1200
   },
   {
     "id": "recipe-08",
@@ -229,7 +236,8 @@
     "author": "john Doe",
     "prepTime": 50,
     "likes": 400,
-    "views": 2500
+    "views": 2500,
+    "vues": 2500
   },
   {
     "id": "recipe-09",
@@ -258,7 +266,8 @@
     "author": "john Doe",
     "prepTime": 25,
     "likes": 190,
-    "views": 1300
+    "views": 1300,
+    "vues": 1300
   },
   {
     "id": "recipe-10",
@@ -287,7 +296,8 @@
     "author": "john Doe",
     "prepTime": 15,
     "likes": 210,
-    "views": 1400
+    "views": 1400,
+    "vues": 1400
   },
   {
     "id": "recipe-11",
@@ -316,7 +326,8 @@
     "author": "john Doe",
     "prepTime": 40,
     "likes": 350,
-    "views": 2800
+    "views": 2800,
+    "vues": 2800
   },
   {
     "id": "recipe-12",
@@ -345,6 +356,7 @@
     "author": "john Doe",
     "prepTime": 30,
     "likes": 280,
-    "views": 2000
+    "views": 2000,
+    "vues": 2000
   }
 ]

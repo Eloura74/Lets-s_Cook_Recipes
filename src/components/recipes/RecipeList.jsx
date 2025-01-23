@@ -1,23 +1,29 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import RecipeCard from './RecipeCard'
 import recipesData from '../../data/recettes.json'
+import Filters from '../filters/Filters'
 
 const RecipeList = () => {
-  const [recipes, setRecipes] = useState([])
+  // État pour stocker les recettes filtrées
+  const [recettesAffichees, setRecettesAffichees] = useState(recipesData)
 
-  useEffect(() => {
-    setRecipes(recipesData)
-  }, [])
+  // Fonction pour appliquer un filtre
+  const appliquerFiltre = fonctionFiltre => {
+    const recettesFiltrees = fonctionFiltre(recipesData)
+    setRecettesAffichees(recettesFiltrees)
+  }
 
   return (
-    <div className="flex flex-wrap justify-center gap-8">
-      <div className="grid  grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-        {recipes.map(recipe => (
-          <RecipeCard
-            key={recipe.id}
-            recipe={recipe}
-            className="min-w-[600px] flex-grow"
-          />
+    <div className="space-y-8">
+      {/* Composant de filtres */}
+      <Filters onFilterChange={appliquerFiltre} />
+
+      {/* Grille de recettes avec animation */}
+      <div 
+        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 auto-rows-fr"
+      >
+        {recettesAffichees.map(recette => (
+          <RecipeCard key={recette.id} recipe={recette} />
         ))}
       </div>
     </div>

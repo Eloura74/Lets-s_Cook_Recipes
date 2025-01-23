@@ -24,11 +24,11 @@ const Header = () => {
       <section
         className="relative bg-cover bg-center bg-no-repeat py-4 md:py-6 lg:py-8"
         style={{
-          backgroundImage: "url('/images/banHeader.png')",
+          backgroundImage: "url('/images/header2.png')",
           backgroundSize: '100% 100%',
         }}
       >
-        <div className="absolute inset-0 bg-black bg-opacity-40"></div>
+        {/* <div className="absolute inset-0 bg-black bg-opacity-40"></div> */}
 
         {/* Contenu principal du header */}
         <div className="px-2 sm:px-4 md:px-8 lg:px-20 relative pt-8 md:pt-12 lg:pt-16">
@@ -38,9 +38,9 @@ const Header = () => {
               <div className="flex flex-col md:flex-row items-center gap-4 md:gap-8 lg:gap-12">
                 <Link to="/" className="flex items-center">
                   <img
-                    src="/images/logo.svg"
+                    src="/images/2logo.png"
                     alt="Let's Cook"
-                    className="h-20 sm:h-24 md:h-32 lg:h-40 w-auto filter grayscale brightness-110"
+                    className=" h-20 sm:h-24 md:h-32 lg:h-40 w-auto filter grayscale-0 brightness-125 contrast-100 hue-rotate-180"
                   />
                 </Link>
 
