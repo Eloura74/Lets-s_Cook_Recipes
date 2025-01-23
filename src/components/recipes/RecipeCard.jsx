@@ -7,17 +7,17 @@ const RecipeCard = ({ recipe }) => {
   const cardRef = useRef(null)
 
   // Gestion du mouvement de la souris pour l'effet 3D
-  const handleMouseMove = (e) => {
+  const handleMouseMove = e => {
     const card = cardRef.current
     if (!card) return
 
     const rect = card.getBoundingClientRect()
     const mouseX = e.clientX - rect.left
     const mouseY = e.clientY - rect.top
-    
+
     // Calcul de la rotation: -20 à +20 degrés en fonction de la position de la souris
-    const rotateX = (mouseY / rect.height - 0.5) * -20
-    const rotateY = (mouseX / rect.width - 0.5) * 20
+    const rotateX = (mouseY / rect.height - 0.5) * -10
+    const rotateY = (mouseX / rect.width - 0.5) * 10
 
     card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`
   }
@@ -26,7 +26,7 @@ const RecipeCard = ({ recipe }) => {
   const handleMouseLeave = () => {
     const card = cardRef.current
     if (!card) return
-    
+
     card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg)'
   }
 
@@ -38,7 +38,7 @@ const RecipeCard = ({ recipe }) => {
       className="relative overflow-hidden bg-gradient-to-br from-[#2C3639]/90 to-[#3F4E4F] rounded-2xl border border-white/10 shadow-xl group"
       style={{
         transition: 'transform 0.1s ease-out',
-        transformStyle: 'preserve-3d'
+        transformStyle: 'preserve-3d',
       }}
     >
       {/* Image de la recette avec overlay gradient */}

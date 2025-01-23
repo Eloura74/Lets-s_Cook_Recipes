@@ -13,10 +13,23 @@ const Header = () => {
     <header className="bg-white w-full">
       {/* Bannière supérieure */}
       <div className="bg-black bg-opacity-20 text-center py-1 text-sm text-gray-600">
-        <p className="font-memoirs px-4">
-          {user
-            ? `Bienvenue ${user.name}, Commander notre livre de recette gratuit !`
-            : "Bienvenue sur Let's Cook- Commander notre livre de recette gratuit !"}
+        <p className="font-memoirs px-4 text-lg">
+          {user ? (
+            <>
+              Bienvenue{' '}
+              <span className="text-2xl font-bold mr-2">{user.name}</span>,
+              Commander notre livre de recette
+            </>
+          ) : (
+            "Bienvenue sur Let's Cook- Commander notre livre de recette"
+          )}
+          <span
+            className="text-2xl text-red-500 ml-2 cursor-pointer hover:underline"
+            onClick={e => e.preventDefault()}
+          >
+            gratuit{' '}
+          </span>
+          !
         </p>
       </div>
 
