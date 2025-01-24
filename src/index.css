@@ -1,8 +1,52 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&display=swap')
+layer(base);
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+
+@theme {
+  --font-memoirs: Mouse Memoirs, sans-serif;
+
+  --color-primary-50: #f0f9ff;
+  --color-primary-100: #e0f2fe;
+  --color-primary-200: #bae6fd;
+  --color-primary-300: #7dd3fc;
+  --color-primary-400: #38bdf8;
+  --color-primary-500: #0ea5e9;
+  --color-primary-600: #0284c7;
+  --color-primary-700: #0369a1;
+  --color-primary-800: #075985;
+  --color-primary-900: #0c4a6e;
+}
+
+/*
+  The default border color has changed to `currentColor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentColor);
+  }
+}
+
+@utility btn {
+  @apply px-4 py-2 rounded-lg transition-colors duration-200;
+}
+
+@utility btn-primary {
+  @apply bg-primary-600 text-white hover:bg-primary-700;
+}
+
+@utility btn-secondary {
+  @apply bg-gray-200 text-gray-800 hover:bg-gray-300;
+}
 
 @layer base {
   body {
@@ -27,20 +71,6 @@
   }
 }
 
-@layer components {
-  .btn {
-    @apply px-4 py-2 rounded-lg transition-colors duration-200;
-  }
-
-  .btn-primary {
-    @apply bg-primary-600 text-white hover:bg-primary-700;
-  }
-
-  .btn-secondary {
-    @apply bg-gray-200 text-gray-800 hover:bg-gray-300;
-  }
-}
-
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif,
     'Playfair Display';
@@ -59,7 +89,7 @@
 
 /* couleur du background des cartes */
 .bgCard {
-  @apply bg-gradient-to-b from-neutral-300 from-40% via-cyan-50 via-60% to-teal-50 to-90%;
+  @apply bg-linear-to-b from-neutral-300 from-40% via-cyan-50 via-60% to-teal-50 to-90%;
 }
 
 a {
@@ -141,7 +171,15 @@ button:focus-visible {
   border-radius: 8px 8px 0 0;
 }
 /* fond des carte */
-
+.custom-background {
+  background: linear-gradient(
+    180deg,
+    rgba(227, 238, 238, 1) 0%,
+    rgba(197, 197, 203, 1) 44%,
+    rgb(140, 148, 148) 66%,
+    rgb(93, 95, 95) 87%
+  );
+}
 /* --------------------------- */
 @media (prefers-color-scheme: light) {
   :root {

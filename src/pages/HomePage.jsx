@@ -5,10 +5,10 @@ const HomePage = () => {
   return (
     <main className="relative min-h-screen overflow-hidden">
       {/* Fond principal avec dégradé complexe */}
-      <div className="absolute inset-0 bg-gradient-to-r from-[#2C3639] via-[#3F4E4F] to-[#A27B5C]" />
+      <div className="absolute inset-0 bg-linear-to-r from-[#2C3639] via-[#3F4E4F] to-[#A27B5C]" />
 
       {/* Effet de lumière radiale */}
-      <div className="absolute inset-0 bg-gradient-to-br from-transparent via-[#DCD7C9]/20 to-transparent" />
+      <div className="absolute inset-0 bg-linear-to-br from-transparent via-[#DCD7C9]/20 to-transparent" />
 
       {/* Effet de vignette pour plus de profondeur */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(255,255,255,0.1),transparent_50%)]" />
@@ -23,7 +23,7 @@ const HomePage = () => {
                 Bienvenue sur Let's Cook
               </h1>
               {/* Ligne décorative */}
-              <div className="h-0.5 w-32 bg-gradient-to-r from-transparent via-[#DCD7C9]/50 to-transparent mx-auto my-4" />
+              <div className="h-0.5 w-32 bg-linear-to-r from-transparent via-[#DCD7C9]/50 to-transparent mx-auto my-4" />
             </div>
 
             {/* Sous-titre avec effet de flou */}

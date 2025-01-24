@@ -35,7 +35,7 @@ const RecipeCard = ({ recipe }) => {
       ref={cardRef}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      className="relative overflow-hidden bg-gradient-to-br from-[#2C3639]/90 to-[#3F4E4F] rounded-2xl border border-white/10 shadow-xl group"
+      className="relative overflow-hidden bg-linear-to-br from-[#2C3639]/90 to-[#3F4E4F] rounded-2xl border border-white/10 shadow-xl group"
       style={{
         transition: 'transform 0.1s ease-out',
         transformStyle: 'preserve-3d',
@@ -43,7 +43,7 @@ const RecipeCard = ({ recipe }) => {
     >
       {/* Image de la recette avec overlay gradient */}
       <div className="relative h-48 overflow-hidden rounded-t-2xl">
-        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent z-10" />
+        <div className="absolute inset-0 bg-linear-to-t from-black/70 via-black/30 to-transparent z-10" />
         <img
           src={recipe.imageUrl}
           alt={recipe.title}
@@ -53,7 +53,7 @@ const RecipeCard = ({ recipe }) => {
         <div className="absolute top-3 right-3 z-20 flex flex-col gap-2">
           {/* Badge des likes */}
           <div className="flex items-center gap-1.5 bg-[#2C3639]/80 px-3 py-1.5 rounded-full border border-white/20">
-            <FaHeart className="text-red-400 drop-shadow" />
+            <FaHeart className="text-red-400 drop-shadow-sm" />
             <span className="text-[#DCD7C9] text-sm font-medium">
               {recipe.likes}
             </span>
@@ -61,7 +61,7 @@ const RecipeCard = ({ recipe }) => {
 
           {/* Badge des vues */}
           <div className="flex items-center gap-1.5 bg-[#2C3639]/80 px-3 py-1.5 rounded-full border border-white/20">
-            <FaEye className="text-blue-400 drop-shadow" />
+            <FaEye className="text-blue-400 drop-shadow-sm" />
             <span className="text-[#DCD7C9] text-sm font-medium">
               {recipe.views}
             </span>
@@ -111,10 +111,10 @@ const RecipeCard = ({ recipe }) => {
           '0 20px 25px -5px rgba(0, 0, 0, 0.2), 0 8px 10px -6px rgba(0, 0, 0, 0.1)',
       }}
       transition={{ type: 'tween', duration: 0.2 }}
-      className="relative overflow-hidden bg-gradient-to-br from-[#2C3639]/90 to-[#3F4E4F] rounded-2xl border border-white/10 shadow-xl group"
+      className="relative overflow-hidden bg-linear-to-br from-[#2C3639]/90 to-[#3F4E4F] rounded-2xl border border-white/10 shadow-xl group"
     >
       <div className="relative h-48 overflow-hidden rounded-t-2xl">
-        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent z-10" />
+        <div className="absolute inset-0 bg-linear-to-t from-black/70 via-black/30 to-transparent z-10" />
         <img
           src={recipe.imageUrl}
           alt={recipe.title}
@@ -126,7 +126,7 @@ const RecipeCard = ({ recipe }) => {
             whileHover={{ opacity: 1, scale: 1.05 }}
             className="flex items-center gap-1.5 bg-[#2C3639]/80 px-3 py-1.5 rounded-full border border-white/20"
           >
-            <FaHeart className="text-red-400 drop-shadow" />
+            <FaHeart className="text-red-400 drop-shadow-sm" />
             <span className="text-[#DCD7C9] text-sm font-medium">{recipe.likes}</span>
           </motion.div>
 
@@ -135,7 +135,7 @@ const RecipeCard = ({ recipe }) => {
             whileHover={{ opacity: 1, scale: 1.05 }}
             className="flex items-center gap-1.5 bg-[#2C3639]/80 px-3 py-1.5 rounded-full border border-white/20"
           >
-            <FaEye className="text-blue-400 drop-shadow" />
+            <FaEye className="text-blue-400 drop-shadow-sm" />
             <span className="text-[#DCD7C9] text-sm font-medium">{recipe.views}</span>
           </motion.div>
         </div>

@@ -6,7 +6,7 @@ const SearchBar = () => {
   const [searchTerm, setSearchTerm] = useState('')
   const navigate = useNavigate()
 
-  const handleSearch = (e) => {
+  const handleSearch = e => {
     e.preventDefault()
     if (searchTerm.trim()) {
       navigate(`/search?q=${encodeURIComponent(searchTerm.trim())}`)
@@ -22,10 +22,10 @@ const SearchBar = () => {
       <input
         type="text"
         value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
+        onChange={e => setSearchTerm(e.target.value)}
         placeholder="Rechercher une recette..."
-        className="w-full sm:w-64 md:w-72 lg:w-96 px-4 py-2 pr-10 
-                 rounded-full border border-gray-300 focus:outline-none 
+        className="bg-gray-100/50 w-full  text-gray-800 sm:w-64 md:w-72 lg:w-96 px-4 py-2 pr-10 
+                 rounded-full border-2 border-gray-600 focus:outline-hidden 
                  focus:border-gray-500 shadow-md"
       />
       <button
