@@ -13,14 +13,16 @@ function App() {
     <Router>
       <AuthProvider>
         <RecipesProvider>
-          <div className="min-h-screen">
+          <div className="min-h-screen flex flex-col bg-gradient-to-b from-[#2C3639] to-[#3F4E4F]">
             <Header />
-            <Routes>
-              <Route path="/" element={<HomePage />} />
-              <Route path="/login" element={<LoginForm />} />
-              <Route path="/signup" element={<RegisterForm />} />
-              <Route path="/recette/:id" element={<RecipeDetail />} />
-            </Routes>
+            <main className="flex-grow container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+              <Routes>
+                <Route path="/" element={<HomePage />} />
+                <Route path="/login" element={<LoginForm />} />
+                <Route path="/signup" element={<RegisterForm />} />
+                <Route path="/recette/:id" element={<RecipeDetail />} />
+              </Routes>
+            </main>
           </div>
         </RecipesProvider>
       </AuthProvider>

@@ -14,17 +14,23 @@ const RecipeList = () => {
   }
 
   return (
-    <div className="space-y-8">
-      {/* Composant de filtres */}
-      <Filters onFilterChange={appliquerFiltre} />
+    <article className="space-y-8">
+      {/* Section des filtres */}
+      <section aria-label="Filtres de recettes">
+        <Filters onFilterChange={appliquerFiltre} />
+      </section>
 
-      {/* Grille de recettes avec animation */}
-      <div className="grid grid-cols-1 mt-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 auto-rows-fr">
-        {recettesAffichees.map(recette => (
-          <RecipeCard key={recette.id} recipe={recette} />
-        ))}
-      </div>
-    </div>
+      {/* Grille de recettes */}
+      <section aria-label="Liste des recettes" className="mt-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 auto-rows-fr" role="list">
+          {recettesAffichees.map(recette => (
+            <div key={recette.id} role="listitem">
+              <RecipeCard recipe={recette} />
+            </div>
+          ))}
+        </div>
+      </section>
+    </article>
   )
 }
 

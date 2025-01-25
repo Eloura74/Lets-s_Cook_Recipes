@@ -1,6 +1,7 @@
 import React, { useRef } from 'react'
 import { FaClock, FaHeart, FaEye } from 'react-icons/fa'
 import DifficultyStars from '../ui/DifficultyStars'
+import { Link } from 'react-router-dom'
 
 const RecipeCard = ({ recipe }) => {
   // Référence pour manipuler la carte directement
@@ -31,7 +32,7 @@ const RecipeCard = ({ recipe }) => {
   }
 
   return (
-    <div
+    <article
       ref={cardRef}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
@@ -41,65 +42,69 @@ const RecipeCard = ({ recipe }) => {
         transformStyle: 'preserve-3d',
       }}
     >
-      {/* Image de la recette avec overlay gradient */}
-      <div className="relative h-48 overflow-hidden rounded-t-2xl ">
-        <div className="absolute inset-0 bg-linear-to-t from-black/70 via-black/30 to-transparent z-10 " />
+      {/* Image et métadonnées */}
+      <figure className="relative h-48 overflow-hidden rounded-t-2xl">
+        <div className="absolute inset-0 bg-linear-to-t from-black/70 via-black/30 to-transparent z-10" aria-hidden="true" />
         <img
           src={recipe.imageUrl}
-          alt={recipe.title}
-          className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700  "
+          alt={`Présentation de ${recipe.title}`}
+          className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700"
         />
 
-        {/* Difficulté avec étoiles */}
-        <div className="absolute bottom-2 left-2 z-20 bg-black/50 backdrop-blur-sm rounded-full px-3 py-1 ">
+        {/* Niveau de difficulté */}
+        <figcaption className="absolute bottom-2 left-2 z-20 bg-black/50 backdrop-blur-sm rounded-full px-3 py-1">
           <DifficultyStars difficulty={recipe.difficulty} />
-        </div>
+        </figcaption>
 
-        {/* Statistiques (likes et vues) */}
-        <div className="absolute top-3 right-3 z-20 flex flex-col gap-2">
-          {/* Badge des likes */}
-          <div className="flex items-center gap-1.5 bg-[#2C3639]/80 px-3 py-1.5 rounded-full border border-white/20">
-            <FaHeart className="text-red-400 drop-shadow-sm" />
+        {/* Statistiques */}
+        <aside className="absolute top-3 right-3 z-20 flex flex-col gap-2">
+          {/* Likes */}
+          <div className="flex items-center gap-1.5 bg-[#2C3639]/80 px-3 py-1.5 rounded-full border border-white/20" aria-label={`${recipe.likes} likes`}>
+            <FaHeart className="text-red-400 drop-shadow-sm" aria-hidden="true" />
             <span className="text-[#DCD7C9] text-sm font-medium">
               {recipe.likes}
             </span>
           </div>
 
-          {/* Badge des vues */}
-          <div className="flex items-center gap-1.5 bg-[#2C3639]/80 px-3 py-1.5 rounded-full border border-white/20">
-            <FaEye className="text-blue-400 drop-shadow-sm" />
+          {/* Vues */}
+          <div className="flex items-center gap-1.5 bg-[#2C3639]/80 px-3 py-1.5 rounded-full border border-white/20" aria-label={`${recipe.views} vues`}>
+            <FaEye className="text-blue-400 drop-shadow-sm" aria-hidden="true" />
             <span className="text-[#DCD7C9] text-sm font-medium">
               {recipe.views}
             </span>
           </div>
-        </div>
-      </div>
+        </aside>
+      </figure>
 
       {/* Contenu de la carte */}
       <div className="p-5">
-        {/* Titre */}
-        <h3 className="text-4xl font-memoirs text-[#DCD7C9] [text-shadow:_2px_2px_4px_rgba(0,0,0,0.9),_0_0_20px_rgba(220,215,201,0.3)] mb-2 line-clamp-1 group-hover:text-white transition-colors duration-200 pointer-events-none">
-          {recipe.title}
-        </h3>
+        {/* En-tête */}
+        <header>
+          <h3 className="text-4xl font-memoirs text-[#DCD7C9] [text-shadow:_2px_2px_4px_rgba(0,0,0,0.9),_0_0_20px_rgba(220,215,201,0.3)] mb-2 line-clamp-1 group-hover:text-white transition-colors duration-200 pointer-events-none">
+            {recipe.title}
+          </h3>
+        </header>
 
         {/* Description */}
         <p className="text-sm text-[#DCD7C9]/80 mb-4 line-clamp-2 group-hover:text-[#DCD7C9]/90 transition-colors duration-200">
           {recipe.description}
         </p>
 
-        {/* Footer avec temps et bouton */}
-        <div className="flex items-center justify-between">
+        {/* Pied de carte */}
+        <footer className="flex items-center justify-between">
           {/* Temps de préparation */}
-          <div className="flex items-center gap-2 text-[#DCD7C9]/70">
-            <FaClock className="text-sm" />
+          <div className="flex items-center gap-2 text-[#DCD7C9]/70" aria-label={`Temps de préparation : ${recipe.prepTime} minutes`}>
+            <FaClock className="text-sm" aria-hidden="true" />
             <span className="text-sm">{recipe.prepTime} min</span>
           </div>
 
-          {/* Bouton Voir la recette */}
-          <button className="px-4 py-1.5 btn-site">Voir la recette</button>
-        </div>
+          {/* Lien vers la recette */}
+          <Link to={`/recette/${recipe.id}`} className="px-4 py-1.5 btn-site">
+            Voir la recette
+          </Link>
+        </footer>
       </div>
-    </div>
+    </article>
   )
 }
 

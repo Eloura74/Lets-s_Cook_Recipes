@@ -13,17 +13,22 @@ const Header = () => {
 
   return (
     <header className="bg-white w-full">
-      {/* Bannière supérieure PROMO*/}
-      <div className="bg-gradient-to-r from-[#2C3639] via-[#2C3639] to-[#2C3639] shadow-lg">
+      {/* Bannière promotionnelle */}
+      <section
+        className="bg-gradient-to-r from-[#2C3639] via-[#2C3639] to-[#2C3639] shadow-lg"
+        aria-label="Bannière promotionnelle"
+      >
         <div className="container mx-auto">
           <p className="py-2 px-6 font-memoirs text-lg flex items-center justify-center gap-2 text-[#DCD7C9]">
             {user ? (
               <>
                 <span className="text-lg">Bienvenue</span>{' '}
-                <span className="text-2xl font-bold text-[#A27B5C] [text-shadow:_1px_1px_2px_rgba(0,0,0,0.8)]">
+                <strong className="text-2xl font-bold text-[#A27B5C] [text-shadow:_1px_1px_2px_rgba(0,0,0,0.8)]">
                   {user.name}
+                </strong>
+                <span className="mx-2" aria-hidden="true">
+                  •
                 </span>
-                <span className="mx-2">•</span>
                 <span className="relative group cursor-pointer">
                   <span className="whitespace-nowrap">
                     Commander notre livre de recettes
@@ -37,7 +42,9 @@ const Header = () => {
             ) : (
               <>
                 <span>Bienvenue sur Let's Cook</span>
-                <span className="mx-2">•</span>
+                <span className="mx-2" aria-hidden="true">
+                  •
+                </span>
                 <span className="relative group cursor-pointer">
                   <span className="whitespace-nowrap">
                     Commander notre livre de recettes
@@ -51,28 +58,20 @@ const Header = () => {
             )}
           </p>
         </div>
-      </div>
-      {/* <div className="flex justify-start">
-        <Link to="/" className="flex items-center">
-          <img
-            src="/images/2logo.png"
-            alt="Let's Cook"
-            className="absolute z-10 mx-14 mt-72 h-20 sm:h-24 md:h-32 lg:h-40 -rotate-30 w-auto filter grayscale-0 brightness-125 contrast-100 hue-rotate-180"
-            style={{
-              WebkitMaskImage:
-                'radial-gradient(circle, rgba(0, 0, 0, 1) 55%, rgba(0, 0, 0, 0) 100%)',
-              WebkitMaskRepeat: 'no-repeat',
-              WebkitMaskSize: 'cover',
-            }}
-          />
-        </Link>
-      </div> */}
-      {/* Banniere Navigation */}
-      <div className="custom-background px-2 sm:px-4 md:px-8 lg:px-20 relative pt-8 md:pt-12 lg:pt-4">
-        <nav className="container mx-auto relative">
-          <article className="flex flex-col pb-4 md:flex-row md:items-center md:justify-between gap-4 md:gap-6">
-            {/* Section gauche : Logo et navigation principale */}
-            <div className="flex  flex-col md:flex-row items-center gap-4 md:gap-8 lg:gap-12  border-none ">
+      </section>
+
+      {/* Navigation principale */}
+      <nav
+        className="custom-background px-2 sm:px-4 md:px-8 lg:px-20 relative pt-8 md:pt-12 lg:pt-4"
+        aria-label="Navigation principale"
+      >
+        <div className="container mx-auto relative">
+          <div className="flex flex-col pb-4 md:flex-row md:items-center md:justify-between gap-4 md:gap-6">
+            {/* Logo et navigation primaire */}
+            <section
+              className="flex flex-col md:flex-row items-center gap-4 md:gap-8 lg:gap-12 border-none"
+              aria-label="Navigation primaire"
+            >
               <Link to="/" className="logo-link flex items-center relative">
                 <img
                   src="/images/2-1logo.png"
@@ -81,15 +80,17 @@ const Header = () => {
                 />
               </Link>
 
-              {/* Navigation principale */}
-              <nav className="flex mb-4 space-x-4 sm:space-x-6 md:space-x-8 lg:space-x-12 mt-2 md:mt-0">
+              <div className="flex mb-4 space-x-4 sm:space-x-6 md:space-x-8 lg:space-x-12 mt-2 md:mt-0">
                 <HomeButton className="nav-btn" />
                 <RecipesButton className="nav-btn" />
-              </nav>
-            </div>
+              </div>
+            </section>
 
-            {/* Section droite : Actions utilisateur */}
-            <article className="flex flex-col items-center md:items-end gap-4 md:gap-6">
+            {/* Actions utilisateur */}
+            <section
+              className="flex flex-col items-center md:items-end gap-4 md:gap-6"
+              aria-label="Actions utilisateur"
+            >
               <div className="flex flex-wrap justify-center md:justify-end gap-2 sm:gap-4 mt-2 md:mt-0">
                 {user && <DashboardButton className="btn-site" />}
                 {user ? (
@@ -97,7 +98,7 @@ const Header = () => {
                     Déconnexion
                   </button>
                 ) : (
-                  <div className="flex gap-4">
+                  <div className="flex space-x-2">
                     <Link to="/login" className="btn-site">
                       Connexion
                     </Link>
@@ -107,10 +108,10 @@ const Header = () => {
                   </div>
                 )}
               </div>
-            </article>
-          </article>
-        </nav>
-      </div>
+            </section>
+          </div>
+        </div>
+      </nav>
 
       {/* En-tête principal */}
       <section
