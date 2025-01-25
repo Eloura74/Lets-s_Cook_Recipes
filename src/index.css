@@ -87,6 +87,10 @@ layer(base);
   -moz-osx-font-smoothing: grayscale;
 }
 
+.background-principale {
+  @apply bg-linear-to-r from-[#2C3639] via-[#3F4E4F] to-[#A27B5C];
+}
+
 /* couleur du background des cartes */
 .bgCard {
   @apply bg-linear-to-b from-neutral-300 from-40% via-cyan-50 via-60% to-teal-50 to-90%;
@@ -107,6 +111,10 @@ a.logo-link {
   border: none;
   padding: 0;
   box-shadow: none;
+}
+
+a.block {
+  border: none;
 }
 
 a:hover {

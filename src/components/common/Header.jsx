@@ -1,10 +1,12 @@
-// import React from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom'
 import SearchBar from '../ui/SearchBar'
 import HomeButton from '../buttons/HomeButton'
 import RecipesButton from '../buttons/RecipesButton'
 import DashboardButton from '../buttons/Dashboard'
 import { useAuth } from '../../contexts/AuthContext'
+import PopularRecipes from './PopularRecipes'
+import recipesData from '../../data/recettes.json'
 
 const Header = () => {
   const { user, logout } = useAuth()
@@ -12,25 +14,43 @@ const Header = () => {
   return (
     <header className="bg-white w-full">
       {/* Bannière supérieure PROMO*/}
-      <div className="bg-black bg-opacity-20 text-center py-1 text-sm text-gray-600">
-        <p className="font-memoirs px-4 text-lg">
-          {user ? (
-            <>
-              Bienvenue{' '}
-              <span className="text-2xl font-bold mr-2">{user.name}</span>,
-              Commander notre livre de recette
-            </>
-          ) : (
-            "Bienvenue sur Let's Cook- Commander notre livre de recette"
-          )}
-          <span
-            className="text-2xl text-red-500 ml-2 cursor-pointer hover:underline"
-            onClick={e => e.preventDefault()}
-          >
-            gratuit{' '}
-          </span>
-          !
-        </p>
+      <div className="bg-gradient-to-r from-[#2C3639] via-[#3F4E4F] to-[#2C3639] shadow-lg">
+        <div className="container mx-auto">
+          <p className="py-2 px-6 font-memoirs text-lg flex items-center justify-center gap-2 text-[#DCD7C9]">
+            {user ? (
+              <>
+                <span className="text-lg">Bienvenue</span>{' '}
+                <span className="text-2xl font-bold text-[#A27B5C] [text-shadow:_1px_1px_2px_rgba(0,0,0,0.8)]">
+                  {user.name}
+                </span>
+                <span className="mx-2">•</span>
+                <span className="relative group cursor-pointer">
+                  <span className="whitespace-nowrap">
+                    Commander notre livre de recettes
+                    <span className="absolute -bottom-0.5 left-0 w-full h-0.5 bg-[#A27B5C] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
+                  </span>
+                </span>
+                <span className="ml-2 bg-gradient-to-r from-red-500 to-red-700 text-white px-3 py-0.5 rounded-full text-sm font-bold transform hover:scale-105 transition-transform duration-300 cursor-pointer shadow-md hover:shadow-lg">
+                  GRATUIT !
+                </span>
+              </>
+            ) : (
+              <>
+                <span>Bienvenue sur Let's Cook</span>
+                <span className="mx-2">•</span>
+                <span className="relative group cursor-pointer">
+                  <span className="whitespace-nowrap">
+                    Commander notre livre de recettes
+                    <span className="absolute -bottom-0.5 left-0 w-full h-0.5 bg-[#A27B5C] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
+                  </span>
+                </span>
+                <span className="ml-2 bg-gradient-to-r from-red-500 to-red-700 text-white px-3 py-0.5 rounded-full text-sm font-bold transform hover:scale-105 transition-transform duration-300 cursor-pointer shadow-md hover:shadow-lg">
+                  GRATUIT !
+                </span>
+              </>
+            )}
+          </p>
+        </div>
       </div>
       {/* <div className="flex justify-start">
         <Link to="/" className="flex items-center">
@@ -119,6 +139,9 @@ const Header = () => {
           <SearchBar />
         </div>
       </section>
+
+      {/* Section des recettes populaires */}
+      <PopularRecipes recipes={recipesData} />
     </header>
   )
 }
