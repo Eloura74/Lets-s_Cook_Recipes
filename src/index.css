@@ -52,10 +52,10 @@ layer(base);
   body {
     background: linear-gradient(
       180deg,
-      rgba(227, 238, 238, 1) 0%,
-      rgba(197, 197, 203, 1) 44%,
-      rgba(157, 170, 170, 1) 66%,
-      rgba(117, 120, 120, 1) 87%
+      hsl(180, 24%, 91%) 0%,
+      hsl(180, 24%, 83%) 44%,
+      hsl(180, 24%, 75%) 66%,
+      hsl(180, 24%, 67%) 87%
     );
     margin: 0;
     min-height: 100vh;
@@ -94,11 +94,23 @@ layer(base);
 
 a {
   font-weight: 500;
-  color: #646cff;
+  color: #2d2d2d;
+  border: 1px solid;
+  border-color: #2d2d2d;
+  border-radius: 8px;
+  padding: 0.5em 1em;
   text-decoration: inherit;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.8);
 }
+
+a.logo-link {
+  border: none;
+  padding: 0;
+  box-shadow: none;
+}
+
 a:hover {
-  color: #685d5d;
+  color: #a27b5c;
 }
 
 button {
@@ -192,4 +204,56 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
+}
+
+.btn-site {
+  @apply px-4 py-2.5
+         bg-gradient-to-r from-[#C7B8A6] via-[#DAD5C7] to-[#BFA68A]
+         text-[#4A403A] font-memoirs
+         rounded-full
+         transition-all duration-300 ease-in-out
+         hover:shadow-lg hover:shadow-[#4A403A]/20
+         hover:scale-105
+         active:scale-95
+         border border-transparent
+         hover:border-[#4A403A]/10
+         relative
+         overflow-hidden;
+
+  &::before {
+    content: '';
+    @apply absolute inset-0 
+           bg-gradient-to-r from-white/0 via-white/30 to-white/0
+           translate-x-[-200%]
+           transition-transform duration-700;
+  }
+
+  &:hover::before {
+    @apply translate-x-[200%];
+  }
+}
+
+.btn-site-active {
+  @apply bg-gradient-to-r from-[#C7B8A6] via-[#DAD5C7] to-[#BFA68A]
+         text-[#A27B5C]
+         shadow-md shadow-[#4A403A]/30
+         scale-[0.98]
+         border border-[#4A403A]/20
+         hover:shadow-lg hover:shadow-[#4A403A]/40
+         transition-all duration-300 ease-in-out;
+}
+
+.nav-btn {
+  @apply relative 
+         inline-flex items-center
+         px-4 py-2
+         text-[#4A403A] font-memoirs
+         transition-all duration-300
+         hover:text-[#A27B5C]
+         after:content-['']
+         after:absolute after:bottom-0 after:left-0
+         after:w-0 after:h-0.5
+         after:bg-[#A27B5C]
+         after:transition-all after:duration-300
+         hover:after:w-full;
 }

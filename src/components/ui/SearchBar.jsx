@@ -24,17 +24,23 @@ const SearchBar = () => {
         value={searchTerm}
         onChange={e => setSearchTerm(e.target.value)}
         placeholder="Rechercher une recette..."
-        className="bg-gray-100/50 w-full  text-gray-800 sm:w-64 md:w-72 lg:w-96 px-4 py-2 pr-10 
-                 rounded-full border-2 border-gray-600 focus:outline-hidden 
-                 focus:border-gray-500 shadow-md"
+        className="w-full sm:w-64 md:w-72 lg:w-96 px-6 py-3
+                 bg-black/20 backdrop-blur-sm
+                 text-[#DCD7C9] placeholder-[#DCD7C9]/60
+                 rounded-full border border-[#DCD7C9]/30
+                 focus:border-[#DCD7C9]/60 focus:outline-none
+                 shadow-[0_0_15px_rgba(220,215,201,0.1)]
+                 transition-all duration-300
+                 hover:shadow-[0_0_20px_rgba(220,215,201,0.2)]"
       />
       <button
         type="submit"
-        className="absolute right-4 sm:right-6 md:right-20 lg:right-28 
-                 top-1/2 -translate-y-1/2 text-gray-400
-                 hover:text-gray-600 transition-colors"
+        className="absolute right-6 sm:right-8 md:right-20 lg:right-28 
+                 top-1/2 -translate-y-1/2 
+                 text-[#DCD7C9]/70 hover:text-[#DCD7C9] 
+                 transition-colors duration-300"
       >
-        <FaSearch className="w-4 h-4" />
+        <FaSearch className="w-5 h-5" />
       </button>
     </form>
   )

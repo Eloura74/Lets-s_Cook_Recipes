@@ -50,47 +50,38 @@ const Header = () => {
       {/* Banniere Navigation */}
       <div className="custom-background px-2 sm:px-4 md:px-8 lg:px-20 relative pt-8 md:pt-12 lg:pt-4">
         <nav className="container mx-auto relative">
-          <article className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 md:gap-6">
+          <article className="flex flex-col pb-4 md:flex-row md:items-center md:justify-between gap-4 md:gap-6">
             {/* Section gauche : Logo et navigation principale */}
-            <div className="flex  flex-col md:flex-row items-center gap-4 md:gap-8 lg:gap-12 ">
-              {/* <Link to="/" className="flex items-center">
+            <div className="flex  flex-col md:flex-row items-center gap-4 md:gap-8 lg:gap-12  border-none ">
+              <Link to="/" className="logo-link flex items-center relative">
                 <img
-                  src="/images/2logo.png"
-                  alt="Let's Cook"
-                  className="h-20 sm:h-24 md:h-32 lg:h-20 w-auto filter grayscale-0 brightness-125 contrast-100 hue-rotate-180"
+                  src="/images/2-1logo.png"
+                  alt="Logo Let's Cook"
+                  className="h-20 w-auto object-contain mix-blend-screen shadow-md -rotate-19"
                 />
-              </Link> */}
+              </Link>
 
               {/* Navigation principale */}
               <nav className="flex mb-4 space-x-4 sm:space-x-6 md:space-x-8 lg:space-x-12 mt-2 md:mt-0">
-                <HomeButton />
-                <RecipesButton />
+                <HomeButton className="nav-btn" />
+                <RecipesButton className="nav-btn" />
               </nav>
             </div>
 
             {/* Section droite : Actions utilisateur */}
             <article className="flex flex-col items-center md:items-end gap-4 md:gap-6">
               <div className="flex flex-wrap justify-center md:justify-end gap-2 sm:gap-4 mt-2 md:mt-0">
-                {user && <DashboardButton />}
+                {user && <DashboardButton className="btn-site" />}
                 {user ? (
-                  <button
-                    onClick={logout}
-                    className="bg-white text-gray-800 px-4 sm:px-6 py-2 rounded-full hover:bg-gray-100 transition-colors font-memoirs text-base sm:text-lg shadow-md shadow-gray-500 whitespace-nowrap"
-                  >
+                  <button onClick={logout} className="btn-site">
                     Déconnexion
                   </button>
                 ) : (
-                  <div className="flex flex-wrap justify-center gap-2 sm:gap-4">
-                    <Link
-                      to="/login"
-                      className="bg-white text-gray-800 px-4 sm:px-6 py-2 rounded-full hover:bg-gray-100 transition-colors font-memoirs text-base sm:text-lg shadow-md shadow-gray-500 whitespace-nowrap"
-                    >
+                  <div className="flex gap-4">
+                    <Link to="/login" className="btn-site">
                       Connexion
                     </Link>
-                    <Link
-                      to="/signup"
-                      className="bg-white text-gray-800 px-4 sm:px-6 py-2 rounded-full hover:bg-gray-100 transition-colors font-memoirs text-base sm:text-lg shadow-md shadow-gray-500 whitespace-nowrap"
-                    >
+                    <Link to="/signup" className="btn-site">
                       Inscription
                     </Link>
                   </div>
@@ -103,14 +94,19 @@ const Header = () => {
 
       {/* En-tête principal */}
       <section
-        className="relative bg-cover bg-center bg-no-repeat bg-gradient-to-r from-gray-100/50 via-transparent to-gray-100/50 py-4 md:py-6 lg:py-8 h-64 md:h-80 lg:h-96"
+        className="relative bg-cover bg-center bg-no-repeat py-4 md:py-6 lg:py-8 h-64 md:h-80 lg:h-96"
         style={{
-          backgroundImage: "url('/images/header3.png')",
+          backgroundImage: "url('/images/header2.png')",
           backgroundSize: 'cover',
         }}
       >
-        {/* <div className="absolute inset-0 bg-black bg-opacity-40"></div> */}
-        <article className="container mx-auto text-center mt-30">
+        {/* Voile dégradé */}
+        {
+          <div className="absolute inset-0 bg-gradient-to-l from-black/90 via-black/50 to-transparent"></div>
+        }
+        {/* <div className="absolute inset-0 bg-gradient-to-l from-black/80 via-amber-600/30 to-transparent"></div> */}
+
+        <article className="container mx-auto text-center mt-30 relative z-10">
           <h1 className="text-6xl font-memoirs text-[#DCD7C9] mb-2 [text-shadow:_2px_2px_4px_rgba(0,0,0,0.9),_0_0_20px_rgba(220,215,201,0.3)]">
             Bienvenue sur Let's Cook
           </h1>
@@ -118,9 +114,8 @@ const Header = () => {
             Découvrez nos meilleures recettes de cuisine
           </p>
         </article>
-        {/* Contenu principal du header */}
 
-        <div className="flex justify-center mt-4 pl-24 md:mt-70">
+        <div className="flex justify-center mt-4 pl-24 md:mt-10 relative z-10">
           <SearchBar />
         </div>
       </section>
