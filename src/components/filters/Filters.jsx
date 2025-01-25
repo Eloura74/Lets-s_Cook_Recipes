@@ -7,7 +7,7 @@ import { motion } from 'framer-motion'
  * - Date (Plus récent / Plus ancien)
  * - Popularité (Plus populaire / Moins populaire)
  * - Difficulté (Plus difficile / Moins difficile)
- * 
+ *
  * @param {Function} onFilterChange - Fonction appelée lors du changement de filtre
  */
 const Filtres = ({ onFilterChange }) => {
@@ -15,41 +15,47 @@ const Filtres = ({ onFilterChange }) => {
   const [etatsDesFiltres, setEtatsDesFiltres] = useState({
     date: { actif: false, inverse: false },
     popularite: { actif: false, inverse: false },
-    difficulte: { actif: false, inverse: false }
+    difficulte: { actif: false, inverse: false },
   })
 
   // Configuration des filtres avec leurs textes et fonctions de tri
   const configurationFiltres = {
     date: {
       normal: {
-        texte: 'Plus récent',
-        trierRecettes: recettes => [...recettes].sort((a, b) => new Date(b.date) - new Date(a.date))
+        texte: 'Du plus récent',
+        trierRecettes: recettes =>
+          [...recettes].sort((a, b) => new Date(b.date) - new Date(a.date)),
       },
       inverse: {
-        texte: 'Plus ancien',
-        trierRecettes: recettes => [...recettes].sort((a, b) => new Date(a.date) - new Date(b.date))
-      }
+        texte: 'Du plus ancien',
+        trierRecettes: recettes =>
+          [...recettes].sort((a, b) => new Date(a.date) - new Date(b.date)),
+      },
     },
     popularite: {
       normal: {
-        texte: 'Plus populaire',
-        trierRecettes: recettes => [...recettes].sort((a, b) => b.likes - a.likes)
+        texte: 'Les plus populaires',
+        trierRecettes: recettes =>
+          [...recettes].sort((a, b) => b.likes - a.likes),
       },
       inverse: {
-        texte: 'Moins populaire',
-        trierRecettes: recettes => [...recettes].sort((a, b) => a.likes - b.likes)
-      }
+        texte: 'Les moins populaires',
+        trierRecettes: recettes =>
+          [...recettes].sort((a, b) => a.likes - b.likes),
+      },
     },
     difficulte: {
       normal: {
-        texte: 'Plus difficile',
-        trierRecettes: recettes => [...recettes].sort((a, b) => b.difficulty - a.difficulty)
+        texte: 'Les plus difficiles',
+        trierRecettes: recettes =>
+          [...recettes].sort((a, b) => b.difficulty - a.difficulty),
       },
       inverse: {
-        texte: 'Moins difficile',
-        trierRecettes: recettes => [...recettes].sort((a, b) => a.difficulty - b.difficulty)
-      }
-    }
+        texte: 'Les plus faciles',
+        trierRecettes: recettes =>
+          [...recettes].sort((a, b) => a.difficulty - b.difficulty),
+      },
+    },
   }
 
   /**
@@ -58,14 +64,27 @@ const Filtres = ({ onFilterChange }) => {
    * @returns {string} Classes CSS
    */
   const obtenirClassesBouton = nomFiltre => {
-    const classesDeBase = 'px-4 py-2 rounded-full transition-colors font-memoirs'
     const estActif = etatsDesFiltres[nomFiltre].actif
-    
-    return `${classesDeBase} ${
+    return `btn-site relative flex items-center gap-2 px-4 py-2 rounded-full text-[#DCD7C9] transition-all duration-300 
+    ${
       estActif
-        ? 'bg-[#9ca3af] text-[#14142B]'
-        : 'bg-[#1F1F3D] text-white hover:bg-[#2D2D4D]'
+        ? 'bg-[#2C3639] shadow-lg border border-[#A27B5C]/50'
+        : 'bg-[#2C3639]/50 hover:bg-[#2C3639]/80 border border-[#DCD7C9]/10'
     }`
+  }
+
+  /**
+   * Retourne le texte à afficher sur le bouton selon son état
+   * @param {string} nomFiltre - Nom du filtre
+   * @returns {string} Texte du bouton
+   */
+  const obtenirTexteBouton = nomFiltre => {
+    const etatFiltre = etatsDesFiltres[nomFiltre]
+    return etatFiltre.actif
+      ? etatFiltre.inverse
+        ? configurationFiltres[nomFiltre].inverse.texte
+        : configurationFiltres[nomFiltre].normal.texte
+      : `Trier par ${nomFiltre}`
   }
 
   /**
@@ -79,16 +98,16 @@ const Filtres = ({ onFilterChange }) => {
       const nouveauxEtats = {
         date: { actif: false, inverse: false },
         popularite: { actif: false, inverse: false },
-        difficulte: { actif: false, inverse: false }
+        difficulte: { actif: false, inverse: false },
       }
 
       // Si le filtre était déjà actif, inverse son état
       // Sinon, active le filtre en mode inverse
       nouveauxEtats[nomFiltre] = {
         actif: true,
-        inverse: etatsActuels[nomFiltre].actif 
-          ? !etatsActuels[nomFiltre].inverse 
-          : true
+        inverse: etatsActuels[nomFiltre].actif
+          ? !etatsActuels[nomFiltre].inverse
+          : true,
       }
 
       return nouveauxEtats
@@ -101,41 +120,67 @@ const Filtres = ({ onFilterChange }) => {
   }
 
   /**
-   * Retourne le texte à afficher sur le bouton selon son état
-   * @param {string} nomFiltre - Nom du filtre
-   * @returns {string} Texte du bouton
+   * Réinitialise tous les filtres
    */
-  const obtenirTexteBouton = nomFiltre => {
-    const etatFiltre = etatsDesFiltres[nomFiltre]
-    if (!etatFiltre.actif) {
-      return configurationFiltres[nomFiltre].normal.texte
-    }
-    return etatFiltre.inverse 
-      ? configurationFiltres[nomFiltre].inverse.texte 
-      : configurationFiltres[nomFiltre].normal.texte
+  const reinitialiserFiltres = () => {
+    setEtatsDesFiltres({
+      date: { actif: false, inverse: false },
+      popularite: { actif: false, inverse: false },
+      difficulte: { actif: false, inverse: false },
+    })
+    // Retourne les recettes dans leur ordre d'origine
+    onFilterChange(recettes => [...recettes])
   }
 
+  // Vérifie si au moins un filtre est actif
+  const auMoinsUnFiltreActif = Object.values(etatsDesFiltres).some(
+    filtre => filtre.actif
+  )
+
   return (
-    <section className="container mx-auto p-6 pl-4 sm:pl-0 space-y-6">
-      <div className="flex flex-col sm:flex-row gap-4 items-center justify-between">
-        <article className="flex justify-center items-center gap-4 w-full mr-4 sm:w-auto">
-          <h2 className="text-xl text-gray-600 mb-1 font-memoirs [text-shadow:_0_1px_0_rgba(1_1_1_/_80%)]">
-            Trier par :
-          </h2>
-          <div className="flex flex-wrap gap-4">
-            {Object.keys(configurationFiltres).map(nomFiltre => (
+    <section className="container mx-auto px-6 py-4">
+      <div className="flex flex-wrap items-center gap-6">
+        <h2 className="text-4xl text-[#DCD7C9] font-memoirs [text-shadow:_0_3px_0_rgba(1_1_1_/_80%)]">
+          Filtres :
+        </h2>
+        <div className="flex flex-wrap items-center gap-3">
+          {Object.keys(configurationFiltres).map(nomFiltre => {
+            const estActif = etatsDesFiltres[nomFiltre].actif
+            const estInverse = etatsDesFiltres[nomFiltre].inverse
+            return (
               <motion.button
                 key={nomFiltre}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
                 onClick={() => gererClicFiltre(nomFiltre)}
                 className={obtenirClassesBouton(nomFiltre)}
               >
-                {obtenirTexteBouton(nomFiltre)}
+                <span className="font-medium">
+                  {obtenirTexteBouton(nomFiltre)}
+                </span>
+                {estActif && (
+                  <motion.span
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    className="flex items-center justify-center w-5 h-5 rounded-full bg-[#A27B5C] text-white text-xs"
+                  >
+                    {estInverse ? '↑' : '↓'}
+                  </motion.span>
+                )}
               </motion.button>
-            ))}
-          </div>
-        </article>
+            )
+          })}
+          {auMoinsUnFiltreActif && (
+            <motion.button
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              onClick={reinitialiserFiltres}
+              className="btn-site px-4 py-2 "
+            >
+              Tout afficher
+            </motion.button>
+          )}
+        </div>
       </div>
     </section>
   )

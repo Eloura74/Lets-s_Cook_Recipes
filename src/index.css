@@ -211,8 +211,9 @@ button:focus-visible {
          bg-gradient-to-r from-[#C7B8A6] via-[#DAD5C7] to-[#BFA68A]
          text-[#4A403A] font-memoirs
          rounded-full
+         shadow-md shadow-[#4A403A]/90
          transition-all duration-300 ease-in-out
-         hover:shadow-lg hover:shadow-[#4A403A]/20
+         hover:shadow-lg hover:shadow-[#4A405A]/70
          hover:scale-105
          active:scale-95
          border border-transparent
