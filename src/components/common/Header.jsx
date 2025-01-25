@@ -14,7 +14,7 @@ const Header = () => {
   return (
     <header className="bg-white w-full">
       {/* Bannière supérieure PROMO*/}
-      <div className="bg-gradient-to-r from-[#2C3639] via-[#3F4E4F] to-[#2C3639] shadow-lg">
+      <div className="bg-gradient-to-r from-[#2C3639] via-[#2C3639] to-[#2C3639] shadow-lg">
         <div className="container mx-auto">
           <p className="py-2 px-6 font-memoirs text-lg flex items-center justify-center gap-2 text-[#DCD7C9]">
             {user ? (

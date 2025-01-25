@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { useRecipes } from '../../contexts/RecipesContext'
 import { Link } from 'react-router-dom'
-import { FaSearch, FaClock, FaHeart } from 'react-icons/fa'
 import { motion, AnimatePresence } from 'framer-motion'
 
 const SearchBar = () => {
@@ -10,10 +9,21 @@ const SearchBar = () => {
   const { recipes } = useRecipes()
   const searchRef = useRef(null)
 
-  const filteredRecipes = recipes.filter(recipe =>
-    recipe.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    recipe.description.toLowerCase().includes(searchTerm.toLowerCase())
-  ).slice(0, 5) // Limiter à 5 résultats
+  // Fonction de recherche simplifiée
+  const searchInString = (str, search) => {
+    if (!str) return false
+    const normalizedStr = str.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+    const normalizedSearch = search.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+    return normalizedStr.includes(normalizedSearch)
+  }
+
+  const filteredRecipes = recipes
+    .filter(recipe => {
+      if (!searchTerm.trim()) return false
+      return searchInString(recipe.title, searchTerm) || 
+             searchInString(recipe.description, searchTerm)
+    })
+    .slice(0, 5) // Limiter à 5 résultats
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -27,8 +37,9 @@ const SearchBar = () => {
   }, [])
 
   const handleSearchChange = (e) => {
-    setSearchTerm(e.target.value)
-    setIsOpen(e.target.value.length > 0)
+    const value = e.target.value
+    setSearchTerm(value)
+    setIsOpen(value.trim().length > 0)
   }
 
   return (
@@ -41,14 +52,11 @@ const SearchBar = () => {
           placeholder="Rechercher une recette..."
           className="w-full px-6 py-3
                    bg-black/20 backdrop-blur-sm
-                   text-[#DCD7C9] placeholder-[#DCD7C9]/60
-                   rounded-full border border-[#DCD7C9]/30
-                   focus:border-[#DCD7C9]/60 focus:outline-none
-                   shadow-[0_0_15px_rgba(220,215,201,0.1)]
-                   transition-all duration-300
-                   hover:shadow-[0_0_20px_rgba(220,215,201,0.2)]"
+                   rounded-full
+                   text-[#DCD7C9]
+                   placeholder-[#DCD7C9]/70
+                   focus:outline-none focus:ring-2 focus:ring-[#DCD7C9]/50"
         />
-        <FaSearch className="absolute right-6 top-1/2 -translate-y-1/2 w-5 h-5 text-[#DCD7C9]/70" />
       </div>
 
       <AnimatePresence>
@@ -57,7 +65,7 @@ const SearchBar = () => {
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
-            className="absolute z-50 left-0 right-0 mt-2 bg-[#2C3639]/95 backdrop-blur-md rounded-xl 
+            className="absolute z-50 w-full mt-2 bg-[#2C3639]/95 backdrop-blur-sm rounded-2xl
                      shadow-xl border border-[#DCD7C9]/10 overflow-hidden"
           >
             <div className="divide-y divide-[#DCD7C9]/10">
@@ -65,46 +73,28 @@ const SearchBar = () => {
                 <Link
                   key={recipe.id}
                   to={`/recette/${recipe.id}`}
-                  className="block hover:bg-[#A27B5C]/20 transition-colors duration-200"
+                  className="block hover:bg-[#DCD7C9]/10 transition-colors"
                   onClick={() => {
                     setIsOpen(false)
                     setSearchTerm('')
                   }}
                 >
                   <div className="p-4 flex items-center gap-4">
-                    {/* Image de la recette */}
-                    <div className="w-16 h-16 rounded-lg overflow-hidden flex-shrink-0">
+                    {recipe.imageUrl && (
                       <img
                         src={recipe.imageUrl}
                         alt={recipe.title}
-                        className="w-full h-full object-cover"
-                        onError={e => {
-                          e.target.onerror = null
-                          e.target.src = '/images/detailRecipe.webp'
+                        className="w-16 h-16 object-cover rounded-lg"
+                        onError={(e) => {
+                          e.target.src = '/placeholder-recipe.jpg'
                         }}
                       />
-                    </div>
-
-                    {/* Informations de la recette */}
-                    <div className="flex-grow">
-                      <h3 className="text-[#DCD7C9] font-medium text-lg">
-                        {recipe.title}
-                      </h3>
-                      <div className="flex items-center gap-4 mt-1 text-sm text-[#DCD7C9]/70">
-                        <div className="flex items-center gap-1">
-                          <FaClock className="text-[#A27B5C]" />
-                          <span>{recipe.prepTime} min</span>
-                        </div>
-                        <div className="flex items-center gap-1">
-                          <FaHeart className="text-[#A27B5C]" />
-                          <span>{recipe.likes}</span>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Badge ID */}
-                    <div className="text-[#DCD7C9]/40 text-sm">
-                      #{recipe.id}
+                    )}
+                    <div>
+                      <h3 className="text-[#DCD7C9] font-medium">{recipe.title}</h3>
+                      <p className="text-[#DCD7C9]/70 text-sm truncate">
+                        {recipe.description}
+                      </p>
                     </div>
                   </div>
                 </Link>
