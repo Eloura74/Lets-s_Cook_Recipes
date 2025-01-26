@@ -28,27 +28,32 @@ export const RecipesProvider = ({ children }) => {
         imageUrl: recette.imageUrl,
         ingredients: recette.ingredients,
         instructions: recette.instructions,
-        likes: 0,
-        views: 0,
-        category: 'Plat principal',
-        author: 'Utilisateur',
+        likes: recette.likes || 0,
+        views: recette.views || 0,
+        category: recette.category || 'Plat principal',
+        author: recette.author || 'Utilisateur',
         createdAt: recette.dateCreation || new Date().toISOString()
       }))
 
-      // Combiner les recettes par défaut avec les recettes locales
-      const allRecipes = [...formattedLocalRecettes, ...recipesData]
-      
-      // S'assurer que toutes les recettes ont les champs requis
-      const normalizedRecipes = allRecipes.map(recipe => ({
+      // Marquer les recettes par défaut
+      const defaultRecipes = recipesData.map(recipe => ({
         ...recipe,
-        likes: recipe.likes || 0,
-        views: recipe.views || 0,
-        category: recipe.category || 'Plat principal',
-        author: recipe.author || 'Utilisateur',
-        createdAt: recipe.createdAt || new Date().toISOString()
+        isDefault: true
       }))
 
-      setRecipes(normalizedRecipes)
+      // Combiner les recettes en donnant la priorité aux recettes locales
+      const allRecipes = [...formattedLocalRecettes, ...defaultRecipes]
+
+      // Supprimer les doublons en gardant la version locale si elle existe
+      const uniqueRecipes = allRecipes.reduce((acc, recipe) => {
+        const existingRecipe = acc.find(r => r.id === recipe.id)
+        if (!existingRecipe) {
+          acc.push(recipe)
+        }
+        return acc
+      }, [])
+
+      setRecipes(uniqueRecipes)
     } catch (err) {
       setError('Erreur lors du chargement des recettes')
       console.error('Erreur de chargement:', err)
@@ -86,24 +91,23 @@ export const RecipesProvider = ({ children }) => {
 
   // Fonction pour ajouter une nouvelle recette
   const addRecipe = newRecipe => {
-    // S'assurer que la nouvelle recette a tous les champs requis
     const normalizedRecipe = {
       ...newRecipe,
-      likes: newRecipe.likes || 0,
-      views: newRecipe.views || 0,
+      likes: 0,
+      views: 0,
       category: newRecipe.category || 'Plat principal',
       author: newRecipe.author || 'Utilisateur',
-      createdAt: newRecipe.createdAt || new Date().toISOString()
+      createdAt: new Date().toISOString(),
+      isDefault: false
     }
     setRecipes(prevRecipes => [normalizedRecipe, ...prevRecipes])
   }
 
-  // Sauvegarder les statistiques dans le localStorage quand elles changent
+  // Sauvegarder les recettes dans le localStorage quand elles changent
   useEffect(() => {
     try {
-      // Convertir les recettes au format local avant de sauvegarder
       const localRecettes = recipes
-        .filter(recipe => !recipe.isDefault) // Ne sauvegarder que les recettes créées par l'utilisateur
+        .filter(recipe => !recipe.isDefault)
         .map(recipe => ({
           id: recipe.id,
           titre: recipe.title,
@@ -119,7 +123,7 @@ export const RecipesProvider = ({ children }) => {
         }))
       localStorage.setItem('recettes', JSON.stringify(localRecettes))
     } catch (error) {
-      console.error('Erreur lors de la sauvegarde des statistiques:', error)
+      console.error('Erreur lors de la sauvegarde des recettes:', error)
     }
   }, [recipes])
 
@@ -144,7 +148,7 @@ export const RecipesProvider = ({ children }) => {
 export const useRecipes = () => {
   const context = useContext(RecipesContext)
   if (!context) {
-    throw new Error('useRecipes doit être utilisé à l\'intérieur d\'un RecipesProvider')
+    throw new Error("useRecipes doit être utilisé à l'intérieur d'un RecipesProvider")
   }
   return context
 }
