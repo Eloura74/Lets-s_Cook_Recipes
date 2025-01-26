@@ -14,8 +14,41 @@ export const RecipesProvider = ({ children }) => {
   const fetchRecipes = async () => {
     try {
       setLoading(true)
-      console.log('Données des recettes:', recipesData)
-      setRecipes(recipesData)
+      // Charger les recettes du localStorage
+      const savedRecettes = localStorage.getItem('recettes')
+      const localRecettes = savedRecettes ? JSON.parse(savedRecettes) : []
+
+      // Convertir les recettes locales au format attendu
+      const formattedLocalRecettes = localRecettes.map(recette => ({
+        id: recette.id.toString(),
+        title: recette.titre,
+        description: recette.description,
+        difficulty: recette.difficulte,
+        prepTime: parseInt(recette.tempsPreparation) || 0,
+        imageUrl: recette.imageUrl,
+        ingredients: recette.ingredients,
+        instructions: recette.instructions,
+        likes: 0,
+        views: 0,
+        category: 'Plat principal',
+        author: 'Utilisateur',
+        createdAt: recette.dateCreation || new Date().toISOString()
+      }))
+
+      // Combiner les recettes par défaut avec les recettes locales
+      const allRecipes = [...formattedLocalRecettes, ...recipesData]
+      
+      // S'assurer que toutes les recettes ont les champs requis
+      const normalizedRecipes = allRecipes.map(recipe => ({
+        ...recipe,
+        likes: recipe.likes || 0,
+        views: recipe.views || 0,
+        category: recipe.category || 'Plat principal',
+        author: recipe.author || 'Utilisateur',
+        createdAt: recipe.createdAt || new Date().toISOString()
+      }))
+
+      setRecipes(normalizedRecipes)
     } catch (err) {
       setError('Erreur lors du chargement des recettes')
       console.error('Erreur de chargement:', err)
@@ -24,73 +57,94 @@ export const RecipesProvider = ({ children }) => {
     }
   }
 
+  // Charger les recettes au montage du composant
+  useEffect(() => {
+    fetchRecipes()
+  }, [])
+
   // Fonction pour ajouter un like à une recette
   const likeRecipe = recipeId => {
-    // Vérifie si la recette existe
     setRecipes(prevRecipes =>
-      // Retourne une nouvelle liste de recettes avec les likes mis à jour
-      prevRecipes.map(
-        recipe =>
-          // Si la recette existe, mise à jour du nombre de likes
-          recipe.id === recipeId
-            ? { ...recipe, likes: (recipe.likes || 0) + 1 } // Mise à jour du nombre de likes
-            : recipe // Sinon Retourne l'objet recette sans modification
+      prevRecipes.map(recipe =>
+        recipe.id === recipeId
+          ? { ...recipe, likes: (recipe.likes || 0) + 1 }
+          : recipe
       )
     )
   }
 
   // Fonction pour incrémenter les vues d'une recette
   const incrementViews = recipeId => {
-    // Vérifie si la recette existe
     setRecipes(prevRecipes =>
-      // Retourne une nouvelle liste de recettes avec les vues mis à jour
-      prevRecipes.map(
-        recipe =>
-          // Si la recette existe, mise à jour du nombre de vues
-          recipe.id === recipeId
-            ? { ...recipe, views: (recipe.views || 0) + 1 } // Mise à jour du nombre de vues
-            : recipe // Sinon Retourne l'objet recette sans modification
+      prevRecipes.map(recipe =>
+        recipe.id === recipeId
+          ? { ...recipe, views: (recipe.views || 0) + 1 }
+          : recipe
       )
     )
   }
 
-  // Charger les recettes au démarrage avec useEffect
-  useEffect(() => {
-    console.log('Chargement initial des recettes')
-    // Appel de la fonction de chargement des recettes
-    fetchRecipes()
-  }, [])
-
-  // Log l'état des recettes après chaque mise à jour
-  useEffect(() => {
-    console.log('État actuel des recettes:', recipes)
-  }, [recipes])
-
-  // Valeur du contexte
-  const value = {
-    recipes, // Liste des recettes
-    loading, // Indique si les recettes sont chargées
-    error, // Indique si une erreur s'est produite lors du chargement
-    likeRecipe, // Fonction pour ajouter un like à une recette
-    incrementViews, // Fonction pour incrémenter les vues d'une recette
-    fetchRecipes, // Fonction pour charger les recettes
+  // Fonction pour ajouter une nouvelle recette
+  const addRecipe = newRecipe => {
+    // S'assurer que la nouvelle recette a tous les champs requis
+    const normalizedRecipe = {
+      ...newRecipe,
+      likes: newRecipe.likes || 0,
+      views: newRecipe.views || 0,
+      category: newRecipe.category || 'Plat principal',
+      author: newRecipe.author || 'Utilisateur',
+      createdAt: newRecipe.createdAt || new Date().toISOString()
+    }
+    setRecipes(prevRecipes => [normalizedRecipe, ...prevRecipes])
   }
 
+  // Sauvegarder les statistiques dans le localStorage quand elles changent
+  useEffect(() => {
+    try {
+      // Convertir les recettes au format local avant de sauvegarder
+      const localRecettes = recipes
+        .filter(recipe => !recipe.isDefault) // Ne sauvegarder que les recettes créées par l'utilisateur
+        .map(recipe => ({
+          id: recipe.id,
+          titre: recipe.title,
+          description: recipe.description,
+          difficulte: recipe.difficulty,
+          tempsPreparation: recipe.prepTime,
+          imageUrl: recipe.imageUrl,
+          ingredients: recipe.ingredients,
+          instructions: recipe.instructions,
+          dateCreation: recipe.createdAt,
+          likes: recipe.likes,
+          views: recipe.views
+        }))
+      localStorage.setItem('recettes', JSON.stringify(localRecettes))
+    } catch (error) {
+      console.error('Erreur lors de la sauvegarde des statistiques:', error)
+    }
+  }, [recipes])
+
   return (
-    // Provider :  permet de partager des données globales avec l'ensemble des composants enfants,
-    // sans avoir besoin de passer ces données manuellement à chaque niveau de la hiérarchie de composants
-    <RecipesContext.Provider value={value}>{children}</RecipesContext.Provider>
+    <RecipesContext.Provider
+      value={{
+        recipes,
+        loading,
+        error,
+        likeRecipe,
+        incrementViews,
+        addRecipe,
+        fetchRecipes
+      }}
+    >
+      {children}
+    </RecipesContext.Provider>
   )
 }
 
 // Hook personnalisé pour utiliser le contexte
 export const useRecipes = () => {
-  const context = useContext(RecipesContext) // Utilisation du contexte
+  const context = useContext(RecipesContext)
   if (!context) {
-    // Vérifie si le contexte existe
-    throw new Error( // Lance une erreur si le contexte n'existe pas
-      "useRecipes doit être utilisé à l'intérieur d'un RecipesProvider"
-    )
+    throw new Error('useRecipes doit être utilisé à l\'intérieur d\'un RecipesProvider')
   }
   return context
 }

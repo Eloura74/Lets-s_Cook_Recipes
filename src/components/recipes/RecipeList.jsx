@@ -1,16 +1,22 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import RecipeCard from './RecipeCard'
-import recipesData from '../../data/recettes.json'
 import Filters from '../filters/Filters'
+import { useRecipes } from '../../contexts/RecipesContext'
 
 const RecipeList = () => {
+  const { recipes } = useRecipes()
   // État pour stocker les recettes filtrées
-  const [recettesAffichees, setRecettesAffichees] = useState(recipesData)
+  const [recettesAffichees, setRecettesAffichees] = useState(recipes)
+
+  // Mettre à jour les recettes affichées quand recipes change
+  useEffect(() => {
+    setRecettesAffichees(recipes)
+  }, [recipes])
 
   // Fonction pour appliquer un filtre
   const appliquerFiltre = fonctionFiltre => {
-    const recettesFiltrees = fonctionFiltre(recipesData) // Appelle la fonction de filtre
-    setRecettesAffichees(recettesFiltrees) // Met à jour l'état des recettes affichées
+    const recettesFiltrees = fonctionFiltre(recipes) // Utilise recipes du contexte
+    setRecettesAffichees(recettesFiltrees)
   }
 
   return (
