@@ -13,6 +13,23 @@ const Header = () => {
 
   return (
     <header className="bg-white w-full">
+      <style>
+        {`
+          @keyframes pulse-scale {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+          }
+          @keyframes glow {
+            0% { box-shadow: 0 0 5px rgba(239, 68, 68, 0.5), 0 0 10px rgba(239, 68, 68, 0.3); }
+            50% { box-shadow: 0 0 20px rgba(239, 68, 68, 0.8), 0 0 30px rgba(239, 68, 68, 0.5); }
+            100% { box-shadow: 0 0 5px rgba(239, 68, 68, 0.5), 0 0 10px rgba(239, 68, 68, 0.3); }
+          }
+          .badge-gratuit {
+            animation: pulse-scale 2s ease-in-out infinite, glow 2s ease-in-out infinite;
+          }
+        `}
+      </style>
       {/* Bannière promotionnelle */}
       <section
         className="bg-gradient-to-r from-[#2C3639] via-[#2C3639] to-[#2C3639] shadow-lg"
@@ -35,7 +52,7 @@ const Header = () => {
                     <span className="absolute -bottom-0.5 left-0 w-full h-0.5 bg-[#A27B5C] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
                   </span>
                 </span>
-                <span className="ml-2 bg-gradient-to-r from-red-500 to-red-700 text-white px-3 py-0.5 rounded-full text-sm font-bold transform hover:scale-105 transition-transform duration-300 cursor-pointer shadow-md hover:shadow-lg">
+                <span className="badge-gratuit ml-2 bg-gradient-to-r from-red-500 to-red-700 text-white px-3 py-0.5 rounded-full text-sm font-bold transform hover:scale-105 transition-transform duration-300 cursor-pointer shadow-md hover:shadow-lg">
                   GRATUIT !
                 </span>
               </>
@@ -51,7 +68,7 @@ const Header = () => {
                     <span className="absolute -bottom-0.5 left-0 w-full h-0.5 bg-[#A27B5C] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
                   </span>
                 </span>
-                <span className="ml-2 bg-gradient-to-r from-red-500 to-red-700 text-white px-3 py-0.5 rounded-full text-sm font-bold transform hover:scale-105 transition-transform duration-300 cursor-pointer shadow-md hover:shadow-lg">
+                <span className="badge-gratuit ml-2 bg-gradient-to-r from-red-500 to-red-700 text-white px-3 py-0.5 rounded-full text-sm font-bold transform hover:scale-105 transition-transform duration-300 cursor-pointer shadow-md hover:shadow-lg">
                   GRATUIT !
                 </span>
               </>
