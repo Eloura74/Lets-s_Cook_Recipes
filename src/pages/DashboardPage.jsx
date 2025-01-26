@@ -29,15 +29,6 @@ const DashboardPage = () => {
   // Calculer les statistiques basées sur les recettes du contexte
   const stats = {
     totalRecettes: recipes.length,
-    recettesPopulaires: recipes.filter(r => r.difficulty <= 3 || r.difficulte <= 3).length,
-    tempsPreparationMoyen: recipes.length
-      ? Math.round(
-          recipes.reduce(
-            (acc, r) => acc + parseInt(r.prepTime || r.tempsPreparation || 0),
-            0
-          ) / recipes.length
-        )
-      : 0,
   }
 
   // Fonction pour ajouter un ingrédient
@@ -128,40 +119,16 @@ const DashboardPage = () => {
         <BackButton />
       </header>
 
-      {/* Section Statistiques */}
-      <section className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      {/* Statistiques */}
+      <section className="grid grid-cols-1 gap-6 mb-8">
         <div className="bg-[#2C3639]/95 p-6 rounded-lg shadow-lg flex items-center gap-4">
-          <div className="p-3 bg-[#A27B5C] rounded-full">
+          <div className="p-3 bg-[#A27B5C]/20 rounded-full">
             <FaListUl className="w-6 h-6 text-[#DCD7C9]" />
           </div>
           <div>
             <p className="text-[#DCD7C9]/70 text-sm">Total des recettes</p>
             <p className="text-2xl font-bold text-[#DCD7C9]">
               {stats.totalRecettes}
-            </p>
-          </div>
-        </div>
-        <div className="bg-[#2C3639]/95 p-6 rounded-lg shadow-lg flex items-center gap-4">
-          <div className="p-3 bg-[#A27B5C] rounded-full">
-            <FaChartPie className="w-6 h-6 text-[#DCD7C9]" />
-          </div>
-          <div>
-            <p className="text-[#DCD7C9]/70 text-sm">Recettes populaires</p>
-            <p className="text-2xl font-bold text-[#DCD7C9]">
-              {stats.recettesPopulaires}
-            </p>
-          </div>
-        </div>
-        <div className="bg-[#2C3639]/95 p-6 rounded-lg shadow-lg flex items-center gap-4">
-          <div className="p-3 bg-[#A27B5C] rounded-full">
-            <FaClock className="w-6 h-6 text-[#DCD7C9]" />
-          </div>
-          <div>
-            <p className="text-[#DCD7C9]/70 text-sm">
-              Temps moyen de préparation
-            </p>
-            <p className="text-2xl font-bold text-[#DCD7C9]">
-              {stats.tempsPreparationMoyen} min
             </p>
           </div>
         </div>
