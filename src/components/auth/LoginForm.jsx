@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../../contexts/AuthContext'
 
@@ -6,10 +6,16 @@ const LoginForm = () => {
   const { login } = useAuth()
   const navigate = useNavigate()
 
+  // Fonction de connexion
   const handleLogin = () => {
-    login()
-    navigate('/')
+    login() // Effectue l'action de connexion
+    navigate('/') // Redirige l'utilisateur vers la page d'accueil
   }
+
+  // Connexion automatique lorsque le composant est monté
+  useEffect(() => {
+    handleLogin()
+  }, []) // [] signifie que cela s'exécutera uniquement lors du premier rendu
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50">
@@ -17,16 +23,8 @@ const LoginForm = () => {
         <h2 className="text-3xl font-memoirs text-gray-800">Connexion</h2>
 
         <p className="text-gray-600 font-memoirs">
-          Cliquez sur le bouton ci-dessous pour vous connecter
+          Vous êtes en cours de connexion...
         </p>
-
-        <button
-          onClick={handleLogin}
-          className="w-full py-3 px-4 bg-gray-800 text-white rounded-md hover:bg-gray-700 
-                   transition-colors font-memoirs text-lg"
-        >
-          Se connecter
-        </button>
       </div>
     </div>
   )

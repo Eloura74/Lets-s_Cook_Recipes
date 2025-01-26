@@ -17,6 +17,7 @@ const Header = () => {
 
   return (
     <header className="bg-white w-full">
+      {/* Styles de base pour les animations de la bannière */}
       <style>
         {`
           @keyframes pulse-scale {
@@ -36,16 +37,23 @@ const Header = () => {
       </style>
 
       {/* Bannière promotionnelle */}
-      <section className="bg-gradient-to-r from-[#2C3639] via-[#2C3639] to-[#2C3639] shadow-lg" aria-label="Bannière promotionnelle">
-        <div className="container mx-auto">
+      <section
+        className="bg-gradient-to-r from-[#2C3639] via-[#2C3639] to-[#2C3639] shadow-lg"
+        aria-label="Bannière promotionnelle"
+      >
+        {/* Container pour le texte de la bannière */}
+        <article className="container mx-auto">
           <p className="py-2 px-4 md:px-6 font-memoirs text-sm sm:text-base md:text-lg flex flex-wrap items-center justify-center gap-2 text-[#DCD7C9]">
             {user ? (
               <>
                 <span>Bienvenue</span>
                 <strong className="text-lg sm:text-xl md:text-2xl font-bold text-[#A27B5C] [text-shadow:_1px_1px_2px_rgba(0,0,0,0.8)]">
+                  {/* Nom de l'utilisateur connecté */}
                   {user.name}
                 </strong>
-                <span className="hidden sm:inline mx-2" aria-hidden="true">•</span>
+                <span className="hidden sm:inline mx-2" aria-hidden="true">
+                  •
+                </span>
                 <span className="relative group cursor-pointer text-center">
                   <span className="whitespace-normal sm:whitespace-nowrap">
                     Commander notre livre de recettes
@@ -57,9 +65,12 @@ const Header = () => {
                 </span>
               </>
             ) : (
+              // Texte pour les utilisateurs non connectés
               <>
                 <span>Bienvenue sur Let's Cook</span>
-                <span className="hidden sm:inline mx-2" aria-hidden="true">•</span>
+                <span className="hidden sm:inline mx-2" aria-hidden="true">
+                  •
+                </span>
                 <span className="relative group cursor-pointer text-center">
                   <span className="whitespace-normal sm:whitespace-nowrap">
                     Commander notre livre de recettes
@@ -72,12 +83,15 @@ const Header = () => {
               </>
             )}
           </p>
-        </div>
+        </article>
       </section>
-
+      {/* ______________________________________________________________________________________________________________ */}
       {/* Navigation principale */}
-      <nav className="custom-background relative" aria-label="Navigation principale">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-4">
+      <nav
+        className="custom-background relative"
+        aria-label="Navigation principale"
+      >
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-4 ">
           {/* Logo et navigation */}
           <div className="flex items-center justify-between">
             {/* Logo */}
@@ -89,7 +103,7 @@ const Header = () => {
               />
             </Link>
 
-            {/* Bouton menu mobile */}
+            {/* Bouton menu mobile burger */}
             <button
               onClick={toggleMenu}
               className="md:hidden p-2 rounded-lg text-[#DCD7C9] hover:bg-[#3F4E4F]/50 transition-colors"
@@ -101,15 +115,16 @@ const Header = () => {
 
             {/* Navigation desktop */}
             <div className="hidden md:flex items-center space-x-4 lg:space-x-8">
+              {/* Boutton accueil */}
               <HomeButton className="nav-btn" />
-              <RecipesButton className="nav-btn" />
               <div className="flex items-center space-x-4">
                 {user && <DashboardButton className="btn-site" />}
-                {user ? (
+                {user ? ( // Si l'utilisateur est connecté affiche le bouton deconnexion
                   <button onClick={logout} className="btn-site">
                     Déconnexion
                   </button>
                 ) : (
+                  // Sinon affiche le bouton d'inscription et de connexion
                   <div className="flex space-x-2">
                     <Link to="/login" className="btn-site">
                       Connexion
@@ -122,7 +137,7 @@ const Header = () => {
               </div>
             </div>
           </div>
-
+          {/* ______________________________________________________________________________________________________________ */}
           {/* Menu mobile */}
           <div
             className={`md:hidden transition-all duration-300 ${
@@ -131,10 +146,15 @@ const Header = () => {
           >
             <div className="pt-4 pb-3 space-y-3">
               <HomeButton className="block w-full text-left nav-btn" />
-              <RecipesButton className="block w-full text-left nav-btn" />
-              {user && <DashboardButton className="block w-full text-left btn-site" />}
+              {/* <RecipesButton className="block w-full text-left nav-btn" /> */}
+              {user && (
+                <DashboardButton className="block w-full text-left btn-site" />
+              )}
               {user ? (
-                <button onClick={logout} className="block w-full text-left btn-site">
+                <button
+                  onClick={logout}
+                  className="block w-full text-left btn-site"
+                >
                   Déconnexion
                 </button>
               ) : (
@@ -142,7 +162,10 @@ const Header = () => {
                   <Link to="/login" className="block w-full text-left btn-site">
                     Connexion
                   </Link>
-                  <Link to="/signup" className="block w-full text-left btn-site">
+                  <Link
+                    to="/signup"
+                    className="block w-full text-left btn-site"
+                  >
                     Inscription
                   </Link>
                 </div>
@@ -150,10 +173,11 @@ const Header = () => {
             </div>
           </div>
         </div>
-
+        {/* ______________________________________________________________________________________________________________ */}
         {/* Section Hero avec titre et barre de recherche */}
-        <section 
+        <section
           className="relative min-h-[40vh] flex flex-col items-center justify-center text-center"
+          // Style de l'image de fond
           style={{
             backgroundImage: 'url("/images/header2.png")',
             backgroundSize: 'cover',
@@ -164,10 +188,14 @@ const Header = () => {
           <div className="absolute inset-0 bg-black/50" aria-hidden="true" />
 
           {/* Contenu */}
-          <div className="relative z-10 w-full max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+          <article className="relative z-10 w-full max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+            {/* Titre */}
+
             <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-memoirs text-[#DCD7C9] mb-4 [text-shadow:_2px_2px_4px_rgba(0,0,0,0.9),_0_0_30px_rgba(220,215,201,0.4)]">
               Bienvenue sur Let's Cook
             </h1>
+
+            {/* Sous titre */}
             <p className="text-xl sm:text-2xl md:text-3xl text-[#DCD7C9]/90 mb-8 [text-shadow:_1px_1px_2px_rgba(0,0,0,0.8)]">
               Découvrez nos meilleures recettes de cuisine
             </p>
@@ -176,16 +204,16 @@ const Header = () => {
             <div className="w-full max-w-2xl mx-auto">
               <SearchBar />
             </div>
-          </div>
+          </article>
 
           {/* Effet de dégradé en bas */}
-          <div 
+          <div
             className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-[#2C3639] to-transparent"
             aria-hidden="true"
           />
         </section>
       </nav>
-
+      {/* ______________________________________________________________________________________________________________________ */}
       {/* Section des recettes populaires */}
       <PopularRecipes recipes={recipesData} />
     </header>

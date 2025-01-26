@@ -24,36 +24,36 @@ const Filtres = ({ onFilterChange }) => {
       normal: {
         texte: 'Du plus récent',
         trierRecettes: recettes =>
-          [...recettes].sort((a, b) => new Date(b.date) - new Date(a.date)),
+          [...recettes].sort((a, b) => new Date(b.date) - new Date(a.date)), // Tri par date : du plus récent au plus ancien
       },
       inverse: {
         texte: 'Du plus ancien',
         trierRecettes: recettes =>
-          [...recettes].sort((a, b) => new Date(a.date) - new Date(b.date)),
+          [...recettes].sort((a, b) => new Date(a.date) - new Date(b.date)), // Tri par date : du plus ancien au plus récent
       },
     },
     popularite: {
       normal: {
         texte: 'Les plus populaires',
         trierRecettes: recettes =>
-          [...recettes].sort((a, b) => b.likes - a.likes),
+          [...recettes].sort((a, b) => b.likes - a.likes), // Tri par popularité : du plus populaire au moins populaire
       },
       inverse: {
         texte: 'Les moins populaires',
         trierRecettes: recettes =>
-          [...recettes].sort((a, b) => a.likes - b.likes),
+          [...recettes].sort((a, b) => a.likes - b.likes), // Tri par popularité : du moins populaire au plus populaire
       },
     },
     difficulte: {
       normal: {
         texte: 'Les plus difficiles',
         trierRecettes: recettes =>
-          [...recettes].sort((a, b) => b.difficulty - a.difficulty),
+          [...recettes].sort((a, b) => b.difficulty - a.difficulty), // Tri par difficulté : du plus difficile au plus facile
       },
       inverse: {
         texte: 'Les plus faciles',
         trierRecettes: recettes =>
-          [...recettes].sort((a, b) => a.difficulty - b.difficulty),
+          [...recettes].sort((a, b) => a.difficulty - b.difficulty), // Tri par difficulté : du plus facile au plus difficile
       },
     },
   }
@@ -64,12 +64,14 @@ const Filtres = ({ onFilterChange }) => {
    * @returns {string} Classes CSS
    */
   const obtenirClassesBouton = nomFiltre => {
-    const estActif = etatsDesFiltres[nomFiltre].actif
+    const estActif = etatsDesFiltres[nomFiltre].actif // État actif du filtre
     return `btn-site relative flex items-center gap-2 px-4 py-2 rounded-full text-[#DCD7C9] transition-all duration-300 
     ${
+      // Si le filtre est actif, ajoute les classes appropriées
       estActif
         ? 'bg-[#2C3639] shadow-lg border border-[#A27B5C]/50'
-        : 'bg-[#2C3639]/50 hover:bg-[#2C3639]/80 border border-[#DCD7C9]/10'
+        : // Sinon, ajoute les classes pour un bouton non actif
+          'bg-[#2C3639]/50 hover:bg-[#2C3639]/80 border border-[#DCD7C9]/10'
     }`
   }
 
@@ -78,13 +80,21 @@ const Filtres = ({ onFilterChange }) => {
    * @param {string} nomFiltre - Nom du filtre
    * @returns {string} Texte du bouton
    */
+
+  // Fonction pour obtenir le texte du bouton
   const obtenirTexteBouton = nomFiltre => {
+    // Obtenir l'état du filtre
     const etatFiltre = etatsDesFiltres[nomFiltre]
+    // Si le filtre est actif
     return etatFiltre.actif
-      ? etatFiltre.inverse
-        ? configurationFiltres[nomFiltre].inverse.texte
-        : configurationFiltres[nomFiltre].normal.texte
-      : `Trier par ${nomFiltre}`
+      ? // Si le filtre est inverse
+        etatFiltre.inverse
+        ? // Si le filtre est normal
+          configurationFiltres[nomFiltre].inverse.texte
+        : // Sinon, affiche le texte normal
+          configurationFiltres[nomFiltre].normal.texte
+      : // Sinon, affiche le texte par defaut
+        `Trier par ${nomFiltre}`
   }
 
   /**
@@ -116,7 +126,7 @@ const Filtres = ({ onFilterChange }) => {
     // Applique le filtre aux recettes
     const etatFiltre = etatsDesFiltres[nomFiltre]
     const mode = etatFiltre.inverse ? 'inverse' : 'normal'
-    onFilterChange(configurationFiltres[nomFiltre][mode].trierRecettes)
+    onFilterChange(configurationFiltres[nomFiltre][mode].trierRecettes) // Fonction pour trier les recettes selon un filtre défini
   }
 
   /**
@@ -134,6 +144,7 @@ const Filtres = ({ onFilterChange }) => {
 
   // Vérifie si au moins un filtre est actif
   const auMoinsUnFiltreActif = Object.values(etatsDesFiltres).some(
+    // object.values() renvoie un tableau contenant les valeurs des propries d'un objet
     filtre => filtre.actif
   )
 

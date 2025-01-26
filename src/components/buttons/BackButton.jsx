@@ -6,7 +6,7 @@ const BackButton = () => {
 
   return (
     <button
-      onClick={() => navigate(-1)}
+      onClick={() => navigate('/')} // Redirige vers la page acueil
       className="btn-secondary flex items-center space-x-2"
     >
       <span>←</span>

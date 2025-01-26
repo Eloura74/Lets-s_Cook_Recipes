@@ -1,35 +1,38 @@
-import React, { useState, useRef } from 'react';
-import { Link } from 'react-router-dom';
-import { FaHeart, FaEye, FaClock } from 'react-icons/fa';
+import React, { useState, useRef } from 'react'
+import { Link } from 'react-router-dom'
+import { FaHeart, FaEye, FaClock } from 'react-icons/fa'
 
+// Component RecipeCard
 const RecipeCard = ({ recipe }) => {
-  const cardRef = useRef(null);
-  const [rotation, setRotation] = useState({ x: 0, y: 0 });
+  const cardRef = useRef(null) // Utilisation de useRef pour récupérer la reference du composant
+  const [rotation, setRotation] = useState({ x: 0, y: 0 }) // Utilisation de useState pour gestion de l'orientation
 
-  const handleMouseMove = (e) => {
-    if (!cardRef.current) return;
+  const handleMouseMove = e => {
+    // Fonction pour gestion de la souris
+    if (!cardRef.current) return // Si la reference du composant n'existe pas, on sort de la fonction
 
-    const rect = cardRef.current.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
+    const rect = cardRef.current.getBoundingClientRect() // Recupération des dimensions du composant
+    const x = e.clientX - rect.left
+    const y = e.clientY - rect.top
 
-    const centerX = rect.width / 2;
-    const centerY = rect.height / 2;
+    const centerX = rect.width / 2
+    const centerY = rect.height / 2
 
-    const rotateX = (y - centerY) / 20;
-    const rotateY = (centerX - x) / 20;
+    const rotateX = (y - centerY) / 20
+    const rotateY = (centerX - x) / 20
 
-    setRotation({ x: rotateX, y: rotateY });
-  };
+    setRotation({ x: rotateX, y: rotateY }) // Application de l'orientation
+  }
 
   const handleMouseLeave = () => {
-    setRotation({ x: 0, y: 0 });
-  };
+    // Fonction pour gestion de la souris
+    setRotation({ x: 0, y: 0 })
+  }
 
   return (
     <article
-      ref={cardRef}
-      onMouseMove={handleMouseMove}
+      ref={cardRef} // Utilisation de useRef pour récupérer la reference du composant
+      onMouseMove={handleMouseMove} // Gestion de la souris
       onMouseLeave={handleMouseLeave}
       className="relative flex flex-col bg-linear-to-br from-[#2C3639]/90 to-[#3F4E4F] rounded-2xl border border-white/10 shadow-xl group transition-all duration-300"
       style={{
@@ -58,11 +61,11 @@ const RecipeCard = ({ recipe }) => {
           {/* Likes */}
           <div
             className="flex items-center gap-1.5 bg-[#2C3639]/80 px-2 sm:px-3 py-1 sm:py-1.5 rounded-full border border-white/20"
-            aria-label={`${recipe.likes} likes`}
+            aria-label={`${recipe.likes} likes`} // Aria label pour les likes
           >
             <FaHeart
               className="text-red-400 drop-shadow-sm text-xs sm:text-sm"
-              aria-hidden="true"
+              aria-hidden="true" // Aria hidden pour les lecteurs d'écran
             />
             <span className="text-[#DCD7C9] text-xs sm:text-sm font-medium">
               {recipe.likes}
@@ -74,6 +77,7 @@ const RecipeCard = ({ recipe }) => {
             className="flex items-center gap-1.5 bg-[#2C3639]/80 px-2 sm:px-3 py-1 sm:py-1.5 rounded-full border border-white/20"
             aria-label={`${recipe.views} vues`}
           >
+            {/* Icône de vues */}
             <FaEye
               className="text-blue-400 drop-shadow-sm text-xs sm:text-sm"
               aria-hidden="true"
@@ -115,7 +119,7 @@ const RecipeCard = ({ recipe }) => {
         </footer>
       </div>
     </article>
-  );
-};
+  )
+}
 
-export default RecipeCard;
+export default RecipeCard

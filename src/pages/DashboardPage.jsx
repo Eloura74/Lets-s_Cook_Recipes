@@ -8,7 +8,7 @@ const DashboardPage = () => {
         <h1 className="text-3xl font-bold">Tableau de bord</h1>
         <BackButton />
       </div>
-      
+
       {/* Statistiques générales */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div className="bg-white p-6 rounded-lg shadow-sm">
@@ -28,7 +28,9 @@ const DashboardPage = () => {
       {/* Graphiques et analyses */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="bg-white p-6 rounded-lg shadow-sm">
-          <h3 className="text-lg font-semibold mb-4">Popularité par catégorie</h3>
+          <h3 className="text-lg font-semibold mb-4">
+            Popularité par catégorie
+          </h3>
           <div className="h-64 bg-gray-100 rounded-sm flex items-center justify-center">
             Graphique à venir
           </div>
@@ -43,7 +45,9 @@ const DashboardPage = () => {
 
       {/* Liste des dernières recettes */}
       <div className="bg-white p-6 rounded-lg shadow-sm">
-        <h3 className="text-lg font-semibold mb-4">Dernières recettes ajoutées</h3>
+        <h3 className="text-lg font-semibold mb-4">
+          Dernières recettes ajoutées
+        </h3>
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>

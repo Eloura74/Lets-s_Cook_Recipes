@@ -9,14 +9,14 @@ const RecipeList = () => {
 
   // Fonction pour appliquer un filtre
   const appliquerFiltre = fonctionFiltre => {
-    const recettesFiltrees = fonctionFiltre(recipesData)
-    setRecettesAffichees(recettesFiltrees)
+    const recettesFiltrees = fonctionFiltre(recipesData) // Appelle la fonction de filtre
+    setRecettesAffichees(recettesFiltrees) // Met à jour l'état des recettes affichées
   }
 
   return (
     <article className="space-y-6 md:space-y-8">
       {/* Section des filtres */}
-      <section 
+      <section
         aria-label="Filtres de recettes"
         className="sticky top-0 z-30 bg-[#2C3639]/95 backdrop-blur-sm p-4 rounded-xl shadow-lg"
       >
@@ -30,12 +30,16 @@ const RecipeList = () => {
             Aucune recette ne correspond à vos critères.
           </p>
         ) : (
-          <div 
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 auto-rows-fr" 
+          <div
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 auto-rows-fr"
             role="list"
           >
             {recettesAffichees.map(recette => (
-              <div key={recette.id} role="listitem" className="transform transition-transform hover:-translate-y-1">
+              <div
+                key={recette.id}
+                role="listitem"
+                className="transform transition-transform hover:-translate-y-1"
+              >
                 <RecipeCard recipe={recette} />
               </div>
             ))}

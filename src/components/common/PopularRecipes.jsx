@@ -4,14 +4,17 @@ import { Link } from 'react-router-dom'
 import { FaHeart, FaEye, FaStopwatch } from 'react-icons/fa'
 import DifficultyStars from '../ui/DifficultyStars'
 
+// logique pour afficher les recettes populaires
 const PopularRecipes = ({ recipes }) => {
   // Vérifier si recipes existe et contient des données
   if (!recipes || recipes.length === 0) {
     return null // Ne rien afficher si pas de recettes
   }
 
+  // Tri des recettes par nombre de likes
   const topRecipes = [...recipes]
     .sort((a, b) => Number(b.likes) - Number(a.likes))
+    // Afficher les trois recettes les plus populaires
     .slice(0, 3)
 
   console.log(
@@ -20,8 +23,8 @@ const PopularRecipes = ({ recipes }) => {
   )
 
   return (
-    <div className="background-principale  py-12">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="background-principale  py-12">
+      <article className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-10">
           <h2 className="text-3xl font-memoirs text-[#DCD7C9] pt-4 mb-4">
             Nos Recettes Populaires
@@ -31,6 +34,7 @@ const PopularRecipes = ({ recipes }) => {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 ">
           {topRecipes.map((recipe, index) => (
+            // Animation pour chaque recette populaire
             <motion.div
               key={recipe.id}
               initial={{ opacity: 0, y: 20 }}
@@ -38,6 +42,7 @@ const PopularRecipes = ({ recipes }) => {
               transition={{ delay: index * 0.2 }}
               className="group"
             >
+              {/* Contenu de la recette avec son id */}
               <Link to={`/recette/${recipe.id}`} className="block">
                 <div className="relative rounded-xl overflow-hidden transform group-hover:scale-108 transition-transform duration-300 ring-0">
                   {/* Badge de classement */}
@@ -70,19 +75,22 @@ const PopularRecipes = ({ recipes }) => {
 
                     {/* Infos */}
                     <div className="flex items-center gap-4 text-[#DCD7C9] mb-3">
+                      {/* Temps de préparation */}
                       <div className="flex items-center gap-1">
                         <FaStopwatch className="text-[#A27B5C]" />
                         <span className="text-sm">{recipe.prepTime} min</span>
                       </div>
+
+                      {/* Likes */}
                       <div className="flex items-center gap-1">
                         <FaHeart className="text-[#A27B5C]" />
                         <span className="text-sm">{recipe.likes}</span>
                       </div>
+
+                      {/* Vues */}
                       <div className="flex items-center gap-1">
                         <FaEye className="text-[#A27B5C]" />
-                        <span className="text-sm">
-                          {recipe.views || recipe.vues}
-                        </span>
+                        <span className="text-sm">{recipe.views}</span>
                       </div>
                     </div>
 
@@ -100,14 +108,14 @@ const PopularRecipes = ({ recipes }) => {
                   </div>
 
                   {/* Overlay au survol */}
-                  <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-70 transition-opacity duration-300" />
                 </div>
               </Link>
             </motion.div>
           ))}
         </div>
-      </div>
-    </div>
+      </article>
+    </section>
   )
 }
 
