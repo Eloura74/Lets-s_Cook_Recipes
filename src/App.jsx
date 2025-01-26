@@ -7,6 +7,7 @@ import { AuthProvider } from './contexts/AuthContext'
 import { RecipesProvider } from './contexts/RecipesContext'
 import HomePage from './pages/HomePage'
 import RecipeDetail from './pages/RecipeDetail'
+import DashboardPage from './pages/DashboardPage'
 
 function App() {
   return (
@@ -20,7 +21,7 @@ function App() {
                 <Route path="/" element={<HomePage />} />
                 <Route path="/login" element={<LoginForm />} />
                 <Route path="/signup" element={<RegisterForm />} />
-                {/* <Route path="/dashboard" element={<DashboardPage />} /> */}
+                <Route path="/dashboard" element={<DashboardPage />} />
                 <Route path="/recette/:id" element={<RecipeDetail />} />
               </Routes>
             </main>

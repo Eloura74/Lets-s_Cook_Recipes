@@ -23,10 +23,10 @@ const PopularRecipes = ({ recipes }) => {
   )
 
   return (
-    <section className="background-principale  py-12">
+    <section className="background-principale  py-6">
       <article className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-10">
-          <h2 className="text-3xl font-memoirs text-[#DCD7C9] pt-4 mb-4">
+          <h2 className="text-3xl font-memoirs text-[#DCD7C9] pt-2 mb-4">
             Nos Recettes Populaires
           </h2>
           <div className="w-24 h-1 bg-[#A27B5C] mx-auto rounded-full"></div>

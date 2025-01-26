@@ -5,7 +5,7 @@ import { FaChartBar } from 'react-icons/fa'
 const DashboardButton = ({ className = '' }) => {
   return (
     <Link
-      to="/DashboardPage"
+      to="/dashboard"
       className={`btn-site ${className} flex items-center gap-2`}
     >
       <FaChartBar className="w-5 h-5" />

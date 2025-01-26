@@ -149,9 +149,9 @@ const Filtres = ({ onFilterChange }) => {
   )
 
   return (
-    <section className="container mx-auto px-6 py-4">
+    <section className="container mx-auto px-6 py-4 ">
       <div className="flex flex-wrap items-center gap-6">
-        <h2 className="text-4xl text-[#DCD7C9] font-memoirs [text-shadow:_0_3px_0_rgba(1_1_1_/_80%)]">
+        <h2 className="text-4xl text-[#DCD7C9] font-memoirs underline [text-shadow:_0_3px_0_rgba(1_1_1_/_80%)]">
           Filtres :
         </h2>
         <div className="flex flex-wrap items-center gap-3">

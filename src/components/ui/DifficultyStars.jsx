@@ -27,33 +27,24 @@ const DifficultyStars = ({ difficulty }) => {
     },
   }
 
-  // Couleurs pour le dégradé des étoiles selon la difficulté
-  const starColors = {
-    1: 'text-[#7A9E9F]', // Bleu-vert clair
-    2: 'text-[#6B8E8F]', // Bleu-vert moyen
-    3: 'text-[#5C7E7F]', // Bleu-vert foncé
-    4: 'text-[#4D6E6F]', // Bleu-vert très foncé
-    5: 'text-[#3E5E5F]', // Bleu-vert le plus foncé
-  }
-
   return (
-    <div className="flex items-center gap-1">
+    <div className="flex gap-1">
       {[...Array(5)].map((_, index) => (
         <motion.div
           key={index}
-          custom={index}
+          variants={starVariants}
           initial="initial"
           animate="animate"
           whileHover="hover"
-          variants={starVariants}
+          custom={index}
         >
           <FaStar
-            className={`text-xl ${
-              // Couleur de l'icoône en fonction de la difficulté
-              index < difficulty
-                ? 'text-gray-300' // Couleur pour les étoiles inactives
-                : starColors[difficulty] // Couleur pour les étoiles actives
-            } drop-shadow-[0_0_2px_rgba(0,0,0,0.3)]`}
+            className={`text-lg transition-all duration-300 ease-in-out 
+              ${
+                index < difficulty
+                  ? 'text-yellow-700 brightness-110 drop-shadow-[0_0_4px_rgba(255,215,0,0.7)] scale-110'
+                  : 'text-gray-300 scale-100'
+              }`}
           />
         </motion.div>
       ))}
