@@ -62,10 +62,10 @@ const SearchBar = () => {
           value={searchTerm}
           onChange={handleSearchChange}
           placeholder="Rechercher une recette..."
-          className="w-full px-6 py-3
+          className="w-full px-4 sm:px-6 py-2 sm:py-3
                    bg-black/20 backdrop-blur-sm
                    rounded-full
-                   text-[#DCD7C9]
+                   text-[#DCD7C9] text-sm sm:text-base
                    placeholder-[#DCD7C9]/70
                    focus:outline-none focus:ring-2 focus:ring-[#DCD7C9]/50"
         />
@@ -80,7 +80,7 @@ const SearchBar = () => {
             className="absolute z-50 w-full mt-2 bg-[#2C3639]/95 backdrop-blur-sm rounded-2xl
                      shadow-xl border border-[#DCD7C9]/10 overflow-hidden"
           >
-            <ul className="divide-y divide-[#DCD7C9]/10">
+            <ul className="divide-y divide-[#DCD7C9]/10 max-h-[60vh] overflow-y-auto">
               {filteredRecipes.map(recipe => (
                 <li key={recipe.id}>
                   <Link
@@ -91,9 +91,9 @@ const SearchBar = () => {
                       setSearchTerm('')
                     }}
                   >
-                    <article className="p-4 flex items-center gap-4">
+                    <article className="p-3 sm:p-4 flex items-center gap-3 sm:gap-4">
                       {recipe.imageUrl && (
-                        <figure className="w-16 h-16 flex-shrink-0">
+                        <figure className="w-12 h-12 sm:w-16 sm:h-16 flex-shrink-0">
                           <img
                             src={recipe.imageUrl}
                             alt={recipe.title}
@@ -104,11 +104,11 @@ const SearchBar = () => {
                           />
                         </figure>
                       )}
-                      <div>
-                        <h3 className="text-[#DCD7C9] font-medium">
+                      <div className="min-w-0 flex-1">
+                        <h3 className="text-sm sm:text-base text-[#DCD7C9] font-medium truncate">
                           {recipe.title}
                         </h3>
-                        <p className="text-[#DCD7C9]/70 text-sm truncate">
+                        <p className="text-xs sm:text-sm text-[#DCD7C9]/70 truncate">
                           {recipe.description}
                         </p>
                       </div>
