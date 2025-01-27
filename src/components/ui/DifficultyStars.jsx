@@ -3,7 +3,6 @@ import { motion } from 'framer-motion'
 import { FaStar } from 'react-icons/fa'
 
 const DifficultyStars = ({ difficulty, onChange, interactive = false }) => {
-  // Animation pour chaque étoile
   const starVariants = {
     initial: { scale: 0, rotate: -180 },
     animate: i => ({
@@ -29,32 +28,36 @@ const DifficultyStars = ({ difficulty, onChange, interactive = false }) => {
 
   const renderStar = niveau => {
     const StarComponent = interactive ? 'button' : motion.div
-    const props = {
-      key: niveau,
-      ...(interactive
-        ? {
-            type: 'button',
-            onClick: () => onChange?.(niveau),
-            className: `p-0.5 w-6h-6 ${
-              difficulty >= niveau ? 'text-[#A27B5C]' : 'text-[#DCD7C9]/30'
-            }`,
-          }
-        : {
-            variants: starVariants,
-            custom: niveau,
-            initial: 'initial',
-            animate: 'animate',
-            whileHover: 'hover',
-            className: `text-xs ${
-              difficulty >= niveau ? 'text-[#A27B5C]' : 'text-[#DCD7C9]/30'
-            }`,
-          }),
+    
+    if (interactive) {
+      return (
+        <button
+          key={niveau}
+          type="button"
+          onClick={() => onChange?.(niveau)}
+          className={`p-0.5 w-6h-6 ${
+            difficulty >= niveau ? 'text-[#A27B5C]' : 'text-[#DCD7C9]/30'
+          }`}
+        >
+          <FaStar className="w-2 h-2" />
+        </button>
+      )
     }
 
     return (
-      <StarComponent {...props}>
+      <motion.div
+        key={niveau}
+        variants={starVariants}
+        custom={niveau}
+        initial="initial"
+        animate="animate"
+        whileHover="hover"
+        className={`text-xs ${
+          difficulty >= niveau ? 'text-[#A27B5C]' : 'text-[#DCD7C9]/30'
+        }`}
+      >
         <FaStar className="w-2 h-2" />
-      </StarComponent>
+      </motion.div>
     )
   }
 

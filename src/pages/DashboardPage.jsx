@@ -163,7 +163,7 @@ const DashboardPage = () => {
             {/* Difficulté */}
             <div>
               <label className="block text-[#DCD7C9] mb-2">Difficulté</label>
-              <div className="w-full flex flew-wrap -ml-4">
+              <div className="w-full flex flew-wrap sm:ml-4 ">
                 <DifficultyStars
                   difficulty={nouvelleRecette.difficulte}
                   onChange={niveau =>
