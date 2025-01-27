@@ -1,22 +1,33 @@
+//====================================
+// Imports des dépendances
+//====================================
 import React, { useState, useEffect, useRef } from 'react'
 import { useRecipes } from '../../contexts/RecipesContext'
 import { Link } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
-
-// logique pour afficher la barre de recherche
+import { FaEye } from 'react-icons/fa' // Import de l'icône FaEye
+import DifficultyStars from '../ui/DifficultyStars'
+//====================================
+// Composant SearchBar
+//====================================
 const SearchBar = () => {
+  //====================================
+  // États et Contexte
+  //====================================
   const [searchTerm, setSearchTerm] = useState('') // Stocke la valeur saisie par l'utilisateur dans la barre de recherche
   const [isOpen, setIsOpen] = useState(false) // Indique si la liste des résultats est visible
   const { recipes } = useRecipes() // Liste des recettes récupérée
   const searchRef = useRef(null) // détecter les clics en dehors de la barre de recherche
 
-  // Fonction de recherche qui érifie si le texte de la recette (str) contient le texte recherché (search)
+  //====================================
+  // Fonctions utilitaires
+  //====================================
+  // Fonction de recherche qui vérifie si le texte de la recette (str) contient le texte recherché (search)
   const searchInString = (str, search) => {
-    // Normalisation des caractere
+    // Normalisation des caractères
     if (!str) return false
 
     const normalizedStr = str
-
       .toLowerCase() // minuscule
       .normalize('NFD') // ignore les accents
       .replace(/[\u0300-\u036f]/g, '') // supprimer les accents
@@ -27,7 +38,9 @@ const SearchBar = () => {
     return normalizedStr.includes(normalizedSearch)
   }
 
-  // Fonction pour filtrer les recettes affichées en fonction de la barre de recherche
+  //====================================
+  // Filtrage des recettes
+  //====================================
   const filteredRecipes = recipes
     .filter(recipe => {
       // Si la barre de recherche est vide ou contient uniquement des espaces, aucune recette n'est affichée
@@ -39,8 +52,10 @@ const SearchBar = () => {
     })
     .slice(0, 5) // Limite le nombre de recettes affichées à 5 pour éviter une liste trop longue
 
+  //====================================
+  // Gestion des événements
+  //====================================
   // Gestion du clic en dehors de la barre de recherche
-  // Permet d'ajouter un comportement à déclencher après le rendu du composant comme clics en dehors de la barre de recherche
   useEffect(() => {
     const handleClickOutside = event => {
       // Vérifie si le clic a été fait dans l'element de recherche
@@ -54,21 +69,24 @@ const SearchBar = () => {
     return () => document.removeEventListener('mousedown', handleClickOutside)
   }, [])
 
-  // MAJ de la recehrche
+  // Mise à jour de la recherche
   const handleSearchChange = e => {
-    // Fonction appelée a chaques frappement de clavier
-
+    // Fonction appelée à chaque frappe de clavier
     const value = e.target.value
     setSearchTerm(value) // MAJ de la valeur de recherche
-    setIsOpen(value.trim().length > 0) // MAJ de l'etat de l'ouverture de la barre de recherche
+    setIsOpen(value.trim().length > 0) // MAJ de l'état de l'ouverture de la barre de recherche
   }
 
+  //====================================
+  // Rendu du composant
+  //====================================
   return (
     <section className="relative w-full max-w-2xl mx-auto" ref={searchRef}>
+      {/* Formulaire de recherche */}
       <form className="relative" onSubmit={e => e.preventDefault()}>
         <label htmlFor="search-recipe" className="sr-only">
           {' '}
-          {/* Indique que l'input est invisible */}
+          {/* Label accessible mais invisible */}
           Rechercher une recette
         </label>
         <input
@@ -88,10 +106,8 @@ const SearchBar = () => {
         />
       </form>
 
-      {/* Affichage des résultats de recherche */}
-      {/* AnimatePresence permet d'animer l'entrée et la sortie des éléments */}
+      {/* Liste des résultats avec animation */}
       <AnimatePresence>
-        {/* Vérifie si l'ouverture de la barre de recherche est déclarée */}
         {isOpen && filteredRecipes.length > 0 && (
           <motion.nav
             initial={{ opacity: 0, y: -10 }}
@@ -100,43 +116,39 @@ const SearchBar = () => {
             className="absolute z-50 w-full mt-2 bg-[#2C3639]/95 backdrop-blur-sm rounded-2xl
                      shadow-xl border border-[#DCD7C9]/10 overflow-hidden"
           >
-            <ul className="divide-y divide-[#DCD7C9]/10 max-h-[60vh] overflow-y-auto">
-              {/* map pour afficher chaque recette  */}
+            <ul className="py-2">
               {filteredRecipes.map(recipe => (
                 <li key={recipe.id}>
                   <Link
                     to={`/recette/${recipe.id}`}
-                    className="block hover:bg-[#DCD7C9]/10 transition-colors"
-                    // Permet de fermer la barre de recherche lorsque l'utilisateur clique sur une recette
+                    className="flex items-center px-4 py-2 hover:bg-[#A27B5C]/20"
                     onClick={() => {
                       setIsOpen(false)
                       setSearchTerm('')
                     }}
                   >
-                    <article className="p-3 sm:p-4 flex items-center gap-3 sm:gap-4">
-                      {/* Affichage de l'image de la recette */}
-                      {/* recipe.imageUrl signifie : si l'image de la recette existe */}
-                      {recipe.imageUrl && (
-                        <div className="w-12 h-12 sm:w-16 sm:h-16 flex-shrink-0">
-                          <img
-                            src={recipe.imageUrl}
-                            alt={recipe.title}
-                            className="img-cover rounded-lg"
-                            onError={e => {
-                              e.target.src = '/placeholder-recipe.jpg'
-                            }}
-                          />
-                        </div>
-                      )}
-                      <div className="min-w-0 flex-1">
-                        <h3 className="text-sm sm:text-base text-[#DCD7C9] font-medium truncate">
-                          {recipe.title}
-                        </h3>
-                        <p className="text-xs sm:text-sm text-[#DCD7C9]/70 truncate">
-                          {recipe.description}
-                        </p>
-                      </div>
-                    </article>
+                    <img
+                      src={recipe.imageUrl}
+                      alt={recipe.title}
+                      className="w-10 h-10 rounded-lg object-cover"
+                    />
+                    <span className="ml-3 text-[#DCD7C9] flex items-center  flex-wrap gap-2">
+                      <span className="font-medium">{recipe.title}</span>
+                      <p>|</p>
+                      <span className="flex items-center gap-1 text-sm">
+                        <span className="text-red-400">❤️ {recipe.likes}</span>
+                        <p>|</p>
+                        <span className="flex items-center gap-1">
+                          <FaEye className="text-blue-400 w-4 h-4" />
+                          {recipe.views}
+                          <p>|</p>
+                          <span className="flex items-center gap-1">
+                            <DifficultyStars difficulty={recipe.difficulty} />
+                            {recipe.difficulty}
+                          </span>
+                        </span>
+                      </span>
+                    </span>
                   </Link>
                 </li>
               ))}

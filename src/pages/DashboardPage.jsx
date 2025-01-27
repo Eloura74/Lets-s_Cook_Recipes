@@ -1,21 +1,17 @@
+//====================================
+// Imports des dépendances
+//====================================
 import React, { useState } from 'react'
 import BackButton from '../components/buttons/BackButton'
-import {
-  FaPlus,
-  FaStar,
-  FaChartPie,
-  FaClock,
-  FaListUl,
-  FaTrash,
-  FaPen,
-} from 'react-icons/fa'
+import { FaPlus, FaListUl, FaTrash, FaPen } from 'react-icons/fa'
 import DifficultyStars from '../components/ui/DifficultyStars'
 import { useRecipes } from '../contexts/RecipesContext'
 
+//====================================
+// Composant principal DashboardPage
+//====================================
 const DashboardPage = () => {
-  const { recipes, addRecipe } = useRecipes()
-
-  // État initial pour une nouvelle recette
+  // État local pour la nouvelle recette
   const [nouvelleRecette, setNouvelleRecette] = useState({
     titre: '',
     description: '',
@@ -26,35 +22,47 @@ const DashboardPage = () => {
     imageUrl: '/images/newRecipes.webp',
   })
 
-  // Calculer les statistiques basées sur les recettes du contexte
+  // Récupération des recettes depuis le contexte
+  const { recipes, addRecipe } = useRecipes()
+
+  //====================================
+  // Statistiques
+  //====================================
   const stats = {
-    totalRecettes: recipes.length,
+    totalRecettes: recipes.length, // Nombre total de recettes
   }
 
+  //====================================
+  // Gestionnaires d'événements
+  //====================================
   // Fonction pour ajouter un ingrédient
   const ajouterIngredient = () => {
     setNouvelleRecette(prev => ({
-      ...prev,
-      ingredients: [...prev.ingredients, ''],
+      ...prev, // Copier toutes les propriétés de la recette
+      ingredients: [...prev.ingredients, ''], // Ajouter un nouvel ingrédient
     }))
   }
 
   // Fonction pour ajouter une instruction
   const ajouterInstruction = () => {
     setNouvelleRecette(prev => ({
-      ...prev,
-      instructions: [...prev.instructions, ''],
+      ...prev, // Copier toutes les propriétés de la recette
+      instructions: [...prev.instructions, ''], // Ajouter une nouvelle instruction
     }))
   }
 
-  // Gérer la soumission du formulaire
+  //====================================
+  // Gestion de la soumission du formulaire
+  //====================================
   const handleSubmit = e => {
-    e.preventDefault()
+    e.preventDefault() // Empecher la soumission par defaut
 
+    // Vérifier si le titre et la description sont remplis
     if (
       !nouvelleRecette.titre?.trim() ||
       !nouvelleRecette.description?.trim()
     ) {
+      // Si pas rempli afficher une alerte
       alert('Veuillez remplir au moins le titre et la description')
       return
     }
@@ -62,34 +70,38 @@ const DashboardPage = () => {
     // Générer un ID unique
     const newId = Date.now().toString()
 
-    // Créer la recette complète
+    //====================================
+    // Création de la nouvelle recette
+    //====================================
     const nouvelleRecetteComplete = {
-      ...nouvelleRecette,
-      id: newId,
-      dateCreation: new Date().toISOString(),
-      ingredients: nouvelleRecette.ingredients.filter(i => i?.trim() !== ''),
-      instructions: nouvelleRecette.instructions.filter(i => i?.trim() !== ''),
+      ...nouvelleRecette, // Copie des propriétés de la nouvelle recette
+      id: newId, // ID unique
+      dateCreation: new Date().toISOString(), // Date de création
+      ingredients: nouvelleRecette.ingredients.filter(i => i?.trim() !== ''), // Ingrediants non vides
+      instructions: nouvelleRecette.instructions.filter(i => i?.trim() !== ''), // Instructions non vides
     }
 
-    // Formater la recette pour le contexte
+    //====================================
+    // Formatage de la recette pour le contexte
+    //====================================
     const recetteFormatee = {
       id: newId,
-      title: nouvelleRecette.titre,
-      description: nouvelleRecette.description,
-      difficulty: nouvelleRecette.difficulte,
-      prepTime: parseInt(nouvelleRecette.tempsPreparation),
-      imageUrl: nouvelleRecette.imageUrl,
-      ingredients: nouvelleRecette.ingredients.filter(i => i?.trim() !== ''),
-      instructions: nouvelleRecette.instructions.filter(i => i?.trim() !== ''),
-      likes: 0,
-      views: 0,
-      category: 'Plat principal',
-      author: 'Utilisateur',
-      createdAt: new Date().toISOString(),
+      title: nouvelleRecette.titre, // Titre de la recette
+      description: nouvelleRecette.description, // Description de la recette
+      difficulty: nouvelleRecette.difficulte, // Difficulte de la recette
+      prepTime: parseInt(nouvelleRecette.tempsPreparation), // Temps de préparation
+      imageUrl: nouvelleRecette.imageUrl, // URL de l'image
+      ingredients: nouvelleRecette.ingredients.filter(i => i?.trim() !== ''), // Ingrediants non vides
+      instructions: nouvelleRecette.instructions.filter(i => i?.trim() !== ''), // Instructions non vides
+      likes: 0, // Nombre de likes
+      views: 0, // Nombre de vues
+      category: 'Plat principal', // Categorie
+      author: 'Utilisateur', // Auteur
+      createdAt: new Date().toISOString(), // Date de création
     }
     addRecipe(recetteFormatee)
 
-    // Réinitialiser le formulaire
+    // Réinitialiser le formulaire apres creation
     setNouvelleRecette({
       titre: '',
       description: '',
@@ -101,14 +113,20 @@ const DashboardPage = () => {
     })
   }
 
-  // Supprimer une recette
+  //====================================
+  // Gestion de la suppression
+  //====================================
   const supprimerRecette = id => {
+    // Fonction pour supprimer une recette
     if (window.confirm('Êtes-vous sûr de vouloir supprimer cette recette ?')) {
-      const updatedRecipes = recipes.filter(r => r.id !== id)
-      localStorage.setItem('recettes', JSON.stringify(updatedRecipes))
+      const updatedRecipes = recipes.filter(r => r.id !== id) // Filtrer les recettes sans la recette à supprimer
+      localStorage.setItem('recettes', JSON.stringify(updatedRecipes)) // Mise à jour des recettes dans le localStorage
     }
   }
 
+  //====================================
+  // Rendu du composant
+  //====================================
   return (
     <div className="space-y-8">
       {/* En-tête */}
@@ -166,13 +184,15 @@ const DashboardPage = () => {
               <div className="w-full flex flew-wrap sm:ml-4 ">
                 <DifficultyStars
                   difficulty={nouvelleRecette.difficulte}
-                  onChange={niveau =>
+                  onChange={(
+                    niveau // Fonction pour changer la difficulté
+                  ) =>
                     setNouvelleRecette(prev => ({
-                      ...prev,
-                      difficulte: niveau,
+                      ...prev, // Copier toutes les propriétés de la recette
+                      difficulte: niveau, // Mettre à jour la difficulté
                     }))
                   }
-                  interactive={true}
+                  interactive={true} // Permettre aux utilisateurs de cliquer pour changer la difficulté
                 />
               </div>
             </div>
@@ -189,7 +209,7 @@ const DashboardPage = () => {
                 onChange={e =>
                   setNouvelleRecette(prev => ({
                     ...prev,
-                    tempsPreparation: e.target.value,
+                    tempsPreparation: e.target.value, // Mettre à jour le temps de préparation
                   }))
                 }
               />
@@ -208,7 +228,7 @@ const DashboardPage = () => {
                 onChange={e =>
                   setNouvelleRecette(prev => ({
                     ...prev,
-                    imageUrl: e.target.value,
+                    imageUrl: e.target.value, // Mettre à jour l'URL de l'image
                   }))
                 }
               />
@@ -240,11 +260,11 @@ const DashboardPage = () => {
               <label className="block text-[#DCD7C9] mb-2">Description</label>
               <textarea
                 className="w-full bg-[#3F4E4F] text-[#DCD7C9] rounded-lg p-2 border border-[#DCD7C9]/10 focus:border-[#A27B5C] focus:ring-1 focus:ring-[#A27B5C] outline-none min-h-[100px]"
-                value={nouvelleRecette.description}
+                value={nouvelleRecette.description} // Afficher la description
                 onChange={e =>
                   setNouvelleRecette(prev => ({
                     ...prev,
-                    description: e.target.value,
+                    description: e.target.value, // Mettre à jour la description
                   }))
                 }
               />
@@ -261,11 +281,11 @@ const DashboardPage = () => {
                     className="w-full bg-[#3F4E4F] text-[#DCD7C9] rounded-lg p-2 border border-[#DCD7C9]/10 focus:border-[#A27B5C] focus:ring-1 focus:ring-[#A27B5C] outline-none"
                     value={ingredient}
                     onChange={e => {
-                      const newIngredients = [...nouvelleRecette.ingredients]
-                      newIngredients[index] = e.target.value
+                      const newIngredients = [...nouvelleRecette.ingredients] // Copier les ingrédients existants
+                      newIngredients[index] = e.target.value // Mettre à jour l'ingrédient
                       setNouvelleRecette(prev => ({
                         ...prev,
-                        ingredients: newIngredients,
+                        ingredients: newIngredients, // Mettre à jour les ingrédients
                       }))
                     }}
                   />
@@ -299,7 +319,7 @@ const DashboardPage = () => {
                         newInstructions[index] = e.target.value
                         setNouvelleRecette(prev => ({
                           ...prev,
-                          instructions: newInstructions,
+                          instructions: newInstructions, // Mettre à jour les instructions
                         }))
                       }}
                     />
