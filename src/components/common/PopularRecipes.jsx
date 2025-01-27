@@ -26,9 +26,25 @@ const PopularRecipes = ({ recipes }) => {
     <section className="background-principale  py-6">
       <article className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-10">
-          <h2 className="text-3xl font-memoirs text-[#DCD7C9] pt-2 mb-4">
+          <h2
+            className="
+    relative 
+    text-3xl
+    font-memoirs
+    brightness-180
+    pt-2
+    mb-4
+    text-transparent
+    bg-clip-text
+    bg-center bg-no-repeat
+    bg-[radial-gradient(circle,rgba(255,255,255,0.8)_20%,rgba(255,255,255,0)_80%)]
+    inline-block
+    shimmer-center
+  "
+          >
             Nos Recettes Populaires
           </h2>
+
           <div className="w-24 h-1 bg-[#A27B5C] mx-auto rounded-full"></div>
         </div>
 
@@ -57,7 +73,7 @@ const PopularRecipes = ({ recipes }) => {
                     <img
                       src={recipe.imageUrl}
                       alt={recipe.title}
-                      className="w-full h-full object-cover"
+                      className="img-cover"
                       onError={e => {
                         e.target.onerror = null
                         e.target.src = '/images/detailRecipe.webp'
@@ -76,19 +92,19 @@ const PopularRecipes = ({ recipes }) => {
                     {/* Infos */}
                     <div className="flex items-center gap-4 text-[#DCD7C9] mb-3">
                       {/* Temps de préparation */}
-                      <div className="flex items-center gap-1">
+                      <div className="icon-container">
                         <FaStopwatch className="text-[#A27B5C]" />
                         <span className="text-sm">{recipe.prepTime} min</span>
                       </div>
 
                       {/* Likes */}
-                      <div className="flex items-center gap-1">
+                      <div className="icon-container">
                         <FaHeart className="text-[#A27B5C]" />
                         <span className="text-sm">{recipe.likes}</span>
                       </div>
 
                       {/* Vues */}
-                      <div className="flex items-center gap-1">
+                      <div className="icon-container">
                         <FaEye className="text-[#A27B5C]" />
                         <span className="text-sm">{recipe.views}</span>
                       </div>

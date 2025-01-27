@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import SearchBar from '../ui/SearchBar'
 import HomeButton from '../buttons/HomeButton'
-import RecipesButton from '../buttons/RecipesButton'
+
 import DashboardButton from '../buttons/Dashboard'
 import { useAuth } from '../../contexts/AuthContext'
 import { FaBars, FaTimes } from 'react-icons/fa'
@@ -16,7 +16,7 @@ const Header = () => {
   const toggleMenu = () => setMenuOuvert(!menuOuvert)
 
   return (
-    <header className="bg-white w-full">
+    <header className="bg-white w-full ">
       {/* Styles de base pour les animations de la bannière */}
       <style>
         {`
@@ -50,13 +50,15 @@ const Header = () => {
                 <strong className="text-lg sm:text-xl md:text-2xl font-bold text-[#A27B5C] [text-shadow:_1px_1px_2px_rgba(0,0,0,0.8)]">
                   {/* Nom de l'utilisateur connecté */}
                   {user.name}
+                  {' ! '}
                 </strong>
                 <span className="hidden sm:inline mx-2" aria-hidden="true">
                   •
                 </span>
                 <span className="relative group cursor-pointer text-center">
                   <span className="whitespace-normal sm:whitespace-nowrap">
-                    Commander notre livre de recettes
+                    Abonnez vous à notre newsletter et recevez notre livre de
+                    recettes
                     <span className="absolute -bottom-0.5 left-0 w-full h-0.5 bg-[#A27B5C] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
                   </span>
                 </span>
@@ -73,7 +75,8 @@ const Header = () => {
                 </span>
                 <span className="relative group cursor-pointer text-center">
                   <span className="whitespace-normal sm:whitespace-nowrap">
-                    Commander notre livre de recettes
+                    Abonnez vous à notre newsletter et recevez notre livre de
+                    recettes
                     <span className="absolute -bottom-0.5 left-0 w-full h-0.5 bg-[#A27B5C] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
                   </span>
                 </span>
@@ -87,19 +90,20 @@ const Header = () => {
       </section>
       {/* ______________________________________________________________________________________________________________ */}
       {/* Navigation principale */}
-      <nav
-        className="custom-background relative"
-        aria-label="Navigation principale"
-      >
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-4 ">
+      <nav className="background-principale" aria-label="Navigation principale">
+        <div
+          className="container mx-auto px-4 sm:px-6 lg:px-8 py-4 
+          
+         "
+        >
           {/* Logo et navigation */}
-          <div className="flex items-center justify-between">
+          <div className="flex-between   ">
             {/* Logo */}
             <Link to="/" className="flex-shrink-0 logo-link">
               <img
                 src="/images/2-1logo.png"
                 alt="Logo Let's Cook"
-                className="h-12 sm:h-16 md:h-20 w-auto object-contain mix-blend-screen "
+                className="h-12 sm:h-16 md:h-20 w-auto object-contain mix-blend-screen brightness-200 "
               />
             </Link>
 
@@ -179,7 +183,15 @@ const Header = () => {
           className="relative min-h-[40vh] flex flex-col items-center justify-center text-center"
           // Style de l'image de fond
           style={{
-            backgroundImage: 'url("/images/header2.png")',
+            backgroundImage: `
+          linear-gradient(
+          to left,
+          rgba(255,255,255,0.5) 0%,
+          rgba(255,255,255,0.00) 40%, 
+          rgba(0,0,0,0.99) 100%
+          ),
+      url("/images/header2.png")
+    `,
             backgroundSize: 'cover',
             backgroundPosition: 'center',
           }}
@@ -196,7 +208,7 @@ const Header = () => {
             </h1>
 
             {/* Sous titre */}
-            <p className="text-xl sm:text-2xl md:text-3xl text-[#DCD7C9]/90 mb-8 [text-shadow:_1px_1px_2px_rgba(0,0,0,0.8)]">
+            <p className="text-xl sm:text-2xl md:text-3xl text-content mb-8 [text-shadow:_1px_1px_2px_rgba(0,0,0,0.8)]">
               Découvrez nos meilleures recettes de cuisine
             </p>
 

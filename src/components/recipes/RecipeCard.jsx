@@ -51,7 +51,7 @@ const RecipeCard = ({ recipe }) => {
           <img
             src={recipe.imageUrl}
             alt={`Présentation de ${recipe.title}`}
-            className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110 rounded-2xl"
+            className="img-cover transition-transform duration-300 group-hover:scale-110 rounded-2xl"
           />
           <div className="absolute inset-0 z-20 p-2">
             <DifficultyStars difficulty={recipe.difficulty} />
@@ -59,54 +59,53 @@ const RecipeCard = ({ recipe }) => {
         </figure>
 
         {/* Contenu */}
-        <div className="flex flex-col flex-grow p-4">
+        <section className="flex flex-col flex-grow p-5">
           {/* Statistiques */}
-          <aside className="absolute top-2 right-2 z-20 flex flex-col gap-1.5 sm:gap-2">
+          <article className="absolute top-2 right-2 z-20 flex flex-col gap-1.5 sm:gap-2">
             {/* Likes */}
             <div
-              className="flex items-center gap-1.5 bg-[#2C3639]/80 px-2 sm:px-3 py-1 sm:py-1.5 rounded-full border border-white/20"
-              aria-label={`${recipe.likes} likes`} // Aria label pour les likes
+              className="flex-center bg-[#2C3639]/80 px-3 py-1.5 rounded-full border border-white/20"
+              aria-label={`${recipe.likes} likes`}
             >
               <FaHeart
-                className="text-red-400 drop-shadow-sm text-xs sm:text-sm"
-                aria-hidden="true" // Aria hidden pour les lecteurs d'écran
+                className="text-red-400 drop-shadow-sm text-sm"
+                aria-hidden="true"
               />
-              <span className="text-[#DCD7C9] text-xs sm:text-sm font-medium">
+              <span className="text-[#DCD7C9] text-sm font-medium ml-1">
                 {recipe.likes}
               </span>
             </div>
 
             {/* Vues */}
             <div
-              className="flex items-center gap-1.5 bg-[#2C3639]/80 px-2 sm:px-3 py-1 sm:py-1.5 rounded-full border border-white/20"
+              className="flex-center bg-[#2C3639]/80 px-3 py-1.5 rounded-full border border-white/20"
               aria-label={`${recipe.views} vues`}
             >
-              {/* Icône de vues */}
               <FaEye
-                className="text-blue-400 drop-shadow-sm text-xs sm:text-sm"
+                className="text-blue-400 drop-shadow-sm text-sm"
                 aria-hidden="true"
               />
-              <span className="text-[#DCD7C9] text-xs sm:text-sm font-medium">
+              <span className="text-[#DCD7C9] text-sm font-medium ml-1">
                 {recipe.views}
               </span>
             </div>
-          </aside>
+          </article>
 
           {/* Titre */}
           <h3 className="text-lg sm:text-xl font-bold text-[#A27B5C] brightness-140 mb-2 line-clamp-2 group-hover:text-white transition-colors duration-200">
             {recipe.title}
           </h3>
-
+          {/* ___________________________________________________________________________ */}
           {/* Description */}
-          <p className="text-xs sm:text-sm text-[#DCD7C9]/80 mb-4 border-t border-[#A27B5C] pt-2 line-clamp-2 group-hover:text-[#DCD7C9]/90 transition-colors duration-200 flex-grow">
+          <p className="text-xs sm:text-sm text-[#DCD7C9]/80 mb-4 border-t border-[#A27B5C] pt-2 line-clamp-2 group-hover:text-content transition-colors duration-200 flex-grow">
             {recipe.description}
           </p>
 
           {/* Pied de carte */}
-          <footer className="flex items-center justify-between mt-auto pt-2 border-t border-[#A27B5C]">
+          <footer className="flex-between mt-auto pt-2 border-t border-[#A27B5C]">
             {/* Temps de préparation */}
             <div
-              className="flex items-center gap-1 sm:gap-2 text-[#DCD7C9]/70"
+              className="icon-container sm:gap-2 text-[#DCD7C9]/70"
               aria-label={`Temps de préparation : ${recipe.prepTime} minutes`}
             >
               <FaClock
@@ -124,7 +123,7 @@ const RecipeCard = ({ recipe }) => {
               Voir la recette
             </button>
           </footer>
-        </div>
+        </section>
       </article>
     </Link>
   )

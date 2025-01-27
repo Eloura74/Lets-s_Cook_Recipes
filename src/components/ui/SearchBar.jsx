@@ -121,7 +121,7 @@ const SearchBar = () => {
                           <img
                             src={recipe.imageUrl}
                             alt={recipe.title}
-                            className="w-full h-full object-cover rounded-lg"
+                            className="img-cover rounded-lg"
                             onError={e => {
                               e.target.src = '/placeholder-recipe.jpg'
                             }}

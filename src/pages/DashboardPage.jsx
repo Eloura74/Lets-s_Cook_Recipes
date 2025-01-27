@@ -235,7 +235,7 @@ const DashboardPage = () => {
                 <img
                   src={nouvelleRecette.imageUrl}
                   alt="Aperçu"
-                  className="w-full h-full object-cover"
+                  className="img-cover"
                   onError={e => {
                     e.target.onerror = null
                     e.target.src = '/images/newRecipes.webp'
@@ -295,7 +295,7 @@ const DashboardPage = () => {
               <div className="space-y-2">
                 {nouvelleRecette.instructions.map((instruction, index) => (
                   <div key={index} className="flex gap-2 items-start">
-                    <span className="flex-shrink-0 w-6 h-6 flex items-center justify-center bg-[#A27B5C] rounded-full text-[#DCD7C9] text-sm">
+                    <span className="flex-shrink-0 w-6 h-6 flex-center bg-[#A27B5C] rounded-full text-[#DCD7C9] text-sm">
                       {index + 1}
                     </span>
                     <textarea

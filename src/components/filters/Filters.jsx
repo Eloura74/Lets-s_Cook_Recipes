@@ -173,7 +173,7 @@ const Filtres = ({ onFilterChange }) => {
                   <motion.span
                     initial={{ scale: 0 }}
                     animate={{ scale: 1 }}
-                    className="flex items-center justify-center w-5 h-5 rounded-full bg-[#A27B5C] text-white text-xs"
+                    className="flex-center w-5 h-5 rounded-full bg-[#A27B5C] text-white text-xs"
                   >
                     {estInverse ? '↑' : '↓'}
                   </motion.span>

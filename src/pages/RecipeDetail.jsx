@@ -1,14 +1,14 @@
 import React, { useEffect, useRef } from 'react'
-import { useParams, useNavigate, Link } from 'react-router-dom'
+import { useParams, Link } from 'react-router-dom'
 import { useRecipes } from '../contexts/RecipesContext'
 import DifficultyStars from '../components/ui/DifficultyStars'
 import { FaHeart, FaEye, FaClock } from 'react-icons/fa'
+import Footer from '../components/common/Footer'
 
 const RecipeDetail = () => {
   const { id } = useParams()
-  const navigate = useNavigate()
-  const { recipes, incrementViews } = useRecipes()
-  const recipe = recipes.find(r => r.id === id)
+  const { recipes, incrementViews, loading } = useRecipes()
+  const recipe = recipes.find(search => search.id === id)
   const viewIncremented = useRef(false)
 
   useEffect(() => {
@@ -18,65 +18,90 @@ const RecipeDetail = () => {
     }
   }, [recipe, incrementViews])
 
+  // Affichage pendant le chargement
+  if (loading) {
+    return (
+      <div className="container-base">
+        <div className="max-w-4xl mx-auto card-container p-8 text-center">
+          <h2 className="title-secondary mb-4">Chargement de la recette...</h2>
+          <div className="w-16 h-16 border-4 border-[#A27B5C] border-t-transparent rounded-full animate-spin mx-auto"></div>
+        </div>
+      </div>
+    )
+  }
+
+  // Gestion du cas où la recette n'est pas trouvée
   if (!recipe) {
     return (
-      <div className="text-center text-[#DCD7C9] p-8">
-        <h1 className="text-2xl font-bold mb-4">Recette non trouvée</h1>
-        <Link
-          to="/"
-          className="bg-[#A27B5C] text-white px-4 py-2 rounded-lg hover:bg-[#A27B5C]/80 transition-colors"
-        >
-          Retour à l'accueil
-        </Link>
+      <div className="container-base">
+        <div className="max-w-4xl mx-auto card-container p-8 text-center">
+          <h1 className="title-primary mb-6">Recette non trouvée</h1>
+          <p className="text-content mb-6">
+            Désolé, la recette que vous recherchez n'existe pas ou n'est plus
+            disponible.
+          </p>
+          <Link to="/" className="btn-primary inline-block">
+            Retour à l'accueil
+          </Link>
+        </div>
+        <Footer />
       </div>
     )
   }
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <div className="max-w-4xl mx-auto bg-[#2C3639] rounded-xl shadow-xl overflow-hidden">
+    <main className="container p-6 ">
+      <section className="max-w-4xl mx-auto card-container shadow-[#4A403A] shadow-4xl">
         {/* En-tête avec image */}
-        <div className="relative h-96">
-          <img
-            src={recipe.imageUrl}
-            alt={recipe.title}
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
-          <div className="absolute bottom-0 left-0 p-6 text-white">
-            <h1 className="text-4xl font-bold mb-2">{recipe.title}</h1>
-            <div className="flex items-center gap-4 text-sm">
-              <span className="flex items-center gap-1">
-                <FaHeart className="text-red-500" />
-                {recipe.likes}
-              </span>
-              <span className="flex items-center gap-1">
-                <FaEye className="text-blue-400" />
-                {recipe.views}
-              </span>
-              <span className="flex items-center gap-1">
-                <FaClock className="text-green-400" />
-                {recipe.prepTime} min
-              </span>
+        <header className="relative h-96">
+          <img src={recipe.imageUrl} alt={recipe.title} className="img-cover" />
+          <div className="gradient-overlay" />
+          <section className="absolute bottom-0 left-0 p-6">
+            <h1 className="title-primary text-[#DCD7C9] shadow-text shadow-[#4A403A]/90 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
+              {recipe.title}
+            </h1>
+            <article className="flex-start bg-[#2C3639]/60 backdrop-blur-sm rounded-lg p-2">
+              <div className="icon-container text-[#DCD7C9]">
+                <FaHeart className="text-red-500 drop-shadow-md" />
+                <span className="drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]">
+                  {recipe.likes}
+                </span>
+              </div>
+              <div className="icon-container text-[#DCD7C9]">
+                <FaEye className="text-blue-400 drop-shadow-md" />
+                <span className="drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]">
+                  {recipe.views}
+                </span>
+              </div>
+              <div className="icon-container text-[#DCD7C9]">
+                <FaClock className="text-green-400 drop-shadow-md" />
+                <span className="drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]">
+                  {recipe.prepTime} min
+                </span>
+              </div>
               <DifficultyStars difficulty={recipe.difficulty} />
-            </div>
-          </div>
-        </div>
-
+            </article>
+          </section>
+        </header>
+        {/* ______________________________________________________________________ */}
         {/* Contenu */}
-        <div className="p-6 space-y-6 text-[#DCD7C9]">
+        <article className="section-card">
           {/* Description */}
           <div>
-            <h2 className="text-2xl font-semibold mb-2">Description</h2>
-            <p className="text-[#DCD7C9]/90">{recipe.description}</p>
+            <h2 className="flex justify-center title-secondary border-t border-[#A27B5C] pt-4 shadow-[0_-6px_10px_-8px_rgba(0,0,0,0.7)] sm:text-center text-linear-gradient bg-clip-text">
+              Description
+            </h2>
+            <p className="text-content indent-8">{recipe.description}</p>
           </div>
 
           {/* Ingrédients */}
           <div>
-            <h2 className="text-2xl font-semibold mb-3">Ingrédients</h2>
-            <ul className="list-disc list-inside space-y-2">
+            <h2 className="flex justify-center title-secondary border-t border-[#A27B5C] pt-4 shadow-[0_-6px_10px_-8px_rgba(0,0,0,0.7)] sm:text-center text-linear-gradient bg-clip-text">
+              Ingrédients
+            </h2>
+            <ul className="list-discs indent-8">
               {recipe.ingredients.map((ingredient, index) => (
-                <li key={index} className="text-[#DCD7C9]/90">
+                <li key={index} className="text-content">
                   {ingredient}
                 </li>
               ))}
@@ -85,28 +110,28 @@ const RecipeDetail = () => {
 
           {/* Instructions */}
           <div>
-            <h2 className="text-2xl font-semibold mb-3">Instructions</h2>
-            <ol className="list-decimal list-inside space-y-3">
+            <h2 className="flex justify-center title-secondary border-t border-[#A27B5C] pt-4 shadow-[0_-6px_10px_-8px_rgba(0,0,0,0.7)] sm:text-center text-linear-gradient bg-clip-text">
+              Instructions
+            </h2>
+            <ol className="list-numbered indent-8">
               {recipe.instructions.map((instruction, index) => (
-                <li key={index} className="text-[#DCD7C9]/90">
+                <li key={index} className="text-content">
                   {instruction}
                 </li>
               ))}
             </ol>
           </div>
-        </div>
+        </article>
 
         {/* Bouton retour */}
-        <div className="p-6 border-t border-[#A27B5C]/20">
-          <Link
-            to="/"
-            className="bg-[#A27B5C] text-white px-4 py-2 rounded-lg hover:bg-[#A27B5C]/80 transition-colors"
-          >
+        <div className="section-divider flex-center">
+          <Link to="/" className="btn-primary">
             Retour à l'accueil
           </Link>
         </div>
-      </div>
-    </div>
+      </section>
+      <Footer />
+    </main>
   )
 }
 
