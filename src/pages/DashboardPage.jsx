@@ -163,28 +163,17 @@ const DashboardPage = () => {
             {/* Difficulté */}
             <div>
               <label className="block text-[#DCD7C9] mb-2">Difficulté</label>
-              <div className="w-full">
-                <div className="flex items-center gap-0.5">
-                  {[1, 2, 3, 4, 5].map(niveau => (
-                    <button
-                      key={niveau}
-                      type="button"
-                      className={`w-4 sm:w-6 ${
-                        nouvelleRecette.difficulte >= niveau
-                          ? 'text-[#A27B5C]'
-                          : 'text-[#DCD7C9]/30'
-                      }`}
-                      onClick={() =>
-                        setNouvelleRecette(prev => ({
-                          ...prev,
-                          difficulte: niveau,
-                        }))
-                      }
-                    >
-                      <FaStar size={12} className="w-full h-auto" />
-                    </button>
-                  ))}
-                </div>
+              <div className="w-full flex flew-wrap -ml-4">
+                <DifficultyStars
+                  difficulty={nouvelleRecette.difficulte}
+                  onChange={niveau =>
+                    setNouvelleRecette(prev => ({
+                      ...prev,
+                      difficulte: niveau,
+                    }))
+                  }
+                  interactive={true}
+                />
               </div>
             </div>
 
