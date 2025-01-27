@@ -93,23 +93,26 @@ const RecipeCard = ({ recipe }) => {
           </aside>
 
           {/* Titre */}
-          <h3 className="text-lg sm:text-xl font-semibold text-[#DCD7C9] mb-2 line-clamp-2 group-hover:text-white transition-colors duration-200">
+          <h3 className="text-lg sm:text-xl font-bold text-[#A27B5C] brightness-140 mb-2 line-clamp-2 group-hover:text-white transition-colors duration-200">
             {recipe.title}
           </h3>
 
           {/* Description */}
-          <p className="text-xs sm:text-sm text-[#DCD7C9]/80 mb-4 border-t border-[#DCD7C9]/10 pt-2 line-clamp-2 group-hover:text-[#DCD7C9]/90 transition-colors duration-200 flex-grow">
+          <p className="text-xs sm:text-sm text-[#DCD7C9]/80 mb-4 border-t border-[#A27B5C] pt-2 line-clamp-2 group-hover:text-[#DCD7C9]/90 transition-colors duration-200 flex-grow">
             {recipe.description}
           </p>
 
           {/* Pied de carte */}
-          <footer className="flex items-center justify-between mt-auto pt-2 border-t border-[#DCD7C9]/10">
+          <footer className="flex items-center justify-between mt-auto pt-2 border-t border-[#A27B5C]">
             {/* Temps de préparation */}
             <div
               className="flex items-center gap-1 sm:gap-2 text-[#DCD7C9]/70"
               aria-label={`Temps de préparation : ${recipe.prepTime} minutes`}
             >
-              <FaClock className="text-xs sm:text-sm" aria-hidden="true" />
+              <FaClock
+                className="text-xs sm:text-sm text-[#A27B5C] brightness-140"
+                aria-hidden="true"
+              />
               <span className="text-xs sm:text-sm">{recipe.prepTime} min</span>
             </div>
 

@@ -24,7 +24,7 @@ const RecipeList = () => {
       {/* Section des filtres */}
       <section
         aria-label="Filtres de recettes"
-        className="sticky top-0 z-30 bg-[#2C3639]/95 backdrop-blur-sm p-4 rounded-xl shadow-lg"
+        className=" top-0 shadow-lg shadow-[#4A403A]/90 bg-[#2C3639]/95 backdrop-blur-sm p-4 rounded-xl"
       >
         <Filters onFilterChange={appliquerFiltre} />
       </section>

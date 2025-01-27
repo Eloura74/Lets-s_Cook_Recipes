@@ -1,6 +1,8 @@
-import React from 'react'
-import PopularRecipes from '../components/common/PopularRecipes'
+import React, { useState, useEffect } from 'react'
+import { FaArrowUp } from 'react-icons/fa'
+// import PopularRecipes from '../components/common/PopularRecipes'
 import RecipeList from '../components/recipes/RecipeList'
+import ScrollButton from '../components/buttons/ScrollButton'
 
 const HomePage = () => {
   return (
@@ -13,6 +15,9 @@ const HomePage = () => {
         aria-label="Liste des recettes"
       >
         <RecipeList />
+
+        {/* Bouton retour haut avec icône FA */}
+        <ScrollButton />
       </section>
     </main>
   )

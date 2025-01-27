@@ -95,11 +95,11 @@ const Header = () => {
           {/* Logo et navigation */}
           <div className="flex items-center justify-between">
             {/* Logo */}
-            <Link to="/" className="flex-shrink-0">
+            <Link to="/" className="flex-shrink-0 logo-link">
               <img
                 src="/images/2-1logo.png"
                 alt="Logo Let's Cook"
-                className="h-12 sm:h-16 md:h-20 w-auto object-contain mix-blend-screen"
+                className="h-12 sm:h-16 md:h-20 w-auto object-contain mix-blend-screen "
               />
             </Link>
 
