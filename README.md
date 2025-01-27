@@ -242,7 +242,7 @@ const animationRecette = {
 - Utilisation de la souris optimisée
 
   <br />
-  <img src="./public/readme_media/Desktop.png" />
+  <img src="./public/readme_media/desktop.png" />
 
 <br />
 
