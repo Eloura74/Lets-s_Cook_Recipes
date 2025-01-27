@@ -48,11 +48,12 @@ const RecipeDetail = () => {
       </div>
     )
   }
+  // ______________________________________________________________________
 
   return (
     <main className="container p-6 ">
       <section className="max-w-4xl mx-auto card-container shadow-[#4A403A] shadow-4xl">
-        {/* En-tête avec image */}
+        {/*_______________________________________________________________________ En-tête avec image */}
         <header className="relative h-96">
           <img src={recipe.imageUrl} alt={recipe.title} className="img-cover" />
           <div className="gradient-overlay" />
@@ -60,13 +61,16 @@ const RecipeDetail = () => {
             <h1 className="title-primary text-[#DCD7C9] shadow-text shadow-[#4A403A]/90 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
               {recipe.title}
             </h1>
-            <article className="flex-start bg-[#2C3639]/60 backdrop-blur-sm rounded-lg p-2">
+
+            <article className="flex-start flex-wrap bg-[#2C3639]/60 backdrop-blur-sm rounded-lg p-2">
+              {/* ______________________________________________________________________ Likes */}
               <div className="icon-container text-[#DCD7C9]">
                 <FaHeart className="text-red-500 drop-shadow-md" />
                 <span className="drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]">
                   {recipe.likes}
                 </span>
               </div>
+              {/* ________________________________________________________________________  Vues    */}
               <div className="icon-container text-[#DCD7C9]">
                 <FaEye className="text-blue-400 drop-shadow-md" />
                 <span className="drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]">

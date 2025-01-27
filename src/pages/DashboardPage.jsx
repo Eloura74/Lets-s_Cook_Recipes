@@ -163,26 +163,28 @@ const DashboardPage = () => {
             {/* Difficulté */}
             <div>
               <label className="block text-[#DCD7C9] mb-2">Difficulté</label>
-              <div className="flex items-center gap-2">
-                {[1, 2, 3, 4, 5].map(niveau => (
-                  <button
-                    key={niveau}
-                    type="button"
-                    className={`p-2 rounded-full transition-all ${
-                      nouvelleRecette.difficulte >= niveau
-                        ? 'text-[#A27B5C] scale-110'
-                        : 'text-[#DCD7C9]/30'
-                    }`}
-                    onClick={() =>
-                      setNouvelleRecette(prev => ({
-                        ...prev,
-                        difficulte: niveau,
-                      }))
-                    }
-                  >
-                    <FaStar />
-                  </button>
-                ))}
+              <div className="w-full">
+                <div className="flex items-center gap-0.5">
+                  {[1, 2, 3, 4, 5].map(niveau => (
+                    <button
+                      key={niveau}
+                      type="button"
+                      className={`w-4 sm:w-6 ${
+                        nouvelleRecette.difficulte >= niveau
+                          ? 'text-[#A27B5C]'
+                          : 'text-[#DCD7C9]/30'
+                      }`}
+                      onClick={() =>
+                        setNouvelleRecette(prev => ({
+                          ...prev,
+                          difficulte: niveau,
+                        }))
+                      }
+                    >
+                      <FaStar size={12} className="w-full h-auto" />
+                    </button>
+                  ))}
+                </div>
               </div>
             </div>
 
@@ -350,39 +352,39 @@ const DashboardPage = () => {
                 recipes.map(recipe => (
                   <div
                     key={recipe.id}
-                    className="bg-[#3F4E4F]/30 rounded-lg p-4 flex gap-4"
+                    className="bg-[#3F4E4F]/30 rounded-lg p-2 flex flex-col sm:flex-row gap-2 sm:gap-4"
                   >
                     <img
                       src={recipe.imageUrl}
                       alt={recipe.title}
-                      className="w-24 h-24 object-cover rounded-lg"
+                      className="w-16 h-16 sm:w-24 sm:h-24 object-cover rounded-lg"
                     />
-                    <div className="flex-grow">
-                      <div className="flex justify-between items-start">
-                        <h3 className="text-[#DCD7C9] font-semibold">
+                    <div className="flex-grow min-w-0">
+                      <div className="flex justify-between items-start gap-2">
+                        <h3 className="text-[#DCD7C9] font-semibold truncate">
                           {recipe.title}
                         </h3>
-                        <div className="flex gap-2">
+                        <div className="flex gap-1 shrink-0">
                           <button
-                            className="p-2 text-[#DCD7C9]/70 hover:text-[#A27B5C] transition-colors"
+                            className="p-1 sm:p-2 text-[#DCD7C9]/70 hover:text-[#A27B5C] transition-colors"
                             onClick={() => alert('Fonctionnalité à venir')}
                           >
-                            <FaPen className="w-4 h-4" />
+                            <FaPen className="w-3 h-3 sm:w-4 sm:h-4" />
                           </button>
                           <button
-                            className="p-2 text-[#DCD7C9]/70 hover:text-red-500 transition-colors"
+                            className="p-1 sm:p-2 text-[#DCD7C9]/70 hover:text-red-500 transition-colors"
                             onClick={() => supprimerRecette(recipe.id)}
                           >
-                            <FaTrash className="w-4 h-4" />
+                            <FaTrash className="w-3 h-3 sm:w-4 sm:h-4" />
                           </button>
                         </div>
                       </div>
-                      <p className="text-[#DCD7C9]/70 text-sm line-clamp-2">
+                      <p className="text-[#DCD7C9]/70 text-xs sm:text-sm line-clamp-2">
                         {recipe.description}
                       </p>
-                      <div className="flex items-center gap-4 mt-2">
+                      <div className="flex items-center gap-2 sm:gap-4 mt-1 sm:mt-2">
                         <DifficultyStars difficulty={recipe.difficulty} />
-                        <span className="text-[#DCD7C9]/70 text-sm">
+                        <span className="text-[#DCD7C9]/70 text-xs sm:text-sm">
                           {recipe.prepTime} min
                         </span>
                       </div>

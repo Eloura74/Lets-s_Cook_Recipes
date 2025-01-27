@@ -28,7 +28,7 @@ const DifficultyStars = ({ difficulty }) => {
   }
 
   return (
-    <div className="flex gap-1">
+    <div className="flex gap-1 ">
       {[...Array(5)].map((_, index) => (
         <motion.div
           key={index}
