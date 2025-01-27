@@ -2,10 +2,7 @@
 
 ## 🎥 Démonstration du Site
 
-<video width="100%" controls>
-  <source src="./public/readme_media/presentation.mp4" type="video/mp4">
-  Votre navigateur ne supporte pas la lecture de vidéos.
-</video>
+![Démonstration Let's Cook](./public/readme_media/presentation.gif)
 
 ---
 
@@ -94,10 +91,7 @@ const rechercheIntelligente = recherche => {
 }
 ```
 
-<video width="100%" controls>
-  <source src="./public/readme_media/Recherche.mp4" type="video/mp4">
-  Votre navigateur ne supporte pas la lecture de vidéos.
-</video>
+![Recherche Let's Cook](./public/readme_media/Recherche.gif)
 
 ### 2. Des Cartes de Recettes Animées
 
@@ -124,10 +118,8 @@ const CarteRecette = ({ recette }) => {
 ```
 
   <br />
-<video width="100%" controls>
-  <source src="./public/readme_media/CardEffect.mp4" type="video/mp4">
-  Votre navigateur ne supporte pas la lecture de vidéos.
-</video>
+
+![Effet Carte Let's Cook](./public/readme_media/CardEffect.gif)
 
 <br />
 
@@ -155,10 +147,9 @@ const MonTableauBord = () => {
 ```
 
   <br />
-<video width="100%" controls>
-  <source src="./public/readme_media/DashboardVideo.mp4" type="video/mp4">
-  Votre navigateur ne supporte pas la lecture de vidéos.
-</video>
+https://user-images.githubusercontent.com/Eloura74/LetsCookV3/main/lets-cook-v5/public/readme_media/DashboardVideo.gif
+
+![Tableau de Bord Let's Cook](./public/readme_media/DashboardVideo.gif)
 
 <br />
 
@@ -238,7 +229,7 @@ const animationRecette = {
 ### Sur Ordinateur (1920x1080)
 
 - Affichage complet
-- Jusqu à 4 recettes par ligne
+- Jusqu'à 4 recettes par ligne
 - Utilisation de la souris optimisée
 
   <br />
