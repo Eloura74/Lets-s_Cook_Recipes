@@ -188,7 +188,7 @@ ________________________________________________________________________________
          shadow-[#4A403A]/90 
          space-y-6"
         >
-          <h2 className="text-3xl text-center font-memoirs text-[#DCD7C9] border-t border-[#A27B5C]/60 border-b border-[#A27B5C] pb-2">
+          <h2 className="text-3xl text-center font-memoirs text-[#DCD7C9] border-t border-[#A27B5C]/60 border-b border-[#A27B5C] pb-2 [text-shadow:_2px_2px_4px_rgba(0,0,0,0.5)]">
             Créer une nouvelle recette
           </h2>
 
@@ -214,6 +214,9 @@ ________________________________________________________________________________
             {/* Difficulté */}
             <div className="border-t border-[#A27B5C] pt-2">
               <label className="title-dashboard-create ">Difficulté</label>
+              <p className="text-[#DCD7C9]/50 text-xs pl-6 mb-2">
+                Selectionnez une difficulté en cliquant sur les étoiles
+              </p>
               <div className="w-full flex justify-center bg-transparent">
                 <DifficultyStars
                   difficulty={nouvelleRecette.difficulte}
@@ -322,7 +325,7 @@ ________________________________________________________________________________
                 <button
                   type="button"
                   onClick={ajouterIngredient}
-                  className="flex items-center gap-2 text-[#DCD7C9]/80 hover:text-[#DCD7C9] transition-colors"
+                  className="btn-site flex items-center gap-2"
                 >
                   <FaPlus /> Ajouter un ingrédient
                 </button>
@@ -331,7 +334,9 @@ ________________________________________________________________________________
 
             {/* Instructions */}
             <div className="border-t border-[#A27B5C] pt-2 pb-6 border-b border-[#A27B5C] pt-2">
-              <label className="title-dashboard-create">Instructions</label>
+              <label className="title-dashboard-create text-center">
+                Instructions
+              </label>
               <div className="space-y-2">
                 {nouvelleRecette.instructions.map((instruction, index) => (
                   <div key={index} className="flex gap-2 items-start">
@@ -339,7 +344,7 @@ ________________________________________________________________________________
                       {index + 1}
                     </span>
                     <textarea
-                      className="flex-grow bg-[#3F4E4F] text-[#DCD7C9] rounded-lg p-2 border border-[#DCD7C9]/10 focus:border-[#A27B5C] focus:ring-1 focus:ring-[#A27B5C] outline-none min-h-[60px]"
+                      className="flex-grow bg-[#3F4E4F] text-[#DCD7C9] rounded-lg p-2 border border-[#DCD7C9]/10 focus:border-[#A27B5C] focus:ring-1 focus:ring-[#A27B5C] outline-none min-h-[60px] inputDashboard"
                       value={instruction}
                       onChange={e => {
                         const newInstructions = [
@@ -357,7 +362,7 @@ ________________________________________________________________________________
                 <button
                   type="button"
                   onClick={ajouterInstruction}
-                  className="flex items-center gap-2 text-[#DCD7C9]/80 hover:text-[#DCD7C9] transition-colors"
+                  className="btn-site flex items-center gap-2"
                 >
                   <FaPlus /> Ajouter une instruction
                 </button>
@@ -367,7 +372,7 @@ ________________________________________________________________________________
             {/* Bouton de soumission */}
             <button
               type="submit"
-              className="text-4xl w-full px-6 py-3 bg-[#15191A] text-[#DCD7C9] rounded-lg hover:bg-[#A27B5C]/90 transition-colors font-semibold"
+              className="btn-site flex items-center gap-2 justify-center w-full"
             >
               Créer la recette
             </button>
@@ -379,7 +384,7 @@ ________________________________________________________________________________
         <div className="space-y-8">
           {/* Liste des recettes */}
           <section className="bg-[#2C3639]/95 backdrop-blur-sm rounded-lg p-6 shadow-lg space-y-6">
-            <h2 className="text-3xl text-center font-memoirs text-[#DCD7C9] border-t border-[#A27B5C]/60 border-b border-[#A27B5C] pb-2">
+            <h2 className="text-3xl text-center font-memoirs text-[#DCD7C9] border-t border-[#A27B5C]/60 border-b border-[#A27B5C] pb-2 [text-shadow:_2px_2px_4px_rgba(0,0,0,0.5)]">
               Mes recettes récentes
             </h2>
             {/* Total des recettes */}
