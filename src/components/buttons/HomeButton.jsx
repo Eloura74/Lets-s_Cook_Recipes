@@ -13,8 +13,8 @@ const HomeButton = () => {
         isActive ? 'btn-site-active' : ''
       }`} // Ajoute la classe active si la page actuelle est l'accueil
     >
-      <FaHome className="w-5 h-5" />
-      <span>Accueil</span>
+      <FaHome className="max-w-5 max-h-5" />
+      <span className="mx-auto pr-4 text-2xl">Accueil</span>
     </Link>
   )
 }

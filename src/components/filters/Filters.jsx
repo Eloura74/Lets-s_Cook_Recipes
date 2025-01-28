@@ -2,13 +2,7 @@ import React, { useState } from 'react'
 import { motion } from 'framer-motion'
 
 /**
- * Composant de filtrage des recettes
- * Permet de trier les recettes selon différents critères :
- * - Date (Plus récent / Plus ancien)
- * - Popularité (Plus populaire / Moins populaire)
- * - Difficulté (Plus difficile / Moins difficile)
- *
- * @param {Function} onFilterChange - Fonction appelée lors du changement de filtre
+
  */
 const Filtres = ({ onFilterChange }) => {
   // État pour suivre l'état de chaque filtre (actif/inactif et normal/inverse)
@@ -58,11 +52,6 @@ const Filtres = ({ onFilterChange }) => {
     },
   }
 
-  /**
-   * Retourne les classes CSS pour un bouton de filtre
-   * @param {string} nomFiltre - Nom du filtre
-   * @returns {string} Classes CSS
-   */
   const obtenirClassesBouton = nomFiltre => {
     const estActif = etatsDesFiltres[nomFiltre].actif // État actif du filtre
     return `btn-site relative flex items-center gap-2 px-4 py-2 rounded-full text-[#DCD7C9] transition-all duration-300 
@@ -74,12 +63,6 @@ const Filtres = ({ onFilterChange }) => {
           'bg-[#2C3639]/50 hover:bg-[#2C3639]/80 border border-[#DCD7C9]/10'
     }`
   }
-
-  /**
-   * Retourne le texte à afficher sur le bouton selon son état
-   * @param {string} nomFiltre - Nom du filtre
-   * @returns {string} Texte du bouton
-   */
 
   // Fonction pour obtenir le texte du bouton
   const obtenirTexteBouton = nomFiltre => {
@@ -125,7 +108,9 @@ const Filtres = ({ onFilterChange }) => {
 
     // Applique le filtre aux recettes
     const etatFiltre = etatsDesFiltres[nomFiltre]
+    // si etatFiltre.inverse est vrai, on utilise inverse, sinon on utilise normal
     const mode = etatFiltre.inverse ? 'inverse' : 'normal'
+    // Appel de la fonction de tri selon le mode actif
     onFilterChange(configurationFiltres[nomFiltre][mode].trierRecettes) // Fonction pour trier les recettes selon un filtre défini
   }
 
@@ -151,10 +136,10 @@ const Filtres = ({ onFilterChange }) => {
   return (
     <section className="container mx-auto px-6 py-4 ">
       <div className="flex flex-wrap items-center gap-6">
-        <h2 className="text-4xl text-[#DCD7C9] font-memoirs underline [text-shadow:_0_3px_0_rgba(1_1_1_/_80%)]">
-          Filtres :
+        <h2 className="flex text-4xl pb2 text-[#DCD7C9] font-memoirs underline [text-shadow:_0_3px_0_rgba(1_1_1_/_80%)]">
+          Choisissez un filtre :
         </h2>
-        <div className="flex flex-wrap items-center gap-3">
+        <div className="flex flex-wrap items-center gap-3 responsive-grid ">
           {Object.keys(configurationFiltres).map(nomFiltre => {
             const estActif = etatsDesFiltres[nomFiltre].actif
             const estInverse = etatsDesFiltres[nomFiltre].inverse

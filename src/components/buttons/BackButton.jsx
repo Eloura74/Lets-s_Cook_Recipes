@@ -1,16 +1,17 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
+import { FaArrowLeft } from 'react-icons/fa'
 
 const BackButton = () => {
   const navigate = useNavigate()
 
   return (
     <button
-      onClick={() => navigate('/')} // Redirige vers la page acueil
-      className="btn-secondary flex items-center space-x-2"
+      onClick={() => navigate(-1)}
+      className="btn-site flex items-center gap-2 font-memoirs"
     >
-      <span>←</span>
-      <span>Retour</span>
+      <FaArrowLeft className="max-w-5 max-h-5" />
+      <span className="mx-auto pr-4 text-2xl">Retour</span>
     </button>
   )
 }

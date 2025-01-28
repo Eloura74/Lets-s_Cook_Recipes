@@ -97,7 +97,7 @@ const Header = () => {
          "
         >
           {/* Logo et navigation */}
-          <div className="flex-between   ">
+          <div className="flex space-x-4   ">
             {/* Logo */}
             <Link to="/" className="flex-shrink-0 logo-link">
               <img
@@ -110,7 +110,7 @@ const Header = () => {
             {/* Bouton menu mobile burger */}
             <button
               onClick={toggleMenu}
-              className="md:hidden p-2 rounded-lg text-[#DCD7C9] hover:bg-[#3F4E4F]/50 transition-colors"
+              className="  md:hidden p-2 rounded-lg text-[#DCD7C9] hover:bg-[#3F4E4F]/50 transition-colors"
               aria-expanded={menuOuvert}
               aria-label="Menu principal"
             >
@@ -118,10 +118,10 @@ const Header = () => {
             </button>
 
             {/* Navigation desktop */}
-            <div className="hidden md:flex items-center space-x-4 lg:space-x-8">
+            <div className="hidden md:flex pl-20 items-center justify-start space-x-4 lg:space-x-8">
               {/* Boutton accueil */}
               <HomeButton className="nav-btn" />
-              <div className="flex items-center space-x-4">
+              <div className="flex items-center space-x-6">
                 {user && <DashboardButton className="btn-site" />}
                 {user ? ( // Si l'utilisateur est connecté affiche le bouton deconnexion
                   <button onClick={logout} className="btn-site">
@@ -144,8 +144,8 @@ const Header = () => {
           {/* ______________________________________________________________________________________________________________ */}
           {/* Menu mobile */}
           <div
-            className={`md:hidden transition-all duration-300 ${
-              menuOuvert ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+            className={`md:hidden transition-all  duration-300 ${
+              menuOuvert ? ' max-h-96 opacity-100' : 'max-h-0 opacity-0'
             } overflow-hidden`}
           >
             <div className="pt-4 pb-3 space-y-3">

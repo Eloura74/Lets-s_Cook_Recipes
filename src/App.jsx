@@ -11,8 +11,11 @@ import DashboardPage from './pages/DashboardPage'
 
 function App() {
   return (
+    // Gestionnaire de routage
     <Router>
+      {/* Gestion des utilisateurs et des connexions */}
       <AuthProvider>
+        {/* Gestion des recettes */}
         <RecipesProvider>
           <div className="min-h-screen flex flex-col background-principale">
             <Header />

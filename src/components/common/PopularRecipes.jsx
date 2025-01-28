@@ -17,11 +17,6 @@ const PopularRecipes = ({ recipes }) => {
     // Afficher les trois recettes les plus populaires
     .slice(0, 3)
 
-  console.log(
-    'Recettes triées :',
-    topRecipes.map(r => ({ title: r.title, likes: r.likes }))
-  )
-
   return (
     <section className="background-principale  py-6">
       <article className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -39,7 +34,7 @@ const PopularRecipes = ({ recipes }) => {
     bg-center bg-no-repeat
     bg-[radial-gradient(circle,rgba(255,255,255,0.8)_20%,rgba(255,255,255,0)_80%)]
     inline-block
-    shimmer-center
+    shimmer-center 
   "
           >
             Nos Recettes Populaires
@@ -112,7 +107,7 @@ const PopularRecipes = ({ recipes }) => {
 
                     {/* Difficulté */}
                     <div className="flex items-center gap-2">
-                      <span className="text-[#DCD7C9] text-sm">
+                      <span className="text-[#DCD7C9] pl-4 text-sm">
                         Difficulté:
                       </span>
                       <DifficultyStars

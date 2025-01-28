@@ -8,7 +8,7 @@ const ScrollButton = () => {
   // Fonction de détection du défilement
   useEffect(() => {
     const switchVisible = () => {
-      console.log('Scroll position:', window.scrollY) // Debug : Affiche la position du scroll
+      // console.log('Scroll position:', window.scrollY) // Affiche la position du scroll
       if (window.scrollY > 0) {
         setIsVisible(true)
       } else {

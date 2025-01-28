@@ -6,9 +6,9 @@ const RecipesContext = createContext()
 
 // Fonction pour fournir les recettes
 export const RecipesProvider = ({ children }) => {
-  const [recipes, setRecipes] = useState([])
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(null)
+  // Utilisation de children pour permettre l'utilisation de la fonctionnalité des enfants
+  const [recipes, setRecipes] = useState([]) // Etat pour stocker les recettes
+  const [loading, setLoading] = useState(true) // Etat pour indiquer l'état de chargement
 
   // Charger les recettes au montage du composant
   useEffect(() => {
@@ -57,128 +57,133 @@ export const RecipesProvider = ({ children }) => {
 
       setRecipes(uniqueRecipes) // Mettre à jour le contexte avec les recettes uniques
     } catch (err) {
-      // Gestion des erreurs
-      setError(err.message)
-      console.error('Erreur lors du chargement des recettes:', err)
+      console.error('Erreur de chargement :', err)
+      // En cas d'erreur, charger au moins les recettes par défaut
+      setRecipes(recipesData)
     } finally {
-      setLoading(false) // Fin du chargement
+      setLoading(false)
     }
   }
 
   // Fonction pour incrémenter les vues
   const incrementViews = recipeId => {
-    setRecipes(prevRecipes => {
-      // Mettre à jour les recettes
-      const updatedRecipes = prevRecipes.map(recipe => {
-        // Mettre à jour chaque recette
-        if (recipe.id === recipeId) {
-          // Si c'est la recette demandée
-          const updatedRecipe = { ...recipe, views: (recipe.views || 0) + 1 } // Mettre à jour le nombre de vues
-          if (!recipe.isDefault) {
-            // Si c'est une recette locale
-            const savedRecettes = JSON.parse(
-              // Charger les recettes sauvegardées
-              localStorage.getItem('recettes') || '[]' // ou '[]' si aucune sauvegarde
-            )
-            const updatedSavedRecettes = savedRecettes.map(
-              (
-                r // Mettre à jour les recettes sauvegardées
-              ) =>
-                r.id === recipeId ? { ...r, views: updatedRecipe.views } : r // Si la recette a l'id correspondant, mettre à jour le nombre de vues ; sinon, ne rien faire
-            )
-            localStorage.setItem(
-              'recettes',
-              JSON.stringify(updatedSavedRecettes)
-            )
-          }
-          return updatedRecipe
-        }
-        return recipe
-      })
-      return updatedRecipes
-    })
-  }
+    try {
+      // Met à jour l'état des recettes
+      setRecipes(prevRecipes => {
+        // Parcourt toutes les recettes pour trouver celle correspondant à l'ID fourni
+        const updatedRecipes = prevRecipes.map(recipe => {
+          if (recipe.id === recipeId) {
+            // Crée une copie de la recette en incrémentant le nombre de vues
+            const updatedRecipe = { ...recipe, views: (recipe.views || 0) + 1 }
 
-  // Fonction pour ajouter un like à une recette
-  // const likeRecipe = recipeId => {
-  //   setRecipes(prevRecipes =>
-  //     prevRecipes.map(recipe =>
-  //       recipe.id === recipeId
-  //         ? { ...recipe, likes: (recipe.likes || 0) + 1 }
-  //         : recipe
-  //     )
-  //   )
-  // }
+            // Vérifie si la recette n'est pas une recette par défaut (modifiable)
+            if (!recipe.isDefault) {
+              // Récupère les recettes sauvegardées dans le localStorage
+              const savedRecettes = JSON.parse(
+                localStorage.getItem('recettes') || '[]' // Si aucune donnée, retourne un tableau vide
+              )
+
+              // Met à jour les recettes sauvegardées en incrémentant les vues de la recette concernée
+              const updatedSavedRecettes = savedRecettes.map(
+                r =>
+                  r.id === recipeId
+                    ? { ...r, views: updatedRecipe.views } // Met à jour la recette dans le localStorage
+                    : r // Laisse les autres recettes inchangées
+              )
+
+              // Sauvegarde les recettes mises à jour dans le localStorage
+              localStorage.setItem(
+                'recettes',
+                JSON.stringify(updatedSavedRecettes)
+              )
+            }
+
+            // Retourne la recette mise à jour
+            return updatedRecipe
+          }
+
+          // Retourne la recette inchangée si ce n'est pas celle qu'on cherche
+          return recipe
+        })
+
+        // Retourne le tableau de recettes mis à jour
+        return updatedRecipes
+      })
+    } catch (err) {
+      // Affiche une erreur si un problème survient dans la mise à jour des vues
+      console.error('Erreur lors de la mise à jour des vues :', err)
+    }
+  }
 
   // Fonction pour ajouter une nouvelle recette
   const addRecipe = newRecipe => {
-    const convertRecipes = {
-      ...newRecipe,
-      likes: 0,
-      views: 0,
-      category: newRecipe.category || 'Plat principal',
-      author: newRecipe.author || 'Utilisateur',
-      createdAt: new Date().toISOString(),
-      isDefault: false,
-    }
-
-    // Mise à jour de l'état des recettes
-    setRecipes(prevRecipes => {
-      const updatedRecipes = [convertRecipes, ...prevRecipes]
-
-      // Sauvegarde immédiate dans le localStorage
-      try {
-        const localRecettes = updatedRecipes
-          .filter(recipe => !recipe.isDefault)
-          .map(recipe => ({
-            id: recipe.id,
-            titre: recipe.title,
-            description: recipe.description,
-            difficulte: recipe.difficulty,
-            tempsPreparation: recipe.prepTime,
-            imageUrl: recipe.imageUrl,
-            ingredients: recipe.ingredients,
-            instructions: recipe.instructions,
-            dateCreation: recipe.createdAt,
-            likes: recipe.likes,
-            views: recipe.views,
-          }))
-        // Conversion des recettes locales en JSON
-        localStorage.setItem('recettes', JSON.stringify(localRecettes))
-      } catch (error) {
-        console.error(
-          'Erreur lors de la sauvegarde de la nouvelle recette:',
-          error
-        )
+    try {
+      // Préparer les données de la nouvelle recette
+      const convertRecipes = {
+        ...newRecipe, // Copie toutes les données de la nouvelle recette
+        likes: 0, // Initialise les likes à 0
+        views: 0, // Initialise les vues à 0
+        category: newRecipe.category || 'Plat principal', // Définit une catégorie par défaut si aucune n'est fournie
+        author: newRecipe.author || 'Utilisateur', // Définit un auteur par défaut si aucun n'est fourni
+        createdAt: new Date().toISOString(), // Ajoute une date de création (format ISO)
+        isDefault: false, // Indique que cette recette n'est pas une recette par défaut
       }
 
-      return updatedRecipes
-    })
+      // Met à jour l'état des recettes
+      setRecipes(prevRecipes => {
+        // Ajoute la nouvelle recette au début de la liste des recettes existantes
+        const updatedRecipes = [convertRecipes, ...prevRecipes]
+
+        // Prépare les recettes à sauvegarder dans le localStorage
+        const localRecettes = updatedRecipes
+          // Filtrer les recettes pour exclure celles qui sont marquées comme "par défaut"
+          .filter(recipe => !recipe.isDefault)
+          // Formater les données pour le stockage local
+          .map(recipe => ({
+            id: recipe.id, // Identifiant unique de la recette
+            titre: recipe.title, // Titre de la recette
+            description: recipe.description, // Description de la recette
+            difficulte: recipe.difficulty, // Niveau de difficulté
+            tempsPreparation: recipe.prepTime, // Temps de préparation
+            imageUrl: recipe.imageUrl, // URL de l'image associée
+            ingredients: recipe.ingredients, // Liste des ingrédients
+            instructions: recipe.instructions, // Instructions de préparation
+            dateCreation: recipe.createdAt, // Date de création
+            likes: recipe.likes, // Nombre de likes
+            views: recipe.views, // Nombre de vues
+          }))
+
+        // Sauvegarde les recettes formatées dans le localStorage
+        localStorage.setItem('recettes', JSON.stringify(localRecettes))
+
+        // Retourne la liste des recettes mise à jour
+        return updatedRecipes
+      })
+    } catch (err) {
+      // Affiche un message d'erreur en cas de problème
+      console.error("Erreur lors de l'ajout de la recette :", err)
+    }
   }
 
-  useEffect(() => {
-    fetchRecipes()
-  }, [])
-
-  // Valeur du contexte : un objet contenant les recettes, les statistiques, les fonctions d'ajout et de mise à jour
   const value = {
-    recipes,
-    loading,
-    error,
-    // likeRecipe,
-    incrementViews,
-    addRecipe,
-    fetchRecipes,
+    recipes, // Liste des recettes
+    loading, // Etat de chargement
+    incrementViews, // Fonction pour incrémenter les vues
+    addRecipe, // Fonction pour ajouter une nouvelle recette
+    fetchRecipes, // Fonction pour charger les recettes
   }
 
   return (
-    <RecipesContext.Provider value={value}>{children}</RecipesContext.Provider> // Fournir le contexte aux enfants
+    // Fournir le contexte aux composants enfants
+    <RecipesContext.Provider value={value}>{children}</RecipesContext.Provider>
   )
 }
 
 // Hook personnalisé pour utiliser le contexte
 export const useRecipes = () => {
+  // Utilise le contexte
   const context = useContext(RecipesContext)
+  // Si le contexte n'existe pas, lance une erreur
   if (!context) {
     throw new Error(
       "useRecipes doit être utilisé à l'intérieur d'un RecipesProvider"

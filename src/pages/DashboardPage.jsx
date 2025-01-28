@@ -3,9 +3,22 @@
 //====================================
 import React, { useState } from 'react'
 import BackButton from '../components/buttons/BackButton'
-import { FaPlus, FaListUl, FaTrash, FaPen } from 'react-icons/fa'
+import {
+  FaPlus,
+  FaListUl,
+  FaTrash,
+  FaPen,
+  FaBook,
+  FaUtensils,
+  FaClipboardList,
+  FaListAlt,
+  FaHeart,
+  FaEye,
+  FaClock,
+} from 'react-icons/fa'
 import DifficultyStars from '../components/ui/DifficultyStars'
 import { useRecipes } from '../contexts/RecipesContext'
+import HomeButton from '../components/buttons/HomeButton'
 
 //====================================
 // Composant principal DashboardPage
@@ -60,10 +73,15 @@ const DashboardPage = () => {
     // Vérifier si le titre et la description sont remplis
     if (
       !nouvelleRecette.titre?.trim() ||
-      !nouvelleRecette.description?.trim()
+      !nouvelleRecette.description?.trim() ||
+      !nouvelleRecette.difficulte ||
+      !nouvelleRecette.tempsPreparation?.trim() ||
+      !nouvelleRecette.ingredients ||
+      !nouvelleRecette.instructions ||
+      !nouvelleRecette.imageUrl?.trim()
     ) {
       // Si pas rempli afficher une alerte
-      alert('Veuillez remplir au moins le titre et la description')
+      alert('Veuillez remplir tout les champs')
       return
     }
 
@@ -130,17 +148,22 @@ const DashboardPage = () => {
   return (
     <div className="space-y-8">
       {/* En-tête */}
-      <header className="flex justify-between items-center bg-[#2C3639]/95 p-6 rounded-lg shadow-lg">
-        <h1 className="text-4xl font-memoirs text-[#DCD7C9] [text-shadow:_2px_2px_4px_rgba(0,0,0,0.5)]">
+      <header className="flex items-center justify-between bg-[#2C3639]/95 rounded-4xl shadow-lg">
+        <div className="w-32 ">
+          <HomeButton />
+        </div>
+        <h1 className="text-5xl font-memoirs text-[#DCD7C9] [text-shadow:_2px_2px_4px_rgba(0,0,0,0.5)]">
           Tableau de bord
         </h1>
-        <BackButton />
+        <div className="w-32 flex justify-end">
+          <BackButton />
+        </div>
       </header>
 
       {/* Statistiques */}
       <section className="grid grid-cols-1 gap-6 mb-8">
         <div className="bg-[#2C3639]/95 p-6 rounded-lg shadow-lg flex items-center gap-4">
-          <div className="p-3 bg-[#A27B5C]/20 rounded-full">
+          {/* <div className="p-3 bg-[#A27B5C]/20 rounded-full">
             <FaListUl className="w-6 h-6 text-[#DCD7C9]" />
           </div>
           <div>
@@ -148,7 +171,7 @@ const DashboardPage = () => {
             <p className="text-2xl font-bold text-[#DCD7C9]">
               {stats.totalRecettes}
             </p>
-          </div>
+          </div> */}
         </div>
       </section>
 
@@ -181,18 +204,16 @@ const DashboardPage = () => {
             {/* Difficulté */}
             <div>
               <label className="block text-[#DCD7C9] mb-2">Difficulté</label>
-              <div className="w-full flex flew-wrap sm:ml-4 ">
+              <div className="w-full flex justify-center bg-transparent">
                 <DifficultyStars
                   difficulty={nouvelleRecette.difficulte}
-                  onChange={(
-                    niveau // Fonction pour changer la difficulté
-                  ) =>
+                  onChange={niveau =>
                     setNouvelleRecette(prev => ({
-                      ...prev, // Copier toutes les propriétés de la recette
-                      difficulte: niveau, // Mettre à jour la difficulté
+                      ...prev,
+                      difficulte: niveau,
                     }))
                   }
-                  interactive={true} // Permettre aux utilisateurs de cliquer pour changer la difficulté
+                  interactive={true}
                 />
               </div>
             </div>
@@ -338,7 +359,7 @@ const DashboardPage = () => {
             {/* Bouton de soumission */}
             <button
               type="submit"
-              className="w-full px-6 py-3 bg-[#A27B5C] text-[#DCD7C9] rounded-lg hover:bg-[#A27B5C]/90 transition-colors font-semibold"
+              className="text-4xl w-full px-6 py-3 bg-[#15191A] text-[#DCD7C9] rounded-lg hover:bg-[#A27B5C]/90 transition-colors font-semibold"
             >
               Créer la recette
             </button>
@@ -349,53 +370,78 @@ const DashboardPage = () => {
         <div className="space-y-8">
           {/* Liste des recettes */}
           <section className="bg-[#2C3639]/95 backdrop-blur-sm rounded-lg p-6 shadow-lg space-y-6">
-            <h2 className="text-2xl font-memoirs text-[#DCD7C9] border-b border-[#DCD7C9]/10 pb-2">
+            {/* Total des recettes */}
+            <div className="flex items-center justify-center w-fit mx-auto flex-wrap gap-3  p-4 rounded-full border-b border-[#DCD7C9]/40 pb-2">
+              <FaClipboardList className="w-6 h-6 text-[#DCD7C9]" />
+
+              <p className="text-[#DCD7C9]/70 text-sm underline">
+                Total des recettes
+              </p>
+              <p className="text-2xl font-bold text-[#DCD7C9]">
+                {stats.totalRecettes}
+              </p>
+            </div>
+            <h2 className="text-3xl text-center font-memoirs text-[#DCD7C9] border-t border-[#DCD7C9]/40 border-b border-[#DCD7C9]/40 pb-2">
               Mes recettes récentes
             </h2>
             <div className="space-y-4">
+              {/* Gestion si aucune recette créée */}
               {recipes.length === 0 ? (
                 <p className="text-[#DCD7C9]/70 text-center italic">
                   Aucune recette créée pour le moment
                 </p>
               ) : (
+                // sinon afficher les recettes
                 recipes.map(recipe => (
                   <div
                     key={recipe.id}
-                    className="bg-[#3F4E4F]/30 rounded-lg p-2 flex flex-col sm:flex-row gap-2 sm:gap-4"
+                    className="bg-[#3F4E4F]/30 rounded-lg p-2 flex flex-col sm:flex-row gap-2 sm:gap-4 scale-98 hover:scale-100 transition-transform duration-300 shadow-xl shadow-[#4A403A]/90"
                   >
                     <img
                       src={recipe.imageUrl}
                       alt={recipe.title}
-                      className="w-16 h-16 sm:w-24 sm:h-24 object-cover rounded-lg"
+                      aria-label={recipe.title}
+                      className="shadow-2xl shadow-[#DCD7C9]/2 b0 w-16 h-16 sm:w-24 sm:h-24 object-cover rounded-lg"
                     />
                     <div className="flex-grow min-w-0">
                       <div className="flex justify-between items-start gap-2">
-                        <h3 className="text-[#DCD7C9] font-semibold truncate">
+                        <h3 className="text-[#DCD7C9]  text-xl font-semibold truncate">
                           {recipe.title}
                         </h3>
                         <div className="flex gap-1 shrink-0">
+                          {/* Bouton Editer */}
                           <button
-                            className="p-1 sm:p-2 text-[#DCD7C9]/70 hover:text-[#A27B5C] transition-colors"
+                            className="button-reset p-1 sm:p-2 text-[#DCD7C9]/70 "
                             onClick={() => alert('Fonctionnalité à venir')}
                           >
-                            <FaPen className="w-3 h-3 sm:w-4 sm:h-4" />
+                            <FaPen className="w-3 h-3 sm:w-4 sm:h-4 text-[#DCD7C9]/70 shadow-sm hover:text-[#A27B5C]" />
                           </button>
+                          {/* Bouton Supprimer */}
                           <button
-                            className="p-1 sm:p-2 text-[#DCD7C9]/70 hover:text-red-500 transition-colors"
+                            className="button-reset p-1 sm:p-2 text-[#DCD7C9]/70 "
                             onClick={() => supprimerRecette(recipe.id)}
                           >
-                            <FaTrash className="w-3 h-3 sm:w-4 sm:h-4" />
+                            <FaTrash className="w-3 h-3 sm:w-4 sm:h-4 text-red-500 shadow-sm hover:text-red-600 " />
                           </button>
                         </div>
                       </div>
                       <p className="text-[#DCD7C9]/70 text-xs sm:text-sm line-clamp-2">
                         {recipe.description}
                       </p>
-                      <div className="flex items-center gap-2 sm:gap-4 mt-1 sm:mt-2">
+                      <div className="flex sm:flex-wrap items-center gap-2 sm:gap-4 mt-1 sm:mt-2">
+                        {/* Difficulté */}
                         <DifficultyStars difficulty={recipe.difficulty} />
+
+                        {/* Temp préparation */}
                         <span className="text-[#DCD7C9]/70 text-xs sm:text-sm">
                           {recipe.prepTime} min
                         </span>
+                        {/* Likes */}
+                        <FaHeart className="text-red-500/50" />
+                        <span className="text-sm">{recipe.likes}</span>
+                        {/* Vues */}
+                        <FaEye className="text-[#A27B5C]" />
+                        <span className="text-sm">{recipe.views}</span>
                       </div>
                     </div>
                   </div>

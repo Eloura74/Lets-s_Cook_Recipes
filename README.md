@@ -121,7 +121,9 @@ const CarteRecette = ({ recette }) => {
 
   <br />
 
-![Effet Carte Let's Cook](./public/readme_media/CardEffect.gif)
+<div align="center">
+  <img src="./public/readme_media/CardEffect.gif" alt="Démonstration de l'interface de Let's Cook - Navigation et utilisation de l'application" width="100%">
+</div>
 
 <br />
 
@@ -149,7 +151,10 @@ const MonTableauBord = () => {
 ```
 
   <br />
-https://user-images.githubusercontent.com/Eloura74/LetsCookV3/main/lets-cook-v5/public/readme_media/DashboardVideo.gif
+
+<div align="center">
+  <img src="./public/readme_media/DashboardVideo.gif" alt="Démonstration de l'interface de Let's Cook - Navigation et utilisation de l'application" width="100%">
+</div>
 
 ![Tableau de Bord Let's Cook](./public/readme_media/DashboardVideo.gif)
 

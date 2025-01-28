@@ -27,19 +27,26 @@ const DifficultyStars = ({ difficulty, onChange, interactive = false }) => {
   }
 
   const renderStar = niveau => {
-    const StarComponent = interactive ? 'button' : motion.div
-    
+    // const StarComponent = interactive ? 'button' : motion.div
+
     if (interactive) {
       return (
         <button
           key={niveau}
           type="button"
           onClick={() => onChange?.(niveau)}
-          className={`p-0.5 w-6h-6 ${
-            difficulty >= niveau ? 'text-[#A27B5C]' : 'text-[#DCD7C9]/30'
-          }`}
+          className="button-reset relative inline-block"
         >
-          <FaStar className="w-2 h-2" />
+          <div className="relative inline-block">
+            {/* Bordure (étoile extérieure) */}
+            <FaStar className="absolute top-0 left-0 w-7 h-7 text-[#1f1e1b]/80" />
+            {/* Étoile intérieure */}
+            <FaStar
+              className={`relative w-6 h-6 ${
+                difficulty >= niveau ? 'text-[#e0b14a]' : 'text-[#DCD7C9]'
+              }`}
+            />
+          </div>
         </button>
       )
     }
@@ -53,17 +60,30 @@ const DifficultyStars = ({ difficulty, onChange, interactive = false }) => {
         animate="animate"
         whileHover="hover"
         className={`text-xs ${
-          difficulty >= niveau ? 'text-[#A27B5C]' : 'text-[#DCD7C9]/30'
+          difficulty >= niveau ? 'text-[#e0b14a] ' : 'text-[#DCD7C9]/80'
         }`}
       >
-        <FaStar className="w-2 h-2" />
+        <div className="relative inline-block">
+          {/* Bordure (étoile extérieure) */}
+          <FaStar className="absolute top-0 left-0 w-7 h-7 text-[#1f1e1b]/80" />
+          {/* Étoile intérieure */}
+          <FaStar
+            className={`relative w-6 h-6 ${
+              difficulty >= niveau ? 'text-[#e0b14a]' : 'text-[#DCD7C9]'
+            }`}
+          />
+        </div>
       </motion.div>
     )
   }
 
   return (
     <div className="flex items-center gap-0.5">
-      {[1, 2, 3, 4, 5].map(renderStar)}
+      {[1, 2, 3, 4, 5].map(niveau => (
+        <div key={niveau} className="bg-transparent">
+          {renderStar(niveau)}
+        </div>
+      ))}
     </div>
   )
 }
