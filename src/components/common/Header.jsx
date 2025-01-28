@@ -182,31 +182,51 @@ const Header = () => {
                   </Link>
                 </div>
               )}
+
+              <div
+                className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-[#2C3639] to-transparent"
+                aria-hidden="true"
+              ></div>
             </div>
           </div>
         </div>
+
         {/* ______________________________________________________________________________________________________________ */}
         {/* Section Hero avec titre et barre de recherche */}
+
         <section
           className="relative min-h-[40vh] flex flex-col items-center justify-center text-center"
-          // Style de l'image de fond
           style={{
             backgroundImage: `
           linear-gradient(
-          to left,
-          rgba(255,255,255,0.5) 0%,
-          rgba(255,255,255,0.00) 40%, 
-          rgba(0,0,0,0.99) 100%
+            to bottom,
+            rgba(0,0,0,0) 0%,
+            rgba(44,54,57,0.1) 85%,
+            rgba(44,54,57,0.95) 100%
           ),
-      url("/images/header2.png")
-    `,
+          linear-gradient(
+            to left,
+            rgba(255,255,255,0.5) 0%,
+            rgba(255,255,255,0.00) 40%, 
+            rgba(0,0,0,0.99) 100%
+          ),
+          url("/images/header2.png")
+          `,
             backgroundSize: 'cover',
             backgroundPosition: 'center',
           }}
         >
+          {/* Effet de fondu en haut */}
+          <div
+            className="absolute top-0 left-0 right-0 h-24 bg-gradient-to-b from-[#2C3639] to-transparent"
+            aria-hidden="true"
+          ></div>
           {/* Overlay sombre */}
           <div className="absolute inset-0 bg-black/50" aria-hidden="true" />
-
+          <div
+            className="absolute top-0 left-0 right-0 h-24 bg-gradient-to-b from-[#2C3639] to-transparent"
+            aria-hidden="true"
+          ></div>
           {/* Contenu */}
           <article className="relative z-10 w-full max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
             {/* Titre */}

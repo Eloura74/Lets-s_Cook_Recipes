@@ -17,10 +17,11 @@ const HomePage = () => {
         const element = document.querySelector(location.hash)
         if (element) {
           const yOffset = -100 // Offset pour le header fixe
-          const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset
+          const y =
+            element.getBoundingClientRect().top + window.pageYOffset + yOffset
           window.scrollTo({
             top: y,
-            behavior: 'smooth'
+            behavior: 'smooth',
           })
         }
       }, 100)
@@ -28,12 +29,12 @@ const HomePage = () => {
   }, [location])
 
   return (
-    <main className="flex-grow ">
+    <main className="flex-grow bg-[#2C3639]/95">
       {/* Hero Section */}
 
       {/* Liste des recettes */}
       <section
-        className="relative container mx-auto backdrop-blur-[2px] bg-white/5 rounded-2xl shadow-2xl shadow-[#4A403A] mt-4 p-6"
+        className="relative container mx-auto backdrop-blur-[2px] bg-transparent rounded-2xl shadow-2xl shadow-[#4A403A] mt-4 p-6"
         aria-label="Liste des recettes"
       >
         <RecipeList />
