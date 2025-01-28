@@ -174,23 +174,33 @@ const DashboardPage = () => {
           </div> */}
         </div>
       </section>
-
+      {/* ____________________________________________________________________________
+_________________________________________________________________________________ */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* Colonne de gauche - Création de recette */}
-        <section className="bg-[#2C3639]/95 backdrop-blur-sm rounded-lg p-6 shadow-lg space-y-6">
-          <h2 className="text-2xl font-memoirs text-[#DCD7C9] border-b border-[#DCD7C9]/10 pb-2">
+        <section
+          className="
+         bg-[#2C3639]/95
+         backdrop-blur-sm 
+         rounded-lg 
+         p-6
+         shadow-xl
+         shadow-[#4A403A]/90 
+         space-y-6"
+        >
+          <h2 className="text-3xl text-center font-memoirs text-[#DCD7C9] border-t border-[#A27B5C]/60 border-b border-[#A27B5C] pb-2">
             Créer une nouvelle recette
           </h2>
 
           <form className="space-y-6" onSubmit={handleSubmit}>
             {/* Titre */}
             <div>
-              <label className="block text-[#DCD7C9] mb-2">
+              <label className="title-dashboard-create">
                 Titre de la recette
               </label>
               <input
                 type="text"
-                className="w-full bg-[#3F4E4F] text-[#DCD7C9] rounded-lg p-2 border border-[#DCD7C9]/10 focus:border-[#A27B5C] focus:ring-1 focus:ring-[#A27B5C] outline-none"
+                className="inputDashboard"
                 value={nouvelleRecette.titre}
                 onChange={e =>
                   setNouvelleRecette(prev => ({
@@ -202,8 +212,8 @@ const DashboardPage = () => {
             </div>
 
             {/* Difficulté */}
-            <div>
-              <label className="block text-[#DCD7C9] mb-2">Difficulté</label>
+            <div className="border-t border-[#A27B5C] pt-2">
+              <label className="title-dashboard-create ">Difficulté</label>
               <div className="w-full flex justify-center bg-transparent">
                 <DifficultyStars
                   difficulty={nouvelleRecette.difficulte}
@@ -219,13 +229,13 @@ const DashboardPage = () => {
             </div>
 
             {/* Temps de préparation */}
-            <div>
-              <label className="block text-[#DCD7C9] mb-2">
+            <div className="border-t border-[#A27B5C] pt-2">
+              <label className="title-dashboard-create">
                 Temps de préparation (minutes)
               </label>
               <input
                 type="number"
-                className="w-full bg-[#3F4E4F] text-[#DCD7C9] rounded-lg p-2 border border-[#DCD7C9]/10 focus:border-[#A27B5C] focus:ring-1 focus:ring-[#A27B5C] outline-none"
+                className="inputDashboard"
                 value={nouvelleRecette.tempsPreparation}
                 onChange={e =>
                   setNouvelleRecette(prev => ({
@@ -237,13 +247,11 @@ const DashboardPage = () => {
             </div>
 
             {/* Image URL */}
-            <div>
-              <label className="block text-[#DCD7C9] mb-2">
-                URL de l'image
-              </label>
+            <div className="border-t border-[#A27B5C] pt-2">
+              <label className="title-dashboard-create">URL de l'image</label>
               <input
                 type="text"
-                className="w-full bg-[#3F4E4F] text-[#DCD7C9] rounded-lg p-2 border border-[#DCD7C9]/10 focus:border-[#A27B5C] focus:ring-1 focus:ring-[#A27B5C] outline-none"
+                className="inputDashboard"
                 placeholder="URL de l'image"
                 value={nouvelleRecette.imageUrl}
                 onChange={e =>
@@ -254,20 +262,20 @@ const DashboardPage = () => {
                 }
               />
               <p className="text-[#DCD7C9]/50 text-sm mt-1">
-                Laissez vide pour utiliser l'image par défaut
+                Ne pas modifier pour utiliser l'image par défaut
               </p>
             </div>
 
             {/* Aperçu de l'image */}
             <div>
-              <label className="block text-[#DCD7C9] mb-2">
+              <label className="title-dashboard-create text-center">
                 Aperçu de l'image
               </label>
-              <div className="relative w-full h-48 bg-[#3F4E4F] rounded-lg overflow-hidden">
+              <div className="relative w-full h-48 bg-[#3F4E4F] rounded-lg overflow-hidden shadow-xl shadow-[#4A403A]/90">
                 <img
                   src={nouvelleRecette.imageUrl}
                   alt="Aperçu"
-                  className="img-cover"
+                  className="img-cover  "
                   onError={e => {
                     e.target.onerror = null
                     e.target.src = '/images/newRecipes.webp'
@@ -277,10 +285,10 @@ const DashboardPage = () => {
             </div>
 
             {/* Description */}
-            <div>
-              <label className="block text-[#DCD7C9] mb-2">Description</label>
+            <div className="border-t border-[#A27B5C] pt-2">
+              <label className="title-dashboard-create">Description</label>
               <textarea
-                className="w-full bg-[#3F4E4F] text-[#DCD7C9] rounded-lg p-2 border border-[#DCD7C9]/10 focus:border-[#A27B5C] focus:ring-1 focus:ring-[#A27B5C] outline-none min-h-[100px]"
+                className="inputDashboard min-h-[100px]"
                 value={nouvelleRecette.description} // Afficher la description
                 onChange={e =>
                   setNouvelleRecette(prev => ({
@@ -292,14 +300,14 @@ const DashboardPage = () => {
             </div>
 
             {/* Ingrédients */}
-            <div>
-              <label className="block text-[#DCD7C9] mb-2">Ingrédients</label>
+            <div className="border-t border-[#A27B5C] pt-2">
+              <label className="title-dashboard-create">Ingrédients</label>
               <div className="space-y-2">
                 {nouvelleRecette.ingredients.map((ingredient, index) => (
                   <input
                     key={index}
                     type="text"
-                    className="w-full bg-[#3F4E4F] text-[#DCD7C9] rounded-lg p-2 border border-[#DCD7C9]/10 focus:border-[#A27B5C] focus:ring-1 focus:ring-[#A27B5C] outline-none"
+                    className="inputDashboard"
                     value={ingredient}
                     onChange={e => {
                       const newIngredients = [...nouvelleRecette.ingredients] // Copier les ingrédients existants
@@ -322,8 +330,8 @@ const DashboardPage = () => {
             </div>
 
             {/* Instructions */}
-            <div>
-              <label className="block text-[#DCD7C9] mb-2">Instructions</label>
+            <div className="border-t border-[#A27B5C] pt-2 pb-6 border-b border-[#A27B5C] pt-2">
+              <label className="title-dashboard-create">Instructions</label>
               <div className="space-y-2">
                 {nouvelleRecette.instructions.map((instruction, index) => (
                   <div key={index} className="flex gap-2 items-start">
@@ -365,13 +373,17 @@ const DashboardPage = () => {
             </button>
           </form>
         </section>
-
+        {/* ____________________________________________________________________________
+________________________________________________________________________________ */}
         {/* Colonne de droite */}
         <div className="space-y-8">
           {/* Liste des recettes */}
           <section className="bg-[#2C3639]/95 backdrop-blur-sm rounded-lg p-6 shadow-lg space-y-6">
+            <h2 className="text-3xl text-center font-memoirs text-[#DCD7C9] border-t border-[#A27B5C]/60 border-b border-[#A27B5C] pb-2">
+              Mes recettes récentes
+            </h2>
             {/* Total des recettes */}
-            <div className="flex items-center justify-center w-fit mx-auto flex-wrap gap-3  p-4 rounded-full border-b border-[#DCD7C9]/40 pb-2">
+            <div className="flex items-center justify-center w-fit mx-auto flex-wrap gap-3  p-4 rounded-full border-b border-[#A27B5C]/60 pb-2">
               <FaClipboardList className="w-6 h-6 text-[#DCD7C9]" />
 
               <p className="text-[#DCD7C9]/70 text-sm underline">
@@ -381,9 +393,7 @@ const DashboardPage = () => {
                 {stats.totalRecettes}
               </p>
             </div>
-            <h2 className="text-3xl text-center font-memoirs text-[#DCD7C9] border-t border-[#DCD7C9]/40 border-b border-[#DCD7C9]/40 pb-2">
-              Mes recettes récentes
-            </h2>
+
             <div className="space-y-4">
               {/* Gestion si aucune recette créée */}
               {recipes.length === 0 ? (
@@ -395,13 +405,13 @@ const DashboardPage = () => {
                 recipes.map(recipe => (
                   <div
                     key={recipe.id}
-                    className="bg-[#3F4E4F]/30 rounded-lg p-2 flex flex-col sm:flex-row gap-2 sm:gap-4 scale-98 hover:scale-100 transition-transform duration-300 shadow-xl shadow-[#4A403A]/90"
+                    className="bg-[#3F4E4F]/30 rounded-lg p-2 flex flex-col sm:flex-row  sm:gap-4 scale-98 hover:scale-100 transition-transform duration-300 shadow-xl shadow-[#4A403A]/90"
                   >
                     <img
                       src={recipe.imageUrl}
                       alt={recipe.title}
                       aria-label={recipe.title}
-                      className="shadow-2xl shadow-[#DCD7C9]/20 w-16 h-16 sm:w-24 sm:h-24 object-cover rounded-lg"
+                      className="shadow-2xl shadow-[#DCD7C9]/20 w-16 h-16 sm:w-24 sm:h-24 object-cover rounded-lg border border-[#DCD7C9]/40"
                     />
                     <div className="flex-grow min-w-0">
                       <div className="flex justify-between items-start gap-2">

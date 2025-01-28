@@ -20,6 +20,35 @@
   @apply text-[#DCD7C9]/90;
 }
 
+@keyframes shine {
+  0%,
+  100% {
+    background-position: 0%;
+  }
+  50% {
+    background-position: 100%;
+  }
+}
+
+.title-dashboard-create {
+  @apply block text-2xl underline underline-offset-4 font-memoirs font-semibold text-transparent bg-clip-text mb-2;
+  background-image: linear-gradient(
+    to right,
+    rgba(162, 123, 92, 0.6) 10%,
+    rgb(210, 201, 185) 40%,
+    rgba(162, 123, 92, 1) 50%,
+    #cabaa4 60%,
+    rgb(194, 170, 143) 90%
+  );
+  background-size: 200%;
+  animation: shine 60s infinite linear;
+}
+
+/* Inputs */
+.inputDashboard {
+  @apply w-full bg-[#3F4E4F] text-[#DCD7C9] rounded-lg p-2 border border-[#DCD7C9]/10 focus:border-[#A27B5C] focus:ring-1 focus:ring-[#A27B5C] outline-none shadow-inner shadow-[#A27B5C]/60;
+}
+
 /* Listes */
 .list-base {
   @apply space-y-2 list-inside text-[#DCD7C9]/90;
