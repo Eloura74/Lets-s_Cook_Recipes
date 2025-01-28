@@ -401,7 +401,7 @@ const DashboardPage = () => {
                       src={recipe.imageUrl}
                       alt={recipe.title}
                       aria-label={recipe.title}
-                      className="shadow-2xl shadow-[#DCD7C9]/2 b0 w-16 h-16 sm:w-24 sm:h-24 object-cover rounded-lg"
+                      className="shadow-2xl shadow-[#DCD7C9]/20 w-16 h-16 sm:w-24 sm:h-24 object-cover rounded-lg"
                     />
                     <div className="flex-grow min-w-0">
                       <div className="flex justify-between items-start gap-2">
