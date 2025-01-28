@@ -10,6 +10,7 @@ const RecipeDetail = () => {
   const { recipes, incrementViews, loading } = useRecipes()
   const recipe = recipes.find(search => search.id === id)
   const viewIncremented = useRef(false)
+  const detailRef = useRef(null)
 
   useEffect(() => {
     if (recipe && !viewIncremented.current) {
@@ -18,7 +19,19 @@ const RecipeDetail = () => {
     }
   }, [recipe, incrementViews])
 
-  // Affichage pendant le chargement
+  useEffect(() => {
+    if (detailRef.current) {
+      const yOffset = -80 
+      const element = detailRef.current
+      const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset
+      
+      window.scrollTo({
+        top: y,
+        behavior: 'smooth'
+      })
+    }
+  }, [recipe]) 
+
   if (loading) {
     return (
       <div className="container-base">
@@ -30,7 +43,6 @@ const RecipeDetail = () => {
     )
   }
 
-  // Gestion du cas où la recette n'est pas trouvée
   if (!recipe) {
     return (
       <div className="container-base">
@@ -48,11 +60,10 @@ const RecipeDetail = () => {
       </div>
     )
   }
-  // ______________________________________________________________________
 
   return (
     <main className="container p-6 ">
-      <section className="max-w-4xl mx-auto card-container shadow-[#4A403A] shadow-4xl">
+      <div ref={detailRef} className="max-w-4xl mx-auto card-container shadow-[#4A403A] shadow-4xl">
         {/*_______________________________________________________________________ En-tête avec image */}
         <header className="relative h-96">
           <img src={recipe.imageUrl} alt={recipe.title} className="img-cover" />
@@ -133,7 +144,7 @@ const RecipeDetail = () => {
             Retour à l'accueil
           </Link>
         </div>
-      </section>
+      </div>
       <Footer />
     </main>
   )

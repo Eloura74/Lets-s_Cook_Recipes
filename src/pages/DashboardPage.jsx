@@ -1,7 +1,7 @@
 //====================================
 // Imports des dépendances
 //====================================
-import React, { useState } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import Footer from '../components/common/Footer'
 import BackButton from '../components/buttons/BackButton'
 import {
@@ -25,6 +25,7 @@ import HomeButton from '../components/buttons/HomeButton'
 // Composant principal DashboardPage
 //====================================
 const DashboardPage = () => {
+  const dashboardRef = useRef(null)
   // État local pour la nouvelle recette
   const [nouvelleRecette, setNouvelleRecette] = useState({
     titre: '',
@@ -45,6 +46,23 @@ const DashboardPage = () => {
   const stats = {
     totalRecettes: recipes.length, // Nombre total de recettes
   }
+
+  //====================================
+  // Gestion du scroll vers le tableau de bord
+  //====================================
+  useEffect(() => {
+    if (dashboardRef.current) {
+      const yOffset = -80 // Offset pour tenir compte du header fixe
+      const element = dashboardRef.current
+      const y =
+        element.getBoundingClientRect().top + window.pageYOffset + yOffset
+
+      window.scrollTo({
+        top: y,
+        behavior: 'smooth',
+      })
+    }
+  }, []) // Se déclenche une seule fois au montage
 
   //====================================
   // Gestionnaires d'événements
@@ -147,7 +165,7 @@ const DashboardPage = () => {
   // Rendu du composant
   //====================================
   return (
-    <div className="space-y-8 w-full">
+    <div className="space-y-8 w-full" ref={dashboardRef}>
       {/* En-tête */}
       <header className="flex items-center flex-col bg-[#2C3639]/25 rounded-4xl shadow-lg">
         <div>
