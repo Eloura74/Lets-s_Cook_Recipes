@@ -52,7 +52,7 @@ const DashboardPage = () => {
   //====================================
   useEffect(() => {
     if (dashboardRef.current) {
-      const yOffset = -80 // Offset pour tenir compte du header fixe
+      const yOffset = -30 // Offset pour tenir compte du header fixe
       const element = dashboardRef.current
       const y =
         element.getBoundingClientRect().top + window.pageYOffset + yOffset
@@ -167,13 +167,13 @@ const DashboardPage = () => {
   return (
     <div className="space-y-8 w-full" ref={dashboardRef}>
       {/* En-tête */}
-      <header className="flex items-center flex-col bg-[#2C3639]/25 rounded-4xl shadow-lg">
+      <header className="flex items-center flex-col bg-[#2C3639]/25 rounded-4xl shadow-lg shadow-[#4A403A]">
         <div>
-          <h1 className="text-5xl font-memoirs text-[#DCD7C9] [text-shadow:_2px_2px_4px_rgba(0,0,0,0.5)] mt-6">
+          <h1 className="text-5xl font-memoirs text-[#DCD7C9] [text-shadow:_2px_2px_4px_rgba(0,0,0,0.8)] mt-6">
             Tableau de bord
           </h1>
         </div>
-        <div className="flex items-center gap-17 p-14">
+        <div className="flex items-center gap-17 p-14 pb-8">
           <div className="w-32 ">
             <HomeButton />
           </div>
@@ -183,23 +183,9 @@ const DashboardPage = () => {
         </div>
       </header>
 
-      {/* Statistiques */}
-      <section className="grid grid-cols-1 gap-6 mb-8">
-        <div className="bg-[#2C3639]/95 p-6 rounded-lg shadow-lg flex items-center gap-4">
-          {/* <div className="p-3 bg-[#A27B5C]/20 rounded-full">
-            <FaListUl className="w-6 h-6 text-[#DCD7C9]" />
-          </div>
-          <div>
-            <p className="text-[#DCD7C9]/70 text-sm">Total des recettes</p>
-            <p className="text-2xl font-bold text-[#DCD7C9]">
-              {stats.totalRecettes}
-            </p>
-          </div> */}
-        </div>
-      </section>
       {/* ____________________________________________________________________________
 _________________________________________________________________________________ */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Colonne de gauche - Création de recette */}
         <section
           className="

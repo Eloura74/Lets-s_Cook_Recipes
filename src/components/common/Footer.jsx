@@ -17,7 +17,7 @@ const Footer = () => {
           <nav className="mt-6">
             <ul className="flex flex-col sm:flex-row justify-center items-center gap-4">
               <li>
-                <Link to="/" className="btn-site flex items-center gap-2 whitespace-nowrap">
+                <Link to="/#filtres-recettes" className="btn-site flex items-center gap-2 whitespace-nowrap">
                   <FaHome className="max-w-5 max-h-5" />
                   <span className="text-lg sm:text-xl">Accueil</span>
                 </Link>

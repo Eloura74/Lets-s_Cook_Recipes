@@ -23,6 +23,7 @@ const RecipeList = () => {
     <article className="space-y-6 md:space-y-8">
       {/* Section des filtres */}
       <section
+        id="filtres-recettes"
         aria-label="Filtres de recettes"
         className=" top-0 shadow-lg shadow-[#4A403A]/90 bg-[#2C3639]/95 backdrop-blur-sm p-4 rounded-xl"
       >
