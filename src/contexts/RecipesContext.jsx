@@ -29,21 +29,26 @@ export const RecipesProvider = ({ children }) => {
         id: recette.id.toString(),
         title: recette.titre,
         description: recette.description,
-        difficulty: recette.difficulte,
+        difficulty: parseInt(recette.difficulte) || 0,
         prepTime: parseInt(recette.tempsPreparation) || 0,
         imageUrl: recette.imageUrl,
         ingredients: recette.ingredients,
         instructions: recette.instructions,
-        likes: recette.likes || 0,
-        views: recette.views || 0,
+        likes: parseInt(recette.likes) || 0,
+        views: parseInt(recette.views) || 0,
         category: recette.category || 'Plat principal',
         author: recette.author || 'Utilisateur',
-        createdAt: recette.dateCreation || new Date().toISOString(), //toISOString() : Retourne la date et l'heure dans un format universel (ISO 8601)
+        date: recette.dateCreation || new Date().toISOString(), // Ajout de la propriété date pour le tri
+        isDefault: false, // Marquer comme recette personnalisée
       }))
 
-      // Marquer les recettes par défaut
+      // Marquer les recettes par défaut et s'assurer qu'elles ont toutes les propriétés
       const defaultRecipes = recipesData.map(recipe => ({
-        ...recipe, // Copier toutes les propriétés de la recette
+        ...recipe,
+        difficulty: parseInt(recipe.difficulty) || 0,
+        likes: parseInt(recipe.likes) || 0,
+        views: parseInt(recipe.views) || 0,
+        date: recipe.date || new Date('2024-01-01').toISOString(), // Date par défaut pour les anciennes recettes
         isDefault: true,
       }))
 

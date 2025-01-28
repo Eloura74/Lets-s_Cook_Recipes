@@ -5,7 +5,7 @@ import HomeButton from '../buttons/HomeButton'
 
 import DashboardButton from '../buttons/Dashboard'
 import { useAuth } from '../../contexts/AuthContext'
-import { FaBars, FaTimes } from 'react-icons/fa'
+import { FaBars, FaTimes, FaUser, FaUserPlus } from 'react-icons/fa'
 import PopularRecipes from './PopularRecipes'
 import recipesData from '../../data/recettes.json'
 
@@ -130,11 +130,19 @@ const Header = () => {
                 ) : (
                   // Sinon affiche le bouton d'inscription et de connexion
                   <div className="flex space-x-2">
-                    <Link to="/login" className="btn-site">
-                      Connexion
+                    <Link
+                      to="/login"
+                      className="btn-site flex items-center gap-2"
+                    >
+                      <FaUser className="max-w-5 max-h-5" />
+                      <span className="mx-auto pr-4 text-2xl">Connexion</span>
                     </Link>
-                    <Link to="/signup" className="btn-site">
-                      Inscription
+                    <Link
+                      to="/signup"
+                      className="btn-site flex items-center gap-2"
+                    >
+                      <FaUserPlus className="max-w-5 max-h-5" />
+                      <span className="mx-auto pr-4 text-2xl">Inscription</span>
                     </Link>
                   </div>
                 )}

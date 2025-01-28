@@ -2,6 +2,7 @@
 // Imports des dépendances
 //====================================
 import React, { useState } from 'react'
+import Footer from '../components/common/Footer'
 import BackButton from '../components/buttons/BackButton'
 import {
   FaPlus,
@@ -466,6 +467,7 @@ ________________________________________________________________________________
           </section>
         </div>
       </div>
+      <Footer />
     </div>
   )
 }

@@ -125,7 +125,7 @@
   }
 }
 
-.btn-site-active {
+/* .btn-site-active {
   @apply bg-gradient-to-r from-[#C7B8A6] via-[#DAD5C7] to-[#BFA68A]
          text-[#A27B5C]
          shadow-md shadow-[#4A403A]/30
@@ -133,7 +133,7 @@
          border border-[#4A403A]/20
          hover:shadow-lg hover:shadow-[#4A403A]/40
          transition-all duration-300 ease-in-out;
-}
+} */
 
 .nav-btn {
   @apply relative 
