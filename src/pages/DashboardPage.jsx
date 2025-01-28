@@ -416,59 +416,67 @@ ________________________________________________________________________________
                 </p>
               ) : (
                 // sinon afficher les recettes
-                recipes.map(recipe => (
-                  <div
-                    key={recipe.id}
-                    className="bg-[#3F4E4F]/30 rounded-lg p-2 flex flex-col sm:flex-row  sm:gap-4 scale-98 hover:scale-100 transition-transform duration-300 shadow-xl shadow-[#4A403A]/90"
+                recipes.map((recipe, index) => (
+                  <article
+                    key={index}
+                    className="relative flex flex-col sm:flex-row items-start gap-4 p-4 bg-[#3F4E4F] rounded-lg hover:bg-[#3F4E4F]/80 transition-colors group"
                   >
-                    <img
-                      src={recipe.imageUrl}
-                      alt={recipe.title}
-                      aria-label={recipe.title}
-                      className="shadow-2xl shadow-[#DCD7C9]/20 w-16 h-16 sm:w-24 sm:h-24 object-cover rounded-lg border border-[#DCD7C9]/40"
-                    />
+                    {/* Image de la recette */}
+                    <div className="w-full sm:w-32 md:w-40 aspect-video sm:aspect-square flex-shrink-0 relative rounded-lg overflow-hidden">
+                      <img
+                        src={recipe.imageUrl}
+                        alt={recipe.titre}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+
+                    {/* Informations de la recette */}
                     <div className="flex-grow min-w-0">
-                      <div className="flex justify-between items-start gap-2">
-                        <h3 className="text-[#DCD7C9]  text-xl font-semibold truncate">
-                          {recipe.title}
+                      <div className="flex items-start justify-between gap-4">
+                        <h3 className="text-xl font-semibold text-[#DCD7C9] truncate">
+                          {recipe.titre}
                         </h3>
-                        <div className="flex gap-1 shrink-0">
+                        <div className="flex gap-2">
                           {/* Bouton Editer */}
                           <button
-                            className="button-reset p-1 sm:p-2 text-[#DCD7C9]/70 "
-                            onClick={() => alert('Fonctionnalité à venir')}
+                            className="p-2 text-[#DCD7C9] hover:text-[#A27B5C] transition-colors"
+                            title="Modifier"
                           >
-                            <FaPen className="w-3 h-3 sm:w-4 sm:h-4 text-[#DCD7C9]/70 shadow-sm hover:text-[#A27B5C]" />
+                            <FaPen className="w-4 h-4" />
                           </button>
                           {/* Bouton Supprimer */}
                           <button
-                            className="button-reset p-1 sm:p-2 text-[#DCD7C9]/70 "
-                            onClick={() => supprimerRecette(recipe.id)}
+                            className="p-2 text-red-500 hover:text-red-600 transition-colors"
+                            title="Supprimer"
                           >
-                            <FaTrash className="w-3 h-3 sm:w-4 sm:h-4 text-red-500 shadow-sm hover:text-red-600 " />
+                            <FaTrash className="w-4 h-4" />
                           </button>
                         </div>
                       </div>
-                      <p className="text-[#DCD7C9]/70 text-xs sm:text-sm line-clamp-2">
+
+                      <p className="text-[#DCD7C9]/80 text-sm line-clamp-2 mt-1">
                         {recipe.description}
                       </p>
-                      <div className="flex sm:flex-wrap items-center gap-2 sm:gap-4 mt-1 sm:mt-2">
-                        {/* Difficulté */}
-                        <DifficultyStars difficulty={recipe.difficulty} />
 
-                        {/* Temp préparation */}
-                        <span className="text-[#DCD7C9]/70 text-xs sm:text-sm">
-                          {recipe.prepTime} min
-                        </span>
+                      <div className="flex flex-wrap items-center gap-4 mt-2">
+                        {/* Difficulté */}
+                        <div className="flex items-center gap-1 text-[#DCD7C9]/60">
+                          <FaClock className="w-4 h-4" />
+                          <span>{recipe.tempsPreparation} min</span>
+                        </div>
                         {/* Likes */}
-                        <FaHeart className="text-red-500/50" />
-                        <span className="text-sm">{recipe.likes}</span>
+                        <div className="flex items-center gap-1">
+                          <FaEye className="w-4 h-4 text-[#DCD7C9]/60" />
+                          <span className="text-[#DCD7C9]/60">{recipe.vues || 0}</span>
+                        </div>
                         {/* Vues */}
-                        <FaEye className="text-[#A27B5C]" />
-                        <span className="text-sm">{recipe.views}</span>
+                        <div className="flex items-center gap-1">
+                          <FaHeart className="w-4 h-4 text-[#DCD7C9]/60" />
+                          <span className="text-[#DCD7C9]/60">{recipe.likes || 0}</span>
+                        </div>
                       </div>
                     </div>
-                  </div>
+                  </article>
                 ))
               )}
             </div>

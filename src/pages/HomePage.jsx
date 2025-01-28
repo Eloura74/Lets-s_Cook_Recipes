@@ -42,6 +42,7 @@ const HomePage = () => {
         {/* Bouton retour haut avec icône FA */}
         <ScrollButton />
       </section>
+      {/* Footer */}
       <Footer />
     </main>
   )

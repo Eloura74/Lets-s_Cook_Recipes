@@ -17,13 +17,19 @@ const Footer = () => {
           <nav className="mt-6">
             <ul className="flex flex-col sm:flex-row justify-center items-center gap-4">
               <li>
-                <Link to="/#filtres-recettes" className="btn-site flex items-center gap-2 whitespace-nowrap">
+                <Link
+                  to="/#filtres-recettes"
+                  className="btn-site flex items-center gap-2 whitespace-nowrap"
+                >
                   <FaHome className="max-w-5 max-h-5" />
                   <span className="text-lg sm:text-xl">Accueil</span>
                 </Link>
               </li>
               <li>
-                <Link to="/dashboard" className="btn-site flex items-center gap-2 whitespace-nowrap">
+                <Link
+                  to="/dashboard"
+                  className="btn-site flex items-center gap-2 whitespace-nowrap"
+                >
                   <FaChartBar className="max-w-5 max-h-5" />
                   <span className="text-lg sm:text-xl">Tableau de bord</span>
                 </Link>
@@ -41,7 +47,9 @@ const Footer = () => {
           </div>
         </article>
         <div className="mt-8 pt-8 border-t border-[#A27B5C] text-center">
-          <p>&copy; {new Date().getFullYear()} Let's Cook. Tous droits réservés.</p>
+          <p>
+            &copy; {new Date().getFullYear()} Let's Cook. Tous droits réservés.
+          </p>
         </div>
       </section>
     </footer>
