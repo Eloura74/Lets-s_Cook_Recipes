@@ -2,7 +2,9 @@
 
 ## 🎥 Démonstration du Site
 
-![Démonstration Let's Cook](./public/readme_media/presentation.gif)
+<div align="center">
+  <img src="./public/readme_media/Presentation.gif" alt="Démonstration de l'interface de Let's Cook - Navigation et utilisation de l'application" width="100%">
+</div>
 
 ---
 
