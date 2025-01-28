@@ -31,24 +31,34 @@ const Filtres = ({ onFilterChange }) => {
       normal: {
         texte: 'Les plus populaires',
         trierRecettes: recettes =>
-          [...recettes].sort((a, b) => (parseInt(b.likes) || 0) - (parseInt(a.likes) || 0)),
+          [...recettes].sort(
+            (a, b) => (parseInt(b.likes) || 0) - (parseInt(a.likes) || 0)
+          ),
       },
       inverse: {
         texte: 'Les moins populaires',
         trierRecettes: recettes =>
-          [...recettes].sort((a, b) => (parseInt(a.likes) || 0) - (parseInt(b.likes) || 0)),
+          [...recettes].sort(
+            (a, b) => (parseInt(a.likes) || 0) - (parseInt(b.likes) || 0)
+          ),
       },
     },
     difficulte: {
       normal: {
         texte: 'Les plus difficiles',
         trierRecettes: recettes =>
-          [...recettes].sort((a, b) => (parseInt(b.difficulty) || 0) - (parseInt(a.difficulty) || 0)),
+          [...recettes].sort(
+            (a, b) =>
+              (parseInt(b.difficulty) || 0) - (parseInt(a.difficulty) || 0)
+          ),
       },
       inverse: {
         texte: 'Les plus faciles',
         trierRecettes: recettes =>
-          [...recettes].sort((a, b) => (parseInt(a.difficulty) || 0) - (parseInt(b.difficulty) || 0)),
+          [...recettes].sort(
+            (a, b) =>
+              (parseInt(a.difficulty) || 0) - (parseInt(b.difficulty) || 0)
+          ),
       },
     },
   }
@@ -122,14 +132,14 @@ const Filtres = ({ onFilterChange }) => {
     if (!menuMobileOuvert) return null
 
     return createPortal(
-      <div className="fixed inset-0 bg-black/50 z-[99999] lg:hidden">
+      <div className="fixed inset-0 bg-black/50  z-[99999] lg:hidden">
         <motion.div
-          className="fixed top-[4rem] inset-x-4 flex flex-col gap-4 bg-[#2C3639]/95 p-4 rounded-lg shadow-lg"
+          className="fixed top-[4rem] inset-x-8 flex flex-col gap-4 bg-[#2C3639]/35 p-2 rounded-lg  shadow-xl shadow-[#4A403A]/90"
           initial="closed"
           animate="open"
           variants={menuVariants}
         >
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-4  shadow-xl shadow-[#4A403A]/90 ">
             {Object.keys(configurationFiltres).map(nomFiltre => (
               <button
                 key={nomFiltre}
@@ -139,7 +149,7 @@ const Filtres = ({ onFilterChange }) => {
                 }}
                 className={obtenirClassesBouton(nomFiltre)}
               >
-                <span className="font-medium">
+                <span className="font-medium ">
                   {obtenirTexteBouton(nomFiltre)}
                 </span>
                 {etatsDesFiltres[nomFiltre].actif && (
@@ -189,14 +199,14 @@ const Filtres = ({ onFilterChange }) => {
   return (
     <section className="container mx-auto px-6 py-4">
       <div className="flex flex-wrap items-center gap-6">
-        <h2 className="flex text-4xl pb2 text-[#DCD7C9] font-memoirs underline [text-shadow:_0_3px_0_rgba(1_1_1_/_80%)]">
+        <h2 className="flex text-3xl mx-auto pb2 text-[#DCD7C9] font-memoirs underline-offset-4 underline [text-shadow:_0_3px_0_rgba(1_1_1_/_80%)]">
           Choisissez un filtre :
         </h2>
 
         {/* Version Mobile */}
         <div className="lg:hidden w-full">
           <button
-            className="btn-site flex items-center gap-2 mb-4"
+            className="btn-site flex items-center mx-auto gap-2 mb-1"
             onClick={() => setMenuMobileOuvert(!menuMobileOuvert)}
             aria-label={
               menuMobileOuvert ? 'Fermer les filtres' : 'Ouvrir les filtres'

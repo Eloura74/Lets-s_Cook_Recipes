@@ -147,17 +147,21 @@ const DashboardPage = () => {
   // Rendu du composant
   //====================================
   return (
-    <div className="space-y-8">
+    <div className="space-y-8 w-full">
       {/* En-tête */}
-      <header className="flex items-center justify-between bg-[#2C3639]/95 rounded-4xl shadow-lg">
-        <div className="w-32 ">
-          <HomeButton />
+      <header className="flex items-center flex-col bg-[#2C3639]/25 rounded-4xl shadow-lg">
+        <div>
+          <h1 className="text-5xl font-memoirs text-[#DCD7C9] [text-shadow:_2px_2px_4px_rgba(0,0,0,0.5)] mt-6">
+            Tableau de bord
+          </h1>
         </div>
-        <h1 className="text-5xl font-memoirs text-[#DCD7C9] [text-shadow:_2px_2px_4px_rgba(0,0,0,0.5)]">
-          Tableau de bord
-        </h1>
-        <div className="w-32 flex justify-end">
-          <BackButton />
+        <div className="flex items-center gap-17 p-14">
+          <div className="w-32 ">
+            <HomeButton />
+          </div>
+          <div className="w-32 flex justify-end">
+            <BackButton />
+          </div>
         </div>
       </header>
 

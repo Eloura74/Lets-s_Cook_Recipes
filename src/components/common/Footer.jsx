@@ -14,26 +14,26 @@ const Footer = () => {
             <h3 className="text-xl font-bold mb-4">Let's Cook</h3>
             <p>Découvrez les meilleures recettes de cuisine</p>
           </div>
-          <div>
-            <ul className="space-y-2 items-center flex justify-between">
+          <nav className="mt-6">
+            <ul className="flex flex-col sm:flex-row justify-center items-center gap-4">
               <li>
-                <Link to="/" className="btn-site flex items-center gap-2">
+                <Link to="/" className="btn-site flex items-center gap-2 whitespace-nowrap">
                   <FaHome className="max-w-5 max-h-5" />
-                  <span className="mx-auto pr-4 text-2xl">Accueil</span>
+                  <span className="text-lg sm:text-xl">Accueil</span>
                 </Link>
               </li>
               <li>
-                <Link to="/dashboard" className="btn-site flex items-center gap-2">
+                <Link to="/dashboard" className="btn-site flex items-center gap-2 whitespace-nowrap">
                   <FaChartBar className="max-w-5 max-h-5" />
-                  <span className="mx-auto pr-4 text-2xl">Tableau de bord</span>
+                  <span className="text-lg sm:text-xl">Tableau de bord</span>
                 </Link>
               </li>
             </ul>
-          </div>
-          <div className="flex flex-col justify-center items-center">
+          </nav>
+          <div className="flex flex-col justify-center items-center mt-6">
             <a
               href={`mailto:${openMail}`}
-              className="btn-site"
+              className="btn-site text-lg"
               aria-label="Envoyer un email"
             >
               {openMail}

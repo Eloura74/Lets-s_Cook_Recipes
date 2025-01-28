@@ -73,7 +73,7 @@ const RecipeCard = ({ recipe }) => {
         <article className="absolute top-2 right-2 z-20 flex flex-col gap-1.5 sm:gap-2">
           {/* Likes */}
           <div
-            className="flex-center bg-[#2C3639]/80 px-3 py-1.5 rounded-full border border-white/20"
+            className="flex-center bg-[#2C3639]/80 px-3 py-1.5 rounded-full border border-white/20 shadow-xl shadow-[#4A403A]/90"
             aria-label={`${recipe.likes} likes`}
           >
             <FaHeart
@@ -87,7 +87,7 @@ const RecipeCard = ({ recipe }) => {
 
           {/* Vues */}
           <div
-            className="flex-center bg-[#2C3639]/80 px-3 py-1.5 rounded-full border border-white/20"
+            className="flex-center bg-[#2C3639]/80 px-3 py-1.5 rounded-full border border-white/20 shadow-xl shadow-[#4A403A]/90"
             aria-label={`${recipe.views} vues`}
           >
             <FaEye
