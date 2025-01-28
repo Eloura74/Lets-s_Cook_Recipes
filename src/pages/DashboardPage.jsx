@@ -462,17 +462,21 @@ ________________________________________________________________________________
                         {/* Difficulté */}
                         <div className="flex items-center gap-1 text-[#DCD7C9]/60">
                           <FaClock className="w-4 h-4" />
-                          <span>{recipe.tempsPreparation} min</span>
+                          <span>{recipe.prepTime} min</span>
                         </div>
                         {/* Likes */}
                         <div className="flex items-center gap-1">
                           <FaEye className="w-4 h-4 text-[#DCD7C9]/60" />
-                          <span className="text-[#DCD7C9]/60">{recipe.vues || 0}</span>
+                          <span className="text-[#DCD7C9]/60">
+                            {recipe.views || 0}
+                          </span>
                         </div>
                         {/* Vues */}
                         <div className="flex items-center gap-1">
                           <FaHeart className="w-4 h-4 text-[#DCD7C9]/60" />
-                          <span className="text-[#DCD7C9]/60">{recipe.likes || 0}</span>
+                          <span className="text-[#DCD7C9]/60">
+                            {recipe.likes || 0}
+                          </span>
                         </div>
                       </div>
                     </div>
