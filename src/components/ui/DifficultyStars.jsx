@@ -2,10 +2,13 @@ import React from 'react'
 import { motion } from 'framer-motion'
 import { FaStar } from 'react-icons/fa'
 
+// Composant des Étoiles
 const DifficultyStars = ({ difficulty, onChange, interactive = false }) => {
   const starVariants = {
-    initial: { scale: 0, rotate: -180 },
+    // Variants pour les étoiles
+    initial: { scale: 0, rotate: -180 }, // État initial
     animate: i => ({
+      // Animation pour chaque étoile
       scale: 1,
       rotate: 0,
       transition: {
@@ -26,10 +29,12 @@ const DifficultyStars = ({ difficulty, onChange, interactive = false }) => {
     },
   }
 
+  // Fonction pour rendre chaque étoile interactive
   const renderStar = niveau => {
     // const StarComponent = interactive ? 'button' : motion.div
 
     if (interactive) {
+      // Si l'interaction est active
       return (
         <button
           key={niveau}
@@ -52,7 +57,7 @@ const DifficultyStars = ({ difficulty, onChange, interactive = false }) => {
     }
 
     return (
-      <motion.div
+      <motion.div // Si l'interaction n'est pas active
         key={niveau}
         variants={starVariants}
         custom={niveau}
@@ -78,12 +83,17 @@ const DifficultyStars = ({ difficulty, onChange, interactive = false }) => {
   }
 
   return (
+    // Affichage des Étoiles
     <div className="flex items-center gap-0.5">
-      {[1, 2, 3, 4, 5].map(niveau => (
-        <div key={niveau} className="bg-transparent">
-          {renderStar(niveau)}
-        </div>
-      ))}
+      {[1, 2, 3, 4, 5].map(
+        (
+          niveau // map() pour afficher chaque Étoile
+        ) => (
+          <div key={niveau} className="bg-transparent">
+            {renderStar(niveau)}
+          </div>
+        )
+      )}
     </div>
   )
 }

@@ -8,6 +8,7 @@ const RecipeCard = ({ recipe }) => {
   const cardRef = useRef(null)
   const [rotation, setRotation] = useState({ x: 0, y: 0 })
 
+  // Fonction pour la rotation des Étoiles
   const handleMouseMove = e => {
     // Fonction pour gestion de la souris
     if (!cardRef.current) return // Si la reference du composant n'existe pas, on sort de la fonction

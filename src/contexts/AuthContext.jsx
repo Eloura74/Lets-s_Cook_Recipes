@@ -1,50 +1,133 @@
-import React, { createContext, useState, useContext } from 'react'
+import React, { createContext, useContext, useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
+import usersData from '../data/users.json'
 
-// Création d'un contexte pour partager les informations d'authentification
-const AuthContext = createContext(null)
+// Création du contexte
+const AuthContext = createContext()
 
-// Fournisseur d'authentification qui englobe les composants enfants
+// Hook personnalisé pour utiliser le contexte
+export const connection = () => useContext(AuthContext)
+
+// Provider du contexte d'authentification
 export const AuthProvider = ({ children }) => {
-  // État pour stocker les informations de l'utilisateur (null par défaut)
   const [user, setUser] = useState(null)
+  const [isInitialized, setIsInitialized] = useState(false)
+  const navigate = useNavigate()
 
-  // Fonction pour simuler la connexion d'un utilisateur
-  const login = () => {
-    setUser({
-      name: 'Quentin', // Nom de l'utilisateur connecté
-      role: 'user', // Rôle de l'utilisateur
-    })
-    return true // Retourne vrai pour indiquer que la connexion a réussi
+  // Fonction de connexion
+  const login = (username, password) => {
+    // Recherche de l'utilisateur dans le JSON
+    const foundUser = usersData.users.find(
+      u => u.username === username && u.password === password
+    )
+
+    if (foundUser) {
+      // Si l'utilisateur est trouvé, on le connecte
+      setUser(foundUser)
+      // Stocker l'état de connexion dans le localStorage
+      localStorage.setItem('isLoggedIn', 'true')
+      localStorage.setItem('username', username)
+      // Redirection vers le dashboard
+      navigate('/dashboard')
+      return true
+    } else {
+      // Si l'utilisateur n'est pas trouvé
+      alert("Nom d'utilisateur ou mot de passe incorrect")
+      return false
+    }
   }
 
-  // Fonction pour simuler l'inscription d'un nouvel utilisateur
-  const register = () => {
-    setUser({
-      name: 'Nouvel Utilisateur', // Nom par défaut du nouvel utilisateur
-      role: 'user', // Rôle par défaut
-    })
-    return true // Retourne vrai pour indiquer que l'inscription a réussi
-  }
-
-  // Fonction pour déconnecter l'utilisateur
+  // Fonction de déconnexion
   const logout = () => {
-    setUser(null) // Réinitialise l'état utilisateur à null
+    // Nettoyer le localStorage
+    localStorage.removeItem('isLoggedIn')
+    localStorage.removeItem('username')
+    // Réinitialiser l'état de l'utilisateur
+    setUser(null)
+    // Redirection vers la page d'accueil
+    navigate('/')
   }
 
-  // Le contexte partage l'utilisateur et les fonctions d'authentification
+  // Vérifier si l'utilisateur est connecté au chargement
+  useEffect(() => {
+    const isLoggedIn = localStorage.getItem('isLoggedIn')
+    const username = localStorage.getItem('username')
+
+    if (isLoggedIn && username) {
+      const foundUser = usersData.users.find(u => u.username === username)
+      if (foundUser) {
+        setUser(foundUser)
+      }
+    }
+    setIsInitialized(true)
+  }, [])
+
+  // Ne pas rendre les enfants tant que l'initialisation n'est pas terminée
+  if (!isInitialized) {
+    return null // ou un composant de chargement si vous préférez
+  }
+
   return (
-    <AuthContext.Provider value={{ user, login, register, logout }}>
-      {children} {/* Rend les composants enfants accessibles ici */}
+    <AuthContext.Provider value={{ user, login, logout }}>
+      {children}
     </AuthContext.Provider>
   )
 }
+// import { useState, useEffect } from 'react'
+// import { useNavigate } from 'react-router-dom'
+// import usersData from '../data/users.json'
 
-// Hook personnalisé pour accéder au contexte d'authentification
-export const useAuth = () => {
-  const context = useContext(AuthContext) // Récupère le contexte
-  if (!context) {
-    // Vérifie que le composant est bien dans un AuthProvider
-    throw new Error("useAuth doit être utilisé à l'intérieur d'un AuthProvider")
-  }
-  return context // Retourne les données et fonctions d'authentification
-}
+// export const useAuthentication = () => {
+//   const [user, setUser] = useState(null)
+
+//   const navigate = useNavigate()
+//   // fonction de connexion
+//   const login = (username, password) => {
+//     // Recherche de l'utilisateur dans le JSON
+//     const foundUser = usersData.users.find(
+//       u => u.username === username && u.password === password
+//     )
+//     if (foundUser) {
+//       // Si l'utilisateur est trouvé, on le connecte
+//       setUser(foundUser)
+//       // Stocker l'état de connexion dans le localStorage
+//       localStorage.setItem('logged', 'true')
+//       localStorage.setItem('username', username)
+//       // Redirection vers le dashboard
+//       navigate('/dashboard')
+//       return true
+//     } else {
+//       console.log("Mauvais nom d'utilisateur ou mot de passe")
+//       return false
+//     }
+//   }
+
+//   const logout = () => {
+//     // Nettoyer le localStorage
+//     localStorage.removeItem('logged')
+//     localStorage.removeItem('username')
+//     // Réinitialiser l'état de l'utilisateur
+//     setUser(null)
+//     // Redirection vers la page de accueil
+//     navigate('/')
+//   }
+
+//   // Vérifier si l'utilisateur est connecté au chargement
+//   useEffect(() => {
+//     const logged = localStorage.getItem('logged')
+//     const username = localStorage.getItem('username')
+//     if (logged && username) {
+//       const userFound = usersData.users.find(u => u.username === username)
+//       if (userFound) {
+//         setUser(userFound)
+//       }
+//     }
+//   }, [])
+
+//   return {
+//     user,
+//     setUser,
+//     login,
+//     logout,
+//   }
+// }

@@ -170,12 +170,12 @@ export const RecipesProvider = ({ children }) => {
     }
   }
 
-  const deleteRecipe = (id) => {
+  const deleteRecipe = id => {
     try {
       // Mettre à jour l'état des recettes
       setRecipes(prevRecipes => {
         const updatedRecipes = prevRecipes.filter(recipe => recipe.id !== id)
-        
+
         // Sauvegarder dans le localStorage uniquement les recettes non par défaut
         const localRecettes = updatedRecipes
           .filter(recipe => !recipe.isDefault)

@@ -37,6 +37,7 @@ const DashboardPage = () => {
     imageUrl: '/images/newRecipes.webp',
   })
 
+  console.log(nouvelleRecette)
   // Récupération des recettes depuis le contexte
   const { recipes, addRecipe, deleteRecipe } = useRecipes()
 
@@ -227,12 +228,13 @@ ________________________________________________________________________________
               <div className="w-full flex justify-center bg-transparent">
                 <DifficultyStars
                   difficulty={nouvelleRecette.difficulte}
-                  onChange={niveau =>
+                  onChange={niveau => {
+                    console.log(niveau)
                     setNouvelleRecette(prev => ({
                       ...prev,
                       difficulte: niveau,
                     }))
-                  }
+                  }}
                   interactive={true}
                 />
               </div>

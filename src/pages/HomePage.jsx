@@ -34,7 +34,7 @@ const HomePage = () => {
 
       {/* Liste des recettes */}
       <section
-        className="relative container mx-auto backdrop-blur-[2px] bg-transparent rounded-2xl shadow-2xl shadow-[#4A403A] mt-4 p-6"
+        className="relative container mx-auto backdrop-blur-[10px] bg-transparent rounded-2xl shadow-2xl shadow-[#4A403A] mt-4 p-6"
         aria-label="Liste des recettes"
       >
         <RecipeList />
