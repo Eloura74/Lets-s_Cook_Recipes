@@ -38,7 +38,7 @@ const DashboardPage = () => {
   })
 
   // Récupération des recettes depuis le contexte
-  const { recipes, addRecipe } = useRecipes()
+  const { recipes, addRecipe, deleteRecipe } = useRecipes()
 
   //====================================
   // Statistiques
@@ -54,8 +54,7 @@ const DashboardPage = () => {
     if (dashboardRef.current) {
       const yOffset = -30 // Offset pour tenir compte du header fixe
       const element = dashboardRef.current
-      const y =
-        element.getBoundingClientRect().top + window.pageYOffset + yOffset
+      const y = element.getBoundingClientRect().top + window.scrollY + yOffset
 
       window.scrollTo({
         top: y,
@@ -110,13 +109,13 @@ const DashboardPage = () => {
     //====================================
     // Création de la nouvelle recette
     //====================================
-    const nouvelleRecetteComplete = {
-      ...nouvelleRecette, // Copie des propriétés de la nouvelle recette
-      id: newId, // ID unique
-      dateCreation: new Date().toISOString(), // Date de création
-      ingredients: nouvelleRecette.ingredients.filter(i => i?.trim() !== ''), // Ingrediants non vides
-      instructions: nouvelleRecette.instructions.filter(i => i?.trim() !== ''), // Instructions non vides
-    }
+    // const nouvelleRecetteComplete = {
+    //   ...nouvelleRecette, // Copie des propriétés de la nouvelle recette
+    //   id: newId, // ID unique
+    //   dateCreation: new Date().toISOString(), // Date de création
+    //   ingredients: nouvelleRecette.ingredients.filter(i => i?.trim() !== ''), // Ingrediants non vides
+    //   instructions: nouvelleRecette.instructions.filter(i => i?.trim() !== ''), // Instructions non vides
+    // }
 
     //====================================
     // Formatage de la recette pour le contexte
@@ -156,8 +155,7 @@ const DashboardPage = () => {
   const supprimerRecette = id => {
     // Fonction pour supprimer une recette
     if (window.confirm('Êtes-vous sûr de vouloir supprimer cette recette ?')) {
-      const updatedRecipes = recipes.filter(r => r.id !== id) // Filtrer les recettes sans la recette à supprimer
-      localStorage.setItem('recettes', JSON.stringify(updatedRecipes)) // Mise à jour des recettes dans le localStorage
+      deleteRecipe(id)
     }
   }
 
@@ -425,7 +423,7 @@ ________________________________________________________________________________
                     <div className="w-full sm:w-32 md:w-40 aspect-video sm:aspect-square flex-shrink-0 relative rounded-lg overflow-hidden">
                       <img
                         src={recipe.imageUrl}
-                        alt={recipe.titre}
+                        alt={recipe.title}
                         className="w-full h-full object-cover"
                       />
                     </div>
@@ -433,8 +431,12 @@ ________________________________________________________________________________
                     {/* Informations de la recette */}
                     <div className="flex-grow min-w-0">
                       <div className="flex items-start justify-between gap-4">
-                        <h3 className="text-xl font-semibold text-[#DCD7C9] truncate">
-                          {recipe.titre}
+                        {/* Titre desktop et versions*/}
+                        {/* <h3 className="text-xl font-semibold text-[#DCD7C9] sm:max-w-[120px] truncate sm:hidden">
+                          {recipe.title}
+                        </h3> */}
+                        <h3 className="text-xl font-semibold text-[#DCD7C9] overflow-hidden ">
+                          {recipe.title}
                         </h3>
                         <div className="flex gap-2">
                           {/* Bouton Editer */}
@@ -446,6 +448,7 @@ ________________________________________________________________________________
                           </button>
                           {/* Bouton Supprimer */}
                           <button
+                            onClick={() => supprimerRecette(recipe.id)}
                             className="p-2 text-red-500 hover:text-red-600 transition-colors"
                             title="Supprimer"
                           >
@@ -457,6 +460,11 @@ ________________________________________________________________________________
                       <p className="text-[#DCD7C9]/80 text-sm line-clamp-2 mt-1">
                         {recipe.description}
                       </p>
+
+                      {/* Ajout des étoiles de difficulté */}
+                      <div className="mt-2">
+                        <DifficultyStars difficulty={recipe.difficulty} />
+                      </div>
 
                       <div className="flex flex-wrap items-center gap-4 mt-2">
                         {/* Difficulté */}

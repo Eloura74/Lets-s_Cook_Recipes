@@ -170,12 +170,44 @@ export const RecipesProvider = ({ children }) => {
     }
   }
 
+  const deleteRecipe = (id) => {
+    try {
+      // Mettre à jour l'état des recettes
+      setRecipes(prevRecipes => {
+        const updatedRecipes = prevRecipes.filter(recipe => recipe.id !== id)
+        
+        // Sauvegarder dans le localStorage uniquement les recettes non par défaut
+        const localRecettes = updatedRecipes
+          .filter(recipe => !recipe.isDefault)
+          .map(recipe => ({
+            id: recipe.id,
+            titre: recipe.title,
+            description: recipe.description,
+            difficulte: recipe.difficulty,
+            tempsPreparation: recipe.prepTime,
+            imageUrl: recipe.imageUrl,
+            ingredients: recipe.ingredients,
+            instructions: recipe.instructions,
+            dateCreation: recipe.date,
+            likes: recipe.likes,
+            views: recipe.views,
+          }))
+
+        localStorage.setItem('recettes', JSON.stringify(localRecettes))
+        return updatedRecipes
+      })
+    } catch (err) {
+      console.error('Erreur lors de la suppression de la recette:', err)
+    }
+  }
+
   const value = {
     recipes, // Liste des recettes
     loading, // Etat de chargement
     incrementViews, // Fonction pour incrémenter les vues
     addRecipe, // Fonction pour ajouter une nouvelle recette
     fetchRecipes, // Fonction pour charger les recettes
+    deleteRecipe, // Fonction pour supprimer une recette
   }
 
   return (

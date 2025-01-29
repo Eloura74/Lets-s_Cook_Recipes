@@ -60,7 +60,7 @@ const RecipeCard = ({ recipe }) => {
         <img
           src={recipe.imageUrl}
           alt={`Présentation de ${recipe.title}`}
-          className="img-cover transition-transform duration-300 group-hover:scale-110 rounded-2xl"
+          className="img-cover transition-transform duration-300 group-hover:scale-110 rounded-2xl sm:w-full"
         />
         <div className="absolute inset-0 z-20 p-2">
           <DifficultyStars difficulty={recipe.difficulty} />
@@ -130,7 +130,7 @@ const RecipeCard = ({ recipe }) => {
               e.stopPropagation()
               navigate(`/recette/${recipe.id}`)
             }}
-            className="btn-site"
+            className="btn-site w-1/2  flex items-center justify-center flex-row-reverse"
           >
             Voir la recette
             <FaArrowRight className="text-xs mx-auto" />

@@ -110,6 +110,7 @@
          border border-transparent
          hover:border-[#4A403A]/10
          relative
+         
          overflow-hidden;
 
   &::before {
