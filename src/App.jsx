@@ -13,48 +13,45 @@ import { RecipesProvider } from './contexts/RecipesContext'
 import HomePage from './pages/HomePage'
 import RecipeDetail from './pages/RecipeDetail'
 import DashboardPage from './pages/DashboardPage'
-import { connection } from './contexts/AuthContext'
-import { useState, createContext, useContext } from 'react'
+import { useAuth } from './contexts/AuthContext'
 
 // Composant de protection des routes
 const PrivateRoute = ({ children }) => {
-  const { user } = connection()
+  const { user } = useAuth()
   return user ? children : <Navigate to="/login" />
 }
-const TestContext = createContext()
-export const useA = () => useContext(TestContext)
 
 function App() {
-  const [a, setA] = useState('aaa')
+  // const [a, setA] = useState('aaa')
 
   return (
     <Router>
-      <TestContext.Provider value={a}>
-        <AuthProvider>
-          <RecipesProvider>
-            {/* div pour le logging */}
-            <div className="min-h-screen flex flex-col background-principale">
-              <Header />
-              <main className="flex-grow container mx-auto px-4 sm:px-6 lg:px-8 py-8 mt-20">
-                <Routes>
-                  <Route path="/" element={<HomePage />} />
-                  <Route path="/login" element={<LoginForm />} />
-                  <Route path="/signup" element={<RegisterForm />} />
-                  <Route
-                    path="/dashboard"
-                    element={
-                      <PrivateRoute>
-                        <DashboardPage />
-                      </PrivateRoute>
-                    }
-                  />
-                  <Route path="/recette/:id" element={<RecipeDetail />} />
-                </Routes>
-              </main>
-            </div>
-          </RecipesProvider>
-        </AuthProvider>
-      </TestContext.Provider>
+      {/* <TestContext.Provider value={a}> */}
+      <AuthProvider>
+        <RecipesProvider>
+          {/* div pour le logging */}
+          <div className="min-h-screen flex flex-col background-principale">
+            <Header />
+            <main className="flex-grow container mx-auto px-4 sm:px-6 lg:px-8 py-8 mt-20">
+              <Routes>
+                <Route path="/" element={<HomePage />} />
+                <Route path="/login" element={<LoginForm />} />
+                <Route path="/signup" element={<RegisterForm />} />
+                <Route
+                  path="/dashboard"
+                  element={
+                    <PrivateRoute>
+                      <DashboardPage />
+                    </PrivateRoute>
+                  }
+                />
+                <Route path="/recette/:id" element={<RecipeDetail />} />
+              </Routes>
+            </main>
+          </div>
+        </RecipesProvider>
+      </AuthProvider>
+      {/* </TestContext.Provider> */}
     </Router>
   )
 }

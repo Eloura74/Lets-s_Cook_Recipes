@@ -6,7 +6,13 @@ import usersData from '../data/users.json'
 const AuthContext = createContext()
 
 // Hook personnalisé pour utiliser le contexte
-export const connection = () => useContext(AuthContext)
+export const useAuth = () => {
+  const context = useContext(AuthContext)
+  if (!context) {
+    throw new Error("useAuth doit être utilisé à l'intérieur d'un AuthProvider")
+  }
+  return context
+}
 
 // Provider du contexte d'authentification
 export const AuthProvider = ({ children }) => {
@@ -37,6 +43,31 @@ export const AuthProvider = ({ children }) => {
     }
   }
 
+  // Fonction d'inscription
+  const register = (username, password) => {
+    // Vérifier si l'utilisateur existe déjà
+    const userExists = usersData.users.some(u => u.username === username)
+    
+    if (userExists) {
+      alert("Ce nom d'utilisateur existe déjà")
+      return false
+    }
+
+    // Ajouter le nouvel utilisateur
+    const newUser = {
+      username,
+      password,
+      role: 'user'
+    }
+    
+    usersData.users.push(newUser)
+    setUser(newUser)
+    localStorage.setItem('isLoggedIn', 'true')
+    localStorage.setItem('username', username)
+    navigate('/dashboard')
+    return true
+  }
+
   // Fonction de déconnexion
   const logout = () => {
     // Nettoyer le localStorage
@@ -50,13 +81,13 @@ export const AuthProvider = ({ children }) => {
 
   // Vérifier si l'utilisateur est connecté au chargement
   useEffect(() => {
-    const isLoggedIn = localStorage.getItem('isLoggedIn')
-    const username = localStorage.getItem('username')
+    const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true'
+    const savedUsername = localStorage.getItem('username')
 
-    if (isLoggedIn && username) {
-      const foundUser = usersData.users.find(u => u.username === username)
-      if (foundUser) {
-        setUser(foundUser)
+    if (isLoggedIn && savedUsername) {
+      const savedUser = usersData.users.find(u => u.username === savedUsername)
+      if (savedUser) {
+        setUser(savedUser)
       }
     }
     setIsInitialized(true)
@@ -68,66 +99,8 @@ export const AuthProvider = ({ children }) => {
   }
 
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <AuthContext.Provider value={{ user, login, logout, register, isInitialized }}>
       {children}
     </AuthContext.Provider>
   )
 }
-// import { useState, useEffect } from 'react'
-// import { useNavigate } from 'react-router-dom'
-// import usersData from '../data/users.json'
-
-// export const useAuthentication = () => {
-//   const [user, setUser] = useState(null)
-
-//   const navigate = useNavigate()
-//   // fonction de connexion
-//   const login = (username, password) => {
-//     // Recherche de l'utilisateur dans le JSON
-//     const foundUser = usersData.users.find(
-//       u => u.username === username && u.password === password
-//     )
-//     if (foundUser) {
-//       // Si l'utilisateur est trouvé, on le connecte
-//       setUser(foundUser)
-//       // Stocker l'état de connexion dans le localStorage
-//       localStorage.setItem('logged', 'true')
-//       localStorage.setItem('username', username)
-//       // Redirection vers le dashboard
-//       navigate('/dashboard')
-//       return true
-//     } else {
-//       console.log("Mauvais nom d'utilisateur ou mot de passe")
-//       return false
-//     }
-//   }
-
-//   const logout = () => {
-//     // Nettoyer le localStorage
-//     localStorage.removeItem('logged')
-//     localStorage.removeItem('username')
-//     // Réinitialiser l'état de l'utilisateur
-//     setUser(null)
-//     // Redirection vers la page de accueil
-//     navigate('/')
-//   }
-
-//   // Vérifier si l'utilisateur est connecté au chargement
-//   useEffect(() => {
-//     const logged = localStorage.getItem('logged')
-//     const username = localStorage.getItem('username')
-//     if (logged && username) {
-//       const userFound = usersData.users.find(u => u.username === username)
-//       if (userFound) {
-//         setUser(userFound)
-//       }
-//     }
-//   }, [])
-
-//   return {
-//     user,
-//     setUser,
-//     login,
-//     logout,
-//   }
-// }

@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { connection } from '../../contexts/AuthContext'
+import { useAuth } from '../../contexts/AuthContext'
 
 const RegisterForm = () => {
-  const { register } = connection()
+  const { register } = useAuth()
   const navigate = useNavigate()
 
   // Fonction d'inscription

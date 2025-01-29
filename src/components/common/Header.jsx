@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import SearchBar from '../ui/SearchBar'
 import HomeButton from '../buttons/HomeButton'
 import DashboardButton from '../buttons/Dashboard'
-import { connection } from '../../contexts/AuthContext'
+import { useAuth } from '../../contexts/AuthContext'
 import {
   FaBars,
   FaTimes,
@@ -15,7 +15,7 @@ import PopularRecipes from './PopularRecipes'
 import recipesData from '../../data/recettes.json'
 
 const Header = () => {
-  const { user, logout } = connection()
+  const { user, logout } = useAuth()
   const [menuOuvert, setMenuOuvert] = useState(false)
 
   const toggleMenu = () => setMenuOuvert(!menuOuvert)

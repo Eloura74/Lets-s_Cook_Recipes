@@ -1,24 +1,19 @@
 import React, { useState } from 'react'
-import { connection } from '../../contexts/AuthContext'
+import { useAuth } from '../../contexts/AuthContext'
 import { Link } from 'react-router-dom'
 import { FaUser, FaLock } from 'react-icons/fa'
-import { useA } from '../../App'
 
 const FormLogin = () => {
-  const a = useA()
-
-  console.log(a)
-  // ________________________________
   // State pour les champs de formulaire
   const [username, setUsername] = useState('')
   // State pour le mot de passe
   const [password, setPassword] = useState('')
-  // Fonction pour se connecter
-  const { login } = connection()
+  // Utilisation du hook d'authentification
+  const { login } = useAuth()
 
   // Fonction pour traiter le formulaire
   const Soumettre = e => {
-    // Empêcher le rechargement de la page
+    // Empêcher le rechargement de la page
     e.preventDefault()
     // Appeler la fonction login
     login(username, password)
@@ -52,7 +47,7 @@ const FormLogin = () => {
               <p className="ml-2">Entrez votre mot de passe</p>
             </div>
             <input
-              placeholder="Password"
+              placeholder="Mot de passe"
               type="password"
               className="w-full p-2 bg-black mt-2"
               value={password}
@@ -62,14 +57,15 @@ const FormLogin = () => {
             />
           </label>
         </div>
-        <div className="flex  ">
-          <button type="submit" className="w-full p-2 bg-red-500">
-            Se connecter
-          </button>
-          <p className="text-center">
-            Vous n'avez pas de compte ? <Link to="/register">S'inscrire</Link>
-          </p>
-        </div>
+        <button
+          type="submit"
+          className="w-full p-2 bg-[#3F4E4F] text-white hover:bg-[#2C3639] transition-colors"
+        >
+          Se connecter
+        </button>
+        <p className="text-center">
+          Vous n'avez pas de compte ? <Link to="/register">S'inscrire</Link>
+        </p>
       </form>
     </main>
   )
